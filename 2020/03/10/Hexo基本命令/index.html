@@ -15,7 +15,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>归档 - DomeOfHeaven</title>
+  <title>Hexo基本命令 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
@@ -102,7 +102,7 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="view intro-2" id="background" false
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -112,6 +112,40 @@
               
             </span>
 
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期二, 三月 10日 2020, 9:13 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    280 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      1 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
             
           </div>
 
@@ -123,47 +157,162 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 3 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/03/11/剑指Offer-04-二维数组中的查找/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">(剑指Offer-04)二维数组中的查找</span>
-      <span style="float: right;">03-11</span>
-    </a>
-  
-    
-    <a href="/2020/03/10/剑指Offer-03-数组中重复的数字/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">(剑指Offer-03)数组中重复的数字</span>
-      <span style="float: right;">03-10</span>
-    </a>
-  
-    
-    <a href="/2020/03/10/Hexo基本命令/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hexo基本命令</span>
-      <span style="float: right;">03-10</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><pre><code>hexo init [folder]
+</code></pre><blockquote>
+<p>新建一个网站</p>
+</blockquote>
+<h4 id="hexo-new"><a href="#hexo-new" class="headerlink" title="hexo new"></a>hexo new</h4><pre><code>hexo new [layout] &lt;title&gt;
+</code></pre><blockquote>
+<ul>
+<li>新建一个title.md文档</li>
+</ul>
+</blockquote>
+<h4 id="hexo-generate-hexo-g"><a href="#hexo-generate-hexo-g" class="headerlink" title="hexo generate(hexo g)"></a>hexo generate(hexo g)</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">选项</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-d, –deploy</td>
+<td style="text-align:left">文件生成后立即部署网站</td>
+</tr>
+<tr>
+<td style="text-align:left">-w, –watch</td>
+<td style="text-align:left">监视文件变动</td>
+</tr>
+<tr>
+<td style="text-align:left">-b, –bail</td>
+<td style="text-align:left">生成过程中如果发生任何未处理的异常则抛出异常</td>
+</tr>
+<tr>
+<td style="text-align:left">-f, –force</td>
+<td style="text-align:left">强制重新生成文件 Hexo 引入了差分机制，如果 <code>public</code> 目录存在，那么 <code>hexo g</code> 只会重新生成改动的文件。 使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td>
+</tr>
+<tr>
+<td style="text-align:left">-c, –concurrency</td>
+<td style="text-align:left">最大同时生成文件的数量，默认无限制</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>生成网站静态文件到默认设置的 public 文件夹</p>
+</blockquote>
+<h4 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h4><pre><code>hexo publish [layout] &lt;fileName&gt;
+</code></pre><blockquote>
+<p>发表草稿</p>
+</blockquote>
+<h4 id="hexo-server-hexo-s"><a href="#hexo-server-hexo-s" class="headerlink" title="hexo server(hexo s)"></a>hexo server(hexo s)</h4><blockquote>
+<p>启动服务器，默认网址为<code>http://localhost:4000/</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">项</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-p, –port</td>
+<td style="text-align:left">重设端口</td>
+</tr>
+<tr>
+<td style="text-align:left">-s, –static</td>
+<td style="text-align:left">只使用静态文件</td>
+</tr>
+<tr>
+<td style="text-align:left">-l, –log</td>
+<td style="text-align:left">启动日记记录，使用覆盖记录格式</td>
+</tr>
+</tbody>
+</table>
+<h4 id="hexo-deploy-hexo-d"><a href="#hexo-deploy-hexo-d" class="headerlink" title="hexo deploy(hexo d)"></a>hexo deploy(hexo d)</h4><blockquote>
+<p>部署网站到服务器</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-g, –generate</td>
+<td style="text-align:left">部署之前预先生成静态文件</td>
+</tr>
+</tbody>
+</table>
+<h4 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a>hexo clean</h4><blockquote>
+<p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p>
+</blockquote>
 
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Hexo/">Hexo</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/博客/">博客</a>
+                
+                  <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -243,6 +392,52 @@
 
 
 
+  
+  <script src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
@@ -273,7 +468,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "Hexo基本命令&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

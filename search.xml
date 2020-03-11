@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[HexoTest]]></title>
-    <url>%2F2019%2F09%2F08%2FHexoTest%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[(剑指Offer-04)二维数组中的查找]]></title>
+    <url>%2F2020%2F03%2F11%2F%E5%89%91%E6%8C%87Offer-04-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE%2F</url>
+    <content type="text"><![CDATA[(04)二维数组中的查找问题描述在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 示例: 现有矩阵 matrix 如下： [ [1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30] ] 给定 target = 5，返回 true。 给定 target = 20，返回 false。 限制： 0 &lt;= n &lt;= 1000 0 &lt;= m &lt;= 1000 解题思路 最简单的就是使用暴力破解，遍历进行比较，但这会使复杂度达到$O(n *m)$ 仔细阅读题目可以看到该数组是有规律的，即每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序,利用这个规律，可以减少比较的次数。 根据这个规律，我们可以得到该二维数组左下角的值($matrix[n - 1][0]$)为该列的最大值，也是该行的最小值;右上角的值($matrix[0][m - 1]$)为该行的最大值，也是该列的最小值。可以从这两个位置出发，遵循一下原则(从左下角开始为例)： 如果$matrix[i][j] &gt; target$则该值的行肯定小于i,所以可以直接跳到上一行，即i++ 如果$matrix[i][j] &lt; target$则该值的列一定大于j，所以可以从该行往后找，即j-- 如果$matrix[i][j] == target$则找到了该值 代码/** * 面试题04 二维数组中的查找 * @param matrix 二维数组 * @param target 目标数字 * @return 目标数字是否存在 */ //从左下角开始查找 public boolean findNumberIn2DArray(int[][] matrix, int target) { if (matrix == null) return false; int m = matrix.length; if (m == 0) return false; int n = matrix[0].length; int i = m - 1, j = 0; while (i &gt;= 0 &amp;&amp; j &lt; n) { if (matrix[i][j] &gt; target) { i--; } else if (matrix[i][j] &lt; target) { j++; } else { return true; } } return false; } //从右下角开始查找 public boolean findNumberIn2DArray(int[][] matrix, int target) { if (matrix == null) return false; int m = matrix.length; if (m == 0) return false; int n = matrix[0].length; int i = 0, j = n - 1; while (i &lt; m &amp;&amp; j &gt;= 0) { if (matrix[i][j] &gt; target) { j--; } else if (matrix[i][j] &lt; target) { i++; } else { return true; } } return false; }]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[(剑指Offer-03)数组中重复的数字]]></title>
+    <url>%2F2020%2F03%2F10%2F%E5%89%91%E6%8C%87Offer-03-%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97%2F</url>
+    <content type="text"><![CDATA[(03)数组中重复的数字问题描述找出数组中重复的数字。 在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。 示例 1： 输入： [2, 3, 1, 0, 2, 5, 3] 输出：2 或 3 限制： 2 &lt;= n &lt;= 100000 解题思路 使用HashSet的特性，当添加到没有的数字时返回True即可判断是否为重复的数字；也可以使用一个数组辅助实现hash方法。 问题中在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内为核心要点，这句的意思即为若该数组无重复且排序的话，则该数组的值与其序号是相同的。所以可以通过将nums[i]与nums[nums[i]]位置的数字进行交换，若数字相同则进行返回。 代码/** * 面试题03 * 数组中重复的数字 * @param nums 所给数组 * @return 重复数字 */ //HashSet方法 public int findRepeatNumber(int[] nums) { if (nums == null || nums.length &lt; 2 || nums.length &gt; 100000) { return 0; } Set&lt;Integer&gt; set = new HashSet&lt;&gt;(nums.length); for (int i : nums) { if (!set.add(i)) { return i; } } return -1; } //自实现Hash方法 public int findRepeatNumber(int[] nums) { int[] temp = new int[nums.length]; for (int i = 0 ; i &lt; nums.length ; i++) { temp[nums[i]] ++; if (temp[nums[i]] &gt; 1) { return nums[i]; } } return -1; } //原地交换 public int findRepeatNumber(int[] nums) { int temp = 0; for (int i = 0 ; i &lt; nums.length ; i ++) { while (nums[i] != i) { if (nums[i] == nums[nums[i]]) { return nums[i]; } else { temp = nums[i]; nums[i] = nums[temp]; nums[temp] = temp; } } } return 0; }]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo基本命令]]></title>
+    <url>%2F2020%2F03%2F10%2FHexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[inithexo init [folder] 新建一个网站 hexo newhexo new [layout] &lt;title&gt; 新建一个title.md文档 hexo generate(hexo g) 选项 描述 -d, –deploy 文件生成后立即部署网站 -w, –watch 监视文件变动 -b, –bail 生成过程中如果发生任何未处理的异常则抛出异常 -f, –force 强制重新生成文件 Hexo 引入了差分机制，如果 public 目录存在，那么 hexo g 只会重新生成改动的文件。 使用该参数的效果接近 hexo clean &amp;&amp; hexo generate -c, –concurrency 最大同时生成文件的数量，默认无限制 生成网站静态文件到默认设置的 public 文件夹 publishhexo publish [layout] &lt;fileName&gt; 发表草稿 hexo server(hexo s) 启动服务器，默认网址为http://localhost:4000/ 项 描述 -p, –port 重设端口 -s, –static 只使用静态文件 -l, –log 启动日记记录，使用覆盖记录格式 hexo deploy(hexo d) 部署网站到服务器 参数 描述 -g, –generate 部署之前预先生成静态文件 hexo clean 清除缓存文件 (db.json) 和已生成的静态文件 (public)。]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>hexo</tag>
+      </tags>
   </entry>
 </search>

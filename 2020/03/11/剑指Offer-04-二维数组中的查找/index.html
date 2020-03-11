@@ -15,7 +15,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>HexoTest - DomeOfHeaven</title>
+  <title>(剑指Offer-04)二维数组中的查找 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -116,7 +116,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期日, 九月 8日 2019, 4:30 下午
+                  星期三, 三月 11日 2020, 9:53 晚上
                 </p>
               
 
@@ -125,7 +125,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    0 字
+                    588 字
                   </span>
                 
 
@@ -133,7 +133,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      1 分钟
+                      2 分钟
                   </span>
                 
 
@@ -167,14 +167,103 @@
         <div class="post-content mx-auto" id="post">
           
           <div class="markdown-body">
-            
+            <h4 id="04-二维数组中的查找"><a href="#04-二维数组中的查找" class="headerlink" title="(04)二维数组中的查找"></a>(04)二维数组中的查找</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+
+示例:
+现有矩阵 matrix 如下：
+[
+  [1,   4,  7, 11, 15],
+  [2,   5,  8, 12, 19],
+  [3,   6,  9, 16, 22],
+  [10, 13, 14, 17, 24],
+  [18, 21, 23, 26, 30]
+]
+给定 target = 5，返回 true。
+给定 target = 20，返回 false。
+
+限制：
+0 &lt;= n &lt;= 1000
+0 &lt;= m &lt;= 1000
+</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote>
+<p>最简单的就是使用暴力破解，遍历进行比较，但这会使复杂度达到$O(n *m)$</p>
+<p>仔细阅读题目可以看到该数组是有规律的，即<strong>每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序</strong>,利用这个规律，可以减少比较的次数。</p>
+<p>根据这个规律，我们可以得到该二维数组左下角的值($matrix[n - 1][0]$)为该列的最大值，也是该行的最小值;右上角的值($matrix[0][m - 1]$)为该行的最大值，也是该列的最小值。可以从这两个位置出发，遵循一下原则(从左下角开始为例)：</p>
+<ul>
+<li>如果$matrix[i][j] &gt; target$则该值的行肯定小于<code>i</code>,所以可以直接跳到上一行，即<code>i++</code></li>
+<li>如果$matrix[i][j] &lt; target$则该值的列一定大于<code>j</code>，所以可以从该行往后找，即<code>j--</code></li>
+<li>如果$matrix[i][j] == target$则找到了该值</li>
+</ul>
+</blockquote>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**
+     * 面试题04 二维数组中的查找
+     * @param matrix 二维数组
+     * @param target 目标数字
+     * @return 目标数字是否存在
+     */
+
+//从左下角开始查找
+public boolean findNumberIn2DArray(int[][] matrix, int target) {
+    if (matrix == null) return false;
+    int m = matrix.length;
+    if (m == 0) return false;
+    int n = matrix[0].length;
+    int i = m - 1, j = 0;
+    while (i &gt;= 0 &amp;&amp; j &lt; n) {
+        if (matrix[i][j] &gt; target) {
+            i--;
+        } else if (matrix[i][j] &lt; target) {
+            j++;
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
+
+//从右下角开始查找
+public boolean findNumberIn2DArray(int[][] matrix, int target) {
+    if (matrix == null) return false;
+    int m = matrix.length;
+    if (m == 0) return false;
+    int n = matrix[0].length;
+    int i = 0, j = n - 1;
+    while (i &lt; m &amp;&amp; j &gt;= 0) {
+        if (matrix[i][j] &gt; target) {
+            j--;
+        } else if (matrix[i][j] &lt; target) {
+            i++;
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
+</code></pre>
+
             <hr>
           </div>
           <br>
           <div>
             <p>
             
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/数据结构与算法/">数据结构与算法</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
               
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                
+                  <a class="hover-with-bg" href="/tags/剑指Offer/">剑指Offer</a>
+                
+              </span>
+            
             </p>
             
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
@@ -359,7 +448,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "HexoTest&nbsp;",
+        "(剑指Offer-04)二维数组中的查找&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
