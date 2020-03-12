@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-11T13:54:54.691Z</updated>
+  <updated>2020-03-12T13:12:37.277Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,90 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ProtocolBuffers-基本使用</title>
+    <link href="http://yoursite.com/2020/03/12/ProtocolBuffers-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/03/12/ProtocolBuffers-基本使用/</id>
+    <published>2020-03-12T13:11:49.000Z</published>
+    <updated>2020-03-12T13:12:37.277Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Protocol-Buffers"><a href="#Protocol-Buffers" class="headerlink" title="Protocol Buffers"></a>Protocol Buffers</h4><p>​    <em>一种跨语言，跨平台的可扩展的序列化数据格式</em></p><ol><li><p>相比XML的优势</p><ul><li>更简单</li><li>更轻量（数据体积小3~10倍）</li><li>更快速（20～100倍）</li><li>自动化生成更易于编码方式使用的数据访问类</li></ul></li><li><p>使用方法</p><pre><code class="mermaid">graph TBA[定义protobuf消息格式]　--&gt; B[编译protobuf]B --&gt; C[使用protobuf API进行读写]</code></pre><ol><li><p>使用protobuf语法描述需要存储的数据结构（编写．proto文件）</p><pre><code class="protobuf">syntax = &quot;proto3&quot;; //默认为proto2,不能为空package tutorial;　//避免命名冲突option java_package = &quot;com.example.tutorial&quot;;　//生成类的包结构option java_outer_classname = &quot;AddressBookProtos&quot;;　//生成包括当前文件所有类的类名，默认是MyProto,生成my_proto.proto，不能与内部定义的类名称相同（不能设为AddressBook）message Person {   string name = 1;　//用于二进制编码的唯一标识   int32 id = 2;   string email = 3;  enum PhoneType {    MOBILE = 0;　//必须包含标识０，用于设置默认值和与proto2语义兼容    HOME = 1;    WORK = 2;  }  message PhoneNumber {     string number = 1;     PhoneType type = 2 [packed = HOME];  }   PhoneNumber phones = 4;}message AddressBook {   Person people = 1;}</code></pre><blockquote><p>基本语法（proto3）：</p><ol><li><p>消息是各种类型数据的集合，</p></li><li><p>可以包含<code>bool</code>,<code>int32</code>,<code>float</code>,<code>double</code>,<code>string</code>,枚举或者其他的消息</p></li><li><p>标识的范围为1 ~ 2^29^ - 1,1~15的标识比较高的数字少一个字节进行编码，适宜一些常用或者重复的字段;16以上的适用不太常使用的可选字段;19000 ~ 19999不可使用，为内置保留．</p></li><li><p>每个字段都必须标明注解：</p><ol><li><code>required</code>:该字段必须设置值，否则该消息将被视为“未初始化”,构建未初始化的消息将抛出RuntimeException,解析未初始化的消息将抛出IOException;除此之外与<code>optional</code>一致</li><li><code>optional</code>:该字段是可选字段，可以设置值也可以不设置值。如果不设置值，则使用默认值．</li><li><code>repeated</code>:该字段可以重复任意次数（包括零），重复值的顺序将保留在<strong>protobuf</strong>中。可将其视为动态大小的数组．</li></ol></li><li><p>Any字段：</p><pre><code class="protobuf">import &quot;google/protobuf/any.proto&quot;;message ErrorStatus {  string message = 1;  google.protobuf.Any details = 2;}</code></pre></li><li><p>Oneof字段：</p></li><li><p>一个.proto文件中可以定义多种消息</p></li><li><p>每个message类以及它的子类有自己的<code>builder</code>类 ，通过<code>builder</code>类来进行设置</p></li><li><p>数据类型</p></li><li><p>不能在proto3中直接导入proto2的枚举进行使用，要导入其消息．</p></li><li><p>Map类型</p><pre><code class="protobuf">map&lt;key_type, value_type&gt; map_field = N;map&lt;string, Project&gt; projects = 3;</code></pre><ol><li><code>key_type</code> 可以是任何 int 或者 string 类型(任何的标量类型，具体可以见上面标量类型对应表格，但是要除去 float、double 和 bytes)</li><li><code>value_type</code> 可以是除去 map 以外的任何类型。</li></ol></li><li><p>定义service</p><p>如果要使用 RPC（远程过程调用）系统的消息类型，可以在 <code>.proto</code> 文件中定义 RPC 服务接口，protocol buffer 编译器将使用所选语言生成服务接口代码和 stubs</p><pre><code class="protobuf">//参数为SearchRequest,返回值为SearchResponseservice SearchService {  rpc Search (SearchRequest) returns (SearchResponse);}</code></pre></li><li><p>JSON Map</p></li></ol><p>如果一个值在json编码的数据中丢失或者它的值是null, 在被解析成protocol buffer时它将设置为对应的默认值.如果一个字段的值正好是protocol buffer的默认值, 这个字段默认就不会出现在json编码的数据中以便节约空间.</p></blockquote></li><li><p>通过protobuf编译器编译．proto文件（生成对应平台的文件）</p><ul><li>使用命令</li></ul><pre><code class="shell">##命令格式protoc [option] PROTO_FILES##Javaprotoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto##Pythonprotoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre><blockquote><ul><li><p>SRC_DIR:源代码路径，默认为当前文件夹</p></li><li><p>DST_DIR:生成的代码路径，默认与SRC_DIR相同</p></li><li><p>–Java_out:生成不同语言对应的文件</p></li><li><p>对于Android使用Java Lite可以减小生成类的体积</p><p>1.安装java_lite环境</p><p>2.编译java_lite版文件</p><pre><code class="shell">protoc --javalite_out=$DST_DIR PROTO_FILES</code></pre></li></ul></blockquote><ul><li><p>使用Android Studio</p><ol><li>安装Protocol Support插件</li><li>配置gradle</li><li>编写．proto文件</li><li>编译项目</li></ol><p><img src="https://img2.tuicool.com/AnMFRbi.jpg!web" srcset="/img/loading.gif" alt="img"></p></li></ul></li><li><p>使用protobuf进行数据读写</p><p> 除了访问器，生成的类中还有其它的方法：</p><p> 消息构建接口</p><ul><li><code>isInitialized()</code>:检测 所有<code>required</code>的字段是否有被设置</li><li><code>toString()</code>: 生成可读的字符串</li><li><code>mergeFrom(Message other)</code>: (builder only)与另一个消息进行合并</li><li><p><code>clear()</code>: (builder only) 将所有字段清除为空状态</p><p>解析接口</p></li><li><code>byte[] toByteArray();</code>: 序列化数据</li><li><code>static Person parseFrom(byte[] data);</code>: 反序列化数据</li><li><code>void writeTo(OutputStream output);</code>: 序列化数据并写入<code>OutputStream</code></li><li><code>static Person parseFrom(InputStream input);</code>: 从<code>InputStream</code>中解析读取消息</li></ul><ol start="4"><li>具体Demo</li></ol></li><li><p>兼容处理</p><p>如果要让新版本向后兼容，旧版本向前兼容，需要遵守以下规则</p><ol><li>不能修改已存在字段的标识（tag）</li><li>不能添加或删除<code>required</code>字段</li><li>可以删除<code>optional</code>或<code>repeated</code>字段</li><li>可以增加<code>optional</code>或<code>repeated</code>字段，但必须使用没有用过的标识，已经删除的也不能用</li></ol></li></ol></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;Protocol-Buffers&quot;&gt;&lt;a href=&quot;#Protocol-Buffers&quot; class=&quot;headerlink&quot; title=&quot;Protocol Buffers&quot;&gt;&lt;/a&gt;Protocol Buffers&lt;/h4&gt;&lt;p&gt;​    &lt;em&gt;一种跨语言
+      
+    
+    </summary>
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据编码" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指Offer-06-从尾到头打印链表</title>
+    <link href="http://yoursite.com/2020/03/12/%E5%89%91%E6%8C%87Offer-06-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2020/03/12/剑指Offer-06-从尾到头打印链表/</id>
+    <published>2020-03-12T13:05:12.000Z</published>
+    <updated>2020-03-12T13:05:39.423Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="06-从尾到头打印链表"><a href="#06-从尾到头打印链表" class="headerlink" title="(06)从尾到头打印链表"></a>(06)从尾到头打印链表</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。示例 1：输入：head = [1,3,2]输出：[2,3,1]限制：0 &lt;= 链表长度 &lt;= 10000</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><p>问题难点在于链表无法知道长度，以及无法进行随机访问</p><ol><li>使用栈或类似栈先进后出机制的数据结构来保存链表遍历的结果，最后将结果转换成数组即可，由于Java中有装箱拆箱机制，所以会增加耗时</li><li>遍历两次链表，第一次取得链表的长度，以此来初始化数组长度；第二次遍历利用数组可以随机访问的特点，从数组的尾到头进行赋值。</li></ol></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">public int[] reversePrint(ListNode head) {    int count = 0;    ListNode temp = head;    while (temp != null) {        count ++;        temp = temp.next;    }    int[] result = new int[count];    while (head != null) {        result[count - 1] = head.val;        count -- ;        head = head.next;    }    return result;}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;06-从尾到头打印链表&quot;&gt;&lt;a href=&quot;#06-从尾到头打印链表&quot; class=&quot;headerlink&quot; title=&quot;(06)从尾到头打印链表&quot;&gt;&lt;/a&gt;(06)从尾到头打印链表&lt;/h4&gt;&lt;h5 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="LeetCode" scheme="http://yoursite.com/tags/LeetCode/"/>
+    
+      <category term="剑指Offer" scheme="http://yoursite.com/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指Offer-05-替换空格</title>
+    <link href="http://yoursite.com/2020/03/12/%E5%89%91%E6%8C%87Offer-05-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/"/>
+    <id>http://yoursite.com/2020/03/12/剑指Offer-05-替换空格/</id>
+    <published>2020-03-12T13:00:32.000Z</published>
+    <updated>2020-03-12T13:04:12.282Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="05-替换空格"><a href="#05-替换空格" class="headerlink" title="(05)替换空格"></a>(05)替换空格</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>请实现一个函数，把字符串 s 中的每个空格替换成&quot;%20&quot;。示例 1：输入：s = &quot;We are happy.&quot;输出：&quot;We%20are%20happy.&quot;限制：0 &lt;= s 的长度 &lt;= 10000</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><p>1.遍历字符串，遇到空格就加入“%20”，遇到非空格直接加入。</p><p>2.通过正则表达式进行匹配替换（java中的replace API，但是提交发现比较耗时）</p></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">public static String replaceSpace(String s) {    StringBuilder sb = new StringBuilder(s.length() * 3);    for (char c : s.toCharArray()) {        if (c == &#39; &#39;){            sb.append(&quot;%20&quot;);        } else {            sb.append(c);        }    }    return sb.toString();//  return s.replaceAll(&quot; &quot;, &quot;%20&quot;);}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;05-替换空格&quot;&gt;&lt;a href=&quot;#05-替换空格&quot; class=&quot;headerlink&quot; title=&quot;(05)替换空格&quot;&gt;&lt;/a&gt;(05)替换空格&lt;/h4&gt;&lt;h5 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; ti
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="LeetCode" scheme="http://yoursite.com/tags/LeetCode/"/>
+    
+      <category term="剑指Offer" scheme="http://yoursite.com/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>(剑指Offer-04)二维数组中的查找</title>
-    <link href="http://yoursite.com/2020/03/11/%E5%89%91%E6%8C%87Offer-04-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/"/>
-    <id>http://yoursite.com/2020/03/11/剑指Offer-04-二维数组中的查找/</id>
+    <link href="http://yoursite.com/2020/03/11/(%E5%89%91%E6%8C%87Offer-03)%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/"/>
+    <id>http://yoursite.com/2020/03/11/(剑指Offer-03)二维数组中的查找/</id>
     <published>2020-03-11T13:53:11.000Z</published>
-    <updated>2020-03-11T13:54:54.691Z</updated>
+    <updated>2020-03-12T13:02:36.870Z</updated>
     
     <content type="html"><![CDATA[<h4 id="04-二维数组中的查找"><a href="#04-二维数组中的查找" class="headerlink" title="(04)二维数组中的查找"></a>(04)二维数组中的查找</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。示例:现有矩阵 matrix 如下：[  [1,   4,  7, 11, 15],  [2,   5,  8, 12, 19],  [3,   6,  9, 16, 22],  [10, 13, 14, 17, 24],  [18, 21, 23, 26, 30]]给定 target = 5，返回 true。给定 target = 20，返回 false。限制：0 &lt;= n &lt;= 10000 &lt;= m &lt;= 1000</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><p>最简单的就是使用暴力破解，遍历进行比较，但这会使复杂度达到$O(n *m)$</p><p>仔细阅读题目可以看到该数组是有规律的，即<strong>每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序</strong>,利用这个规律，可以减少比较的次数。</p><p>根据这个规律，我们可以得到该二维数组左下角的值($matrix[n - 1][0]$)为该列的最大值，也是该行的最小值;右上角的值($matrix[0][m - 1]$)为该行的最大值，也是该列的最小值。可以从这两个位置出发，遵循一下原则(从左下角开始为例)：</p><ul><li>如果$matrix[i][j] &gt; target$则该值的行肯定小于<code>i</code>,所以可以直接跳到上一行，即<code>i++</code></li><li>如果$matrix[i][j] &lt; target$则该值的列一定大于<code>j</code>，所以可以从该行往后找，即<code>j--</code></li><li>如果$matrix[i][j] == target$则找到了该值</li></ul></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**     * 面试题04 二维数组中的查找     * @param matrix 二维数组     * @param target 目标数字     * @return 目标数字是否存在     *///从左下角开始查找public boolean findNumberIn2DArray(int[][] matrix, int target) {    if (matrix == null) return false;    int m = matrix.length;    if (m == 0) return false;    int n = matrix[0].length;    int i = m - 1, j = 0;    while (i &gt;= 0 &amp;&amp; j &lt; n) {        if (matrix[i][j] &gt; target) {            i--;        } else if (matrix[i][j] &lt; target) {            j++;        } else {            return true;        }    }    return false;}//从右下角开始查找public boolean findNumberIn2DArray(int[][] matrix, int target) {    if (matrix == null) return false;    int m = matrix.length;    if (m == 0) return false;    int n = matrix[0].length;    int i = 0, j = n - 1;    while (i &lt; m &amp;&amp; j &gt;= 0) {        if (matrix[i][j] &gt; target) {            j--;        } else if (matrix[i][j] &lt; target) {            i++;        } else {            return true;        }    }    return false;}</code></pre>]]></content>
     
@@ -45,10 +124,10 @@
   
   <entry>
     <title>(剑指Offer-03)数组中重复的数字</title>
-    <link href="http://yoursite.com/2020/03/10/%E5%89%91%E6%8C%87Offer-03-%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/"/>
-    <id>http://yoursite.com/2020/03/10/剑指Offer-03-数组中重复的数字/</id>
+    <link href="http://yoursite.com/2020/03/10/(%E5%89%91%E6%8C%87Offer-03)%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>http://yoursite.com/2020/03/10/(剑指Offer-03)数组中重复的数字/</id>
     <published>2020-03-10T13:43:51.000Z</published>
-    <updated>2020-03-10T13:56:38.377Z</updated>
+    <updated>2020-03-12T13:02:32.092Z</updated>
     
     <content type="html"><![CDATA[<a id="more"></a><h4 id="03-数组中重复的数字"><a href="#03-数组中重复的数字" class="headerlink" title="(03)数组中重复的数字"></a>(03)数组中重复的数字</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>找出数组中重复的数字。在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。示例 1：输入：[2, 3, 1, 0, 2, 5, 3]输出：2 或 3 限制：2 &lt;= n &lt;= 100000</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><ul><li><p>使用<strong>HashSet</strong>的特性，当添加到没有的数字时返回<code>True</code>即可判断是否为重复的数字；也可以使用一个数组辅助实现hash方法。</p></li><li><p>问题中<code>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内</code>为核心要点，这句的意思即为若该数组无重复且排序的话，则该数组的值与其序号是相同的。所以可以通过将nums[i]与nums[nums[i]]位置的数字进行交换，若数字相同则进行返回。</p></li></ul></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**     * 面试题03     * 数组中重复的数字     * @param nums 所给数组     * @return 重复数字     *///HashSet方法public int findRepeatNumber(int[] nums) {    if (nums == null || nums.length &lt; 2 || nums.length &gt; 100000) {        return 0;    }    Set&lt;Integer&gt; set = new HashSet&lt;&gt;(nums.length);    for (int i : nums) {        if (!set.add(i)) {            return i;        }    }    return -1;}//自实现Hash方法public int findRepeatNumber(int[] nums) {    int[] temp = new int[nums.length];    for (int i = 0 ; i &lt; nums.length ; i++) {        temp[nums[i]] ++;        if (temp[nums[i]] &gt; 1) {            return nums[i];        }    }    return -1;}//原地交换public int findRepeatNumber(int[] nums) {    int temp = 0;    for (int i = 0 ; i &lt; nums.length ; i ++) {        while (nums[i] != i) {            if (nums[i] == nums[nums[i]]) {                return nums[i];            } else {                temp = nums[i];                nums[i] = nums[temp];                nums[temp] = temp;            }        }    }    return 0;}</code></pre>]]></content>
     
@@ -76,7 +155,7 @@
     <link href="http://yoursite.com/2020/03/10/Hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"/>
     <id>http://yoursite.com/2020/03/10/Hexo基本命令/</id>
     <published>2020-03-10T13:13:49.000Z</published>
-    <updated>2020-03-11T13:52:08.179Z</updated>
+    <updated>2020-03-12T13:02:40.723Z</updated>
     
     <content type="html"><![CDATA[<h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><pre><code>hexo init [folder]</code></pre><blockquote><p>新建一个网站</p></blockquote><h4 id="hexo-new"><a href="#hexo-new" class="headerlink" title="hexo new"></a>hexo new</h4><pre><code>hexo new [layout] &lt;title&gt;</code></pre><blockquote><ul><li>新建一个title.md文档</li></ul></blockquote><h4 id="hexo-generate-hexo-g"><a href="#hexo-generate-hexo-g" class="headerlink" title="hexo generate(hexo g)"></a>hexo generate(hexo g)</h4><table><thead><tr><th style="text-align:left">选项</th><th style="text-align:left">描述</th></tr></thead><tbody><tr><td style="text-align:left">-d, –deploy</td><td style="text-align:left">文件生成后立即部署网站</td></tr><tr><td style="text-align:left">-w, –watch</td><td style="text-align:left">监视文件变动</td></tr><tr><td style="text-align:left">-b, –bail</td><td style="text-align:left">生成过程中如果发生任何未处理的异常则抛出异常</td></tr><tr><td style="text-align:left">-f, –force</td><td style="text-align:left">强制重新生成文件 Hexo 引入了差分机制，如果 <code>public</code> 目录存在，那么 <code>hexo g</code> 只会重新生成改动的文件。 使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td></tr><tr><td style="text-align:left">-c, –concurrency</td><td style="text-align:left">最大同时生成文件的数量，默认无限制</td></tr></tbody></table><blockquote><p>生成网站静态文件到默认设置的 public 文件夹</p></blockquote><h4 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h4><pre><code>hexo publish [layout] &lt;fileName&gt;</code></pre><blockquote><p>发表草稿</p></blockquote><h4 id="hexo-server-hexo-s"><a href="#hexo-server-hexo-s" class="headerlink" title="hexo server(hexo s)"></a>hexo server(hexo s)</h4><blockquote><p>启动服务器，默认网址为<code>http://localhost:4000/</code></p></blockquote><table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">描述</th></tr></thead><tbody><tr><td style="text-align:left">-p, –port</td><td style="text-align:left">重设端口</td></tr><tr><td style="text-align:left">-s, –static</td><td style="text-align:left">只使用静态文件</td></tr><tr><td style="text-align:left">-l, –log</td><td style="text-align:left">启动日记记录，使用覆盖记录格式</td></tr></tbody></table><h4 id="hexo-deploy-hexo-d"><a href="#hexo-deploy-hexo-d" class="headerlink" title="hexo deploy(hexo d)"></a>hexo deploy(hexo d)</h4><blockquote><p>部署网站到服务器</p></blockquote><table><thead><tr><th style="text-align:left">参数</th><th style="text-align:left">描述</th></tr></thead><tbody><tr><td style="text-align:left">-g, –generate</td><td style="text-align:left">部署之前预先生成静态文件</td></tr></tbody></table><h4 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a>hexo clean</h4><blockquote><p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p></blockquote>]]></content>
     

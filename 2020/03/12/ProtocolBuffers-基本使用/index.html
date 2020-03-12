@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
+  <meta name="author" content="DomeOfHeaven">
+  <meta name="keywords" content>
+  <title>ProtocolBuffers-基本使用 - DomeOfHeaven</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期四, 三月 12日 2020, 9:11 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      4 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h4 id="Protocol-Buffers"><a href="#Protocol-Buffers" class="headerlink" title="Protocol Buffers"></a>Protocol Buffers</h4><p>​    <em>一种跨语言，跨平台的可扩展的序列化数据格式</em></p>
+<ol>
+<li><p>相比XML的优势</p>
+<ul>
+<li>更简单</li>
+<li>更轻量（数据体积小3~10倍）</li>
+<li>更快速（20～100倍）</li>
+<li>自动化生成更易于编码方式使用的数据访问类</li>
+</ul>
+</li>
+<li><p>使用方法</p>
+<pre><code class="mermaid">graph TB
+A[定义protobuf消息格式]　--&gt; B[编译protobuf]
+B --&gt; C[使用protobuf API进行读写]
+</code></pre>
+<ol>
+<li><p>使用protobuf语法描述需要存储的数据结构（编写．proto文件）</p>
+<pre><code class="protobuf">syntax = &quot;proto3&quot;; //默认为proto2,不能为空
+
+package tutorial;　//避免命名冲突
+
+option java_package = &quot;com.example.tutorial&quot;;　//生成类的包结构
+option java_outer_classname = &quot;AddressBookProtos&quot;;　//生成包括当前文件所有类的类名，默认是MyProto,生成my_proto.proto，不能与内部定义的类名称相同（不能设为AddressBook）
+
+message Person {
+   string name = 1;　//用于二进制编码的唯一标识
+   int32 id = 2;
+   string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;　//必须包含标识０，用于设置默认值和与proto2语义兼容
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+     string number = 1;
+     PhoneType type = 2 [packed = HOME];
+  }
+
+   PhoneNumber phones = 4;
+}
+
+message AddressBook {
+   Person people = 1;
+}
+</code></pre>
+<blockquote>
+<p>基本语法（proto3）：</p>
+<ol>
+<li><p>消息是各种类型数据的集合，</p>
+</li>
+<li><p>可以包含<code>bool</code>,<code>int32</code>,<code>float</code>,<code>double</code>,<code>string</code>,枚举或者其他的消息</p>
+</li>
+<li><p>标识的范围为1 ~ 2^29^ - 1,1~15的标识比较高的数字少一个字节进行编码，适宜一些常用或者重复的字段;16以上的适用不太常使用的可选字段;19000 ~ 19999不可使用，为内置保留．</p>
+</li>
+<li><p>每个字段都必须标明注解：</p>
+<ol>
+<li><code>required</code>:该字段必须设置值，否则该消息将被视为“未初始化”,构建未初始化的消息将抛出RuntimeException,解析未初始化的消息将抛出IOException;除此之外与<code>optional</code>一致</li>
+<li><code>optional</code>:该字段是可选字段，可以设置值也可以不设置值。如果不设置值，则使用默认值．</li>
+<li><code>repeated</code>:该字段可以重复任意次数（包括零），重复值的顺序将保留在<strong>protobuf</strong>中。可将其视为动态大小的数组．</li>
+</ol>
+</li>
+<li><p>Any字段：</p>
+<pre><code class="protobuf">import &quot;google/protobuf/any.proto&quot;;
+
+message ErrorStatus {
+  string message = 1;
+  google.protobuf.Any details = 2;
+}
+</code></pre>
+</li>
+<li><p>Oneof字段：</p>
+</li>
+<li><p>一个.proto文件中可以定义多种消息</p>
+</li>
+<li><p>每个message类以及它的子类有自己的<code>builder</code>类 ，通过<code>builder</code>类来进行设置</p>
+</li>
+<li><p>数据类型</p>
+</li>
+<li><p>不能在proto3中直接导入proto2的枚举进行使用，要导入其消息．</p>
+</li>
+<li><p>Map类型</p>
+<pre><code class="protobuf">map&lt;key_type, value_type&gt; map_field = N;
+map&lt;string, Project&gt; projects = 3;
+</code></pre>
+<ol>
+<li><code>key_type</code> 可以是任何 int 或者 string 类型(任何的标量类型，具体可以见上面标量类型对应表格，但是要除去 float、double 和 bytes)</li>
+<li><code>value_type</code> 可以是除去 map 以外的任何类型。</li>
+</ol>
+</li>
+<li><p>定义service</p>
+<p>如果要使用 RPC（远程过程调用）系统的消息类型，可以在 <code>.proto</code> 文件中定义 RPC 服务接口，protocol buffer 编译器将使用所选语言生成服务接口代码和 stubs</p>
+<pre><code class="protobuf">//参数为SearchRequest,返回值为SearchResponse
+service SearchService {
+  rpc Search (SearchRequest) returns (SearchResponse);
+}
+</code></pre>
+</li>
+<li><p>JSON Map</p>
+</li>
+</ol>
+<p>如果一个值在json编码的数据中丢失或者它的值是null, 在被解析成protocol buffer时它将设置为对应的默认值.如果一个字段的值正好是protocol buffer的默认值, 这个字段默认就不会出现在json编码的数据中以便节约空间.</p>
+</blockquote>
+</li>
+<li><p>通过protobuf编译器编译．proto文件（生成对应平台的文件）</p>
+<ul>
+<li>使用命令</li>
+</ul>
+<pre><code class="shell">##命令格式
+protoc [option] PROTO_FILES
+##Java
+protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto
+##Python
+protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto
+</code></pre>
+<blockquote>
+<ul>
+<li><p>SRC_DIR:源代码路径，默认为当前文件夹</p>
+</li>
+<li><p>DST_DIR:生成的代码路径，默认与SRC_DIR相同</p>
+</li>
+<li><p>–Java_out:生成不同语言对应的文件</p>
+</li>
+<li><p>对于Android使用Java Lite可以减小生成类的体积</p>
+<p>1.安装java_lite环境</p>
+<p>2.编译java_lite版文件</p>
+<pre><code class="shell">protoc --javalite_out=$DST_DIR PROTO_FILES
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>使用Android Studio</p>
+<ol>
+<li>安装Protocol Support插件</li>
+<li>配置gradle</li>
+<li>编写．proto文件</li>
+<li>编译项目</li>
+</ol>
+<p><img src="https://img2.tuicool.com/AnMFRbi.jpg!web" srcset="/img/loading.gif" alt="img"></p>
+</li>
+</ul>
+</li>
+<li><p>使用protobuf进行数据读写</p>
+<p> 除了访问器，生成的类中还有其它的方法：</p>
+<p> 消息构建接口</p>
+<ul>
+<li><code>isInitialized()</code>:检测 所有<code>required</code>的字段是否有被设置</li>
+<li><code>toString()</code>: 生成可读的字符串</li>
+<li><code>mergeFrom(Message other)</code>: (builder only)与另一个消息进行合并</li>
+<li><p><code>clear()</code>: (builder only) 将所有字段清除为空状态</p>
+<p>解析接口</p>
+</li>
+<li><code>byte[] toByteArray();</code>: 序列化数据</li>
+<li><code>static Person parseFrom(byte[] data);</code>: 反序列化数据</li>
+<li><code>void writeTo(OutputStream output);</code>: 序列化数据并写入<code>OutputStream</code></li>
+<li><code>static Person parseFrom(InputStream input);</code>: 从<code>InputStream</code>中解析读取消息</li>
+</ul>
+<ol start="4">
+<li>具体Demo</li>
+</ol>
+</li>
+<li><p>兼容处理</p>
+<p>如果要让新版本向后兼容，旧版本向前兼容，需要遵守以下规则</p>
+<ol>
+<li>不能修改已存在字段的标识（tag）</li>
+<li>不能添加或删除<code>required</code>字段</li>
+<li>可以删除<code>optional</code>或<code>repeated</code>字段</li>
+<li>可以增加<code>optional</code>或<code>repeated</code>字段，但必须使用没有用过的标识，已经删除的也不能用</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/数据结构/">数据结构</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/数据编码/">数据编码</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="/js/lazyload.js"></script>
+
+
+
+  
+  <script src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "ProtocolBuffers-基本使用&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
