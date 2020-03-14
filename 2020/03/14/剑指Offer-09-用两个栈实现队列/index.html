@@ -15,7 +15,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>剑指Offer-05-替换空格 - DomeOfHeaven</title>
+  <title>剑指Offer-09-用两个栈实现队列 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -116,7 +116,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期四, 三月 12日 2020, 9:00 晚上
+                  星期六, 三月 14日 2020, 9:36 晚上
                 </p>
               
 
@@ -125,7 +125,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    160 字
+                    733 字
                   </span>
                 
 
@@ -133,7 +133,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      1 分钟
+                      2 分钟
                   </span>
                 
 
@@ -167,29 +167,99 @@
         <div class="post-content mx-auto" id="post">
           
           <div class="markdown-body">
-            <h4 id="05-替换空格"><a href="#05-替换空格" class="headerlink" title="(05)替换空格"></a>(05)替换空格</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>请实现一个函数，把字符串 s 中的每个空格替换成&quot;%20&quot;。
+            <h4 id="09-用两个栈实现队列"><a href="#09-用两个栈实现队列" class="headerlink" title="(09)用两个栈实现队列"></a>(09)用两个栈实现队列</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
 
 示例 1：
-输入：s = &quot;We are happy.&quot;
-输出：&quot;We%20are%20happy.&quot;
+输入：
+[&quot;CQueue&quot;,&quot;appendTail&quot;,&quot;deleteHead&quot;,&quot;deleteHead&quot;]
+[[],[3],[],[]]
+输出：[null,null,3,-1]
 
-限制：
-0 &lt;= s 的长度 &lt;= 10000
+示例 2：
+输入：
+[&quot;CQueue&quot;,&quot;deleteHead&quot;,&quot;appendTail&quot;,&quot;appendTail&quot;,&quot;deleteHead&quot;,&quot;deleteHead&quot;]
+[[],[],[5],[2],[],[]]
+输出：[null,-1,null,null,5,2]
+
+提示：
+1 &lt;= values &lt;= 10000
+最多会对 appendTail、deleteHead 进行 10000 次调用
 </code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote>
-<p>1.遍历字符串，遇到空格就加入“%20”，遇到非空格直接加入。</p>
-<p>2.通过正则表达式进行匹配替换（java中的replace API，但是提交发现比较耗时）</p>
+<p>首先必须记住栈的特点是：先进后出；队列的特点是先入先出</p>
+<p>以此为基础则数据分别从两个栈先后进入弹出则可以实现队列的特点。</p>
+<p>核心思想是两个栈一个为输出栈，一个为输入栈，在插入数据时可以直接将数据压到输入栈中；在删除头数据时就需要对不同情况进行分别处理：</p>
+<p>1.输出栈不为空：直接弹出</p>
+<p>2.输出栈为空，输入栈不为空：先将输入栈中的数据压到输出栈中，再从输出栈中弹出数据</p>
+<p>3.输出栈为孔，输入栈为孔：则整个队列无数据，直接返回-1</p>
 </blockquote>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">public static String replaceSpace(String s) {
-    StringBuilder sb = new StringBuilder(s.length() * 3);
-    for (char c : s.toCharArray()) {
-        if (c == &#39; &#39;){
-            sb.append(&quot;%20&quot;);
-        } else {
-            sb.append(c);
-        }
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">class CQueue {
+    //输入,用于数据插入
+    private Stack&lt;Integer&gt; inStack;
+    //输出栈，用于将尾部数据弹出
+    private Stack&lt;Integer&gt; outStack;
+
+    public CQueue() {
+        inStack = new Stack&lt;&gt;();
+        outStack = new Stack&lt;&gt;();
     }
-    return sb.toString();
-//  return s.replaceAll(&quot; &quot;, &quot;%20&quot;);
+
+    /**
+     * 从尾部插入，则直接将数据压到输入当中
+     * @param value 压入数据
+     */
+    public void appendTail(int value) {
+        inStack.push(value);
+    }
+
+    /**
+     * 从头部删除，由于需要保持队列的顺序需要注意输入和输出栈之中的数据
+     * @return 删除元素
+     */
+    public int deleteHead() {
+        //如果输出栈中有元素，则直接弹出
+        if (!outStack.isEmpty()) {
+            return outStack.pop();
+        }
+        //如果输出栈不为空且输入栈也不为空，就需要将输入栈中数据全部压到输出栈中以保持其顺序正确
+        while (!inStack.isEmpty()) {
+            outStack.push(inStack.pop());
+        }
+        return outStack.isEmpty() ? -1 : outStack.pop();
+    }
+}class CQueue {
+    //输入,用于数据插入
+    private Stack&lt;Integer&gt; inStack;
+    //输出栈，用于将尾部数据弹出
+    private Stack&lt;Integer&gt; outStack;
+
+    public CQueue() {
+        inStack = new Stack&lt;&gt;();
+        outStack = new Stack&lt;&gt;();
+    }
+
+    /**
+     * 从尾部插入，则直接将数据压到输入当中
+     * @param value 压入数据
+     */
+    public void appendTail(int value) {
+        inStack.push(value);
+    }
+
+    /**
+     * 从头部删除，由于需要保持队列的顺序需要注意输入和输出栈之中的数据
+     * @return 删除元素
+     */
+    public int deleteHead() {
+        //如果输出栈中有元素，则直接弹出
+        if (!outStack.isEmpty()) {
+            return outStack.pop();
+        }
+        //如果输出栈不为空且输入栈也不为空，就需要将输入栈中数据全部压到输出栈中以保持其顺序正确
+        while (!inStack.isEmpty()) {
+            outStack.push(inStack.pop());
+        }
+        return outStack.isEmpty() ? -1 : outStack.pop();
+    }
 }
 </code></pre>
 
@@ -401,7 +471,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "剑指Offer-05-替换空格&nbsp;",
+        "剑指Offer-09-用两个栈实现队列&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

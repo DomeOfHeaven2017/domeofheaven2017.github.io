@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -178,10 +178,10 @@
 </ul>
 </li>
 <li><p>使用方法</p>
-<pre><code class="mermaid">graph TB
-A[定义protobuf消息格式]　--&gt; B[编译protobuf]
-B --&gt; C[使用protobuf API进行读写]
-</code></pre>
+<pre class="mermaid">   graph TD;
+   A[定义protobuf消息格式]　--> B[编译protobuf];
+   B --> C[使用protobuf API进行读写];</pre>
+
 <ol>
 <li><p>使用protobuf语法描述需要存储的数据结构（编写．proto文件）</p>
 <pre><code class="protobuf">syntax = &quot;proto3&quot;; //默认为proto2,不能为空
@@ -614,6 +614,14 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto
 
 
 
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
 </body>
