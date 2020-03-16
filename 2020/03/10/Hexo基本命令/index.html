@@ -12,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
@@ -29,7 +30,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
 
 
 <!-- 自定义样式保持在最底部 -->
@@ -102,7 +103,7 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
+    <div class="view intro-2" id="background" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -138,13 +139,6 @@
                 
 
                 
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
-                    <i class="far fa-eye" aria-hidden="true"></i>
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>
-                
               </p>
             
           </div>
@@ -163,11 +157,12 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          
-          <div class="markdown-body">
-            <h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><pre><code>hexo init [folder]
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><pre><code>hexo init [folder]
 </code></pre><blockquote>
 <p>新建一个网站</p>
 </blockquote>
@@ -260,58 +255,55 @@
 <p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p>
 </blockquote>
 
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-              <span>
+            <div>
+              <p>
+                
+                  <span>
                 <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Hexo/">Hexo</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
                 
-                  <a class="hover-with-bg" href="/categories/Hexo/">Hexo</a>
-                  &nbsp;
                 
-              </span>&nbsp;&nbsp;
-            
-              
-              <span>
+                  <span>
                 <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/博客/">博客</a>
+                    
+                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
+                    
+                  </span>
                 
-                  <a class="hover-with-bg" href="/tags/博客/">博客</a>
-                
-                  <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
-                
-              </span>
-            
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
             
           </div>
         </div>
       </div>
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container">
-        <div id="toc">
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
   <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
   <div id="tocbot"></div>
 </div>
+
       </div>
     
   </div>
 </div>
 
-<!-- custom -->
+<!-- Custom -->
 
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
-    
-  </div>
-</div>
 
     
   </main>
@@ -350,10 +342,11 @@
 
   <footer class="mt-5">
   <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
     
   <div>
     
@@ -375,7 +368,6 @@
 
     
 
-    <!-- cnzz Analytics icon -->
     
   </div>
 </footer>
@@ -397,18 +389,19 @@
   <script>
     $(document).ready(function () {
       var navHeight = $('#navbar').height();
+      var post = $('#post');
       var toc = $('#toc');
-      var main = $('main');
-      var tocT = navHeight + (toc.offset().top - main.offset().top);
-      var tocLimMin = main.offset().top - navHeight;
-      var tocLimMax = $('#comments').offset().top - navHeight;
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
       $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
         var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
         if (tocLimMin <= scroH && scroH <= tocLimMax) {
           toc.css({
             'display': 'block',
             'position': 'fixed',
-            'top': tocT,
+            'top': navHeight,
           });
         } else if (scroH <= tocLimMin) {
           toc.css({
@@ -433,6 +426,10 @@
       if ($('.toc-list-item').length > 0) {
         $('#toc > p').css('visibility', 'visible');
       }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
     });
   </script>
 
@@ -440,11 +437,11 @@
 
 
 
-  <script src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
 
 
 
-  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
@@ -512,7 +509,7 @@
 
 
 
-  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
   <script>
     $("#post img:not(.no-zoom img, img[no-zoom])").each(
       function () {
@@ -541,6 +538,7 @@
       mermaid.initialize({theme: 'forest'});
     }
   </script>
+
 
 
 </body>

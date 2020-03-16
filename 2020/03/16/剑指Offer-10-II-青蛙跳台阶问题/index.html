@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>标签 - 博客 - DomeOfHeaven</title>
+  <title>剑指Offer-10-II-青蛙跳台阶问题 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
@@ -114,6 +114,33 @@
             </span>
 
             
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 三月 16日 2020, 9:57 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    253 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      1 分钟
+                  </span>
+                
+
+                
+              </p>
+            
           </div>
 
           
@@ -124,37 +151,114 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-<!--  <p class="h4">共计 1 篇文章</p>-->
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/03/10/Hexo基本命令/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hexo基本命令</span>
-      <span style="float: right;">03-10</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h4 id="10-II-青蛙跳台阶问题"><a href="#10-II-青蛙跳台阶问题" class="headerlink" title="(10-II)青蛙跳台阶问题"></a>(10-II)青蛙跳台阶问题</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
+答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
 
+示例 1：
+输入：n = 2
+输出：2
 
-              </div>
+示例 2：
+输入：n = 7
+输出：21
+提示：
+0 &lt;= n &lt;= 100
+</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote>
+<p>从后往前思考，即最好一步有两种跳法,</p>
+<ul>
+<li>跳一步，则前面有$f(n-1)$种跳法</li>
+<li>跳两步，则前面有$f(n-2)$种跳法</li>
+</ul>
+<p>则n级台阶的跳法有$f(n) = f(n-1) + f(n-2)$种跳法，与斐波那契数列的递推公式一致</p>
+</blockquote>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**
+     * 面试题10-II
+     * 青蛙跳台阶问题
+     * @param n n级台阶
+     * @return n级台阶的跳法
+     */
+public static int numWays(int n) {
+    if (n &lt;= 1) {
+        return 1;
+    }
+    long num1 = 0, num2 = 1;
+    long temp = 0;
+    int i = 0;
+    while (i &lt; n) {
+        temp = (num1 + num2)%1000000007;
+        num1 = num2;
+        num2 = temp;
+        i ++;
+    }
+    return (int) temp;
+}
+</code></pre>
+
             </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/数据结构与算法/">数据结构与算法</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/剑指Offer/">剑指Offer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Fibonacci/">Fibonacci</a>
+                    
+                      <a class="hover-with-bg" href="/tags/递归/">递归</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -234,6 +338,57 @@
 
 
 
+  
+  <script src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
@@ -264,7 +419,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - 博客&nbsp;",
+        "剑指Offer-10-II-青蛙跳台阶问题&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

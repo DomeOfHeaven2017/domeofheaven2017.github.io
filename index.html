@@ -12,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
@@ -29,7 +30,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
 
 
 <!-- 自定义样式保持在最底部 -->
@@ -128,13 +129,139 @@
   <main>
     
       <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
+        <div class="py-5 z-depth-3" id="board"
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/">
+        <p class="h4 index-header">剑指Offer-10-II-青蛙跳台阶问题</p>
+      </a>
+
+      <a href="/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">(10-II)青蛙跳台阶问题问题描述一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
+答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+
+示例 1：
+输入：n = 2
+输出：2
+
+示例 2：
+输入：n = 7
+输出：21
+提示：
+0 &lt;= n &lt;= 100
+解题思路
+从后往前思考，即最好一步有两种跳法,
+
+跳一步，则前面有$f(n-1)$种跳法
+跳两步，则前面有$f(n-2)$种跳法
+
+则n级台阶的跳法有$f(n) = f(n-1) + f(n-2)$种跳法，与斐波那契数列的递推</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-16&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
+          
+            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
+          
+            <a href="/tags/Fibonacci/">Fibonacci</a>&nbsp;
+          
+            <a href="/tags/递归/">递归</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/16/剑指Offer-10-I-斐波那契数列/">
+        <p class="h4 index-header">剑指Offer-10-I-斐波那契数列</p>
+      </a>
+
+      <a href="/2020/03/16/剑指Offer-10-I-斐波那契数列/">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">(10)斐波那契数列问题描述写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：
+
+F(0) = 0,   F(1) = 1
+F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
+斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。
+答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+
+示例 1：
+输入：n = 2
+输出：1
+
+示例 2：
+输入：n = 5
+输出：5
+
+提示：
+0 &lt;= n &lt;= 100
+解题思路
+
+递归法：方法简洁</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-16&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
+          
+            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
+          
+            <a href="/tags/Fibonacci/">Fibonacci</a>&nbsp;
+          
+            <a href="/tags/递归/">递归</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -577,10 +704,11 @@ hexo generate(hexo g)
 
   <footer class="mt-5">
   <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
     
   <div>
     
@@ -602,7 +730,6 @@ hexo generate(hexo g)
 
     
 
-    <!-- cnzz Analytics icon -->
     
   </div>
 </footer>
@@ -621,11 +748,11 @@ hexo generate(hexo g)
 
 
 
-  <script src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
 
 
 
-  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
@@ -693,7 +820,7 @@ hexo generate(hexo g)
 
 
 
-  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
   <script>
     $("#post img:not(.no-zoom img, img[no-zoom])").each(
       function () {
@@ -722,6 +849,7 @@ hexo generate(hexo g)
       mermaid.initialize({theme: 'forest'});
     }
   </script>
+
 
 
 </body>

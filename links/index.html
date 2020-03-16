@@ -12,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
@@ -29,7 +30,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
 
 
 <!-- 自定义样式保持在最底部 -->
@@ -124,7 +125,8 @@
   <main>
     
       <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
+        <div class="py-5 z-depth-3" id="board"
+          >
           
           <div class="container">
             <div class="row">
@@ -133,37 +135,52 @@
 
 <div class="row links">
   
-    <div class="card link-card col-lg-4 col-md-6 col-sm-12">
-      <div class="card-body">
-        
-        
-        <a href="https://hexo.fluid-dev.com/docs/">
-          <h5 class="card-title link-card-title">Fluid Docs</h5>
-          <p class="card-text link-card-text">主题使用指南</p>
-        </a>
-      </div>
+    
+    
+    <div class="card col-lg-4 col-md-6 col-sm-12">
+      <a href="https://hexo.fluid-dev.com/docs/" class="card-body" target="_blank" rel="nofollow noopener">
+        <div class="row">
+          
+            <img class="link-avatar my-auto" src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Docs">
+          
+          <div class="link-text">
+            <div class="link-title">Fluid Docs</div>
+            <div class="link-intro">主题使用指南</div>
+          </div>
+        </div>
+      </a>
     </div>
   
-    <div class="card link-card col-lg-4 col-md-6 col-sm-12">
-      <div class="card-body">
-        
-        
-        <a href="https://github.com/fluid-dev/hexo-theme-fluid">
-          <h5 class="card-title link-card-title">Fluid Repo</h5>
-          <p class="card-text link-card-text">主题 GitHub 仓库</p>
-        </a>
-      </div>
+    
+    
+    <div class="card col-lg-4 col-md-6 col-sm-12">
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" class="card-body" target="_blank" rel="nofollow noopener">
+        <div class="row">
+          
+            <img class="link-avatar my-auto" src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Repo">
+          
+          <div class="link-text">
+            <div class="link-title">Fluid Repo</div>
+            <div class="link-intro">主题 GitHub 仓库</div>
+          </div>
+        </div>
+      </a>
     </div>
   
-    <div class="card link-card col-lg-4 col-md-6 col-sm-12">
-      <div class="card-body">
-        
-        
-        <a href="https://github.com/fluid-dev/hexo-theme-fluid/blob/master/Changelog.md">
-          <h5 class="card-title link-card-title">Fluid Changelog</h5>
-          <p class="card-text link-card-text">主题更新日志</p>
-        </a>
-      </div>
+    
+    
+    <div class="card col-lg-4 col-md-6 col-sm-12">
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid/blob/master/Changelog.md" class="card-body" target="_blank" rel="nofollow noopener">
+        <div class="row">
+          
+            <img class="link-avatar my-auto" src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Changelog">
+          
+          <div class="link-text">
+            <div class="link-title">Fluid Changelog</div>
+            <div class="link-intro">主题更新日志</div>
+          </div>
+        </div>
+      </a>
     </div>
   
 </div>
@@ -210,10 +227,11 @@
 
   <footer class="mt-5">
   <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
     
   <div>
     
@@ -235,7 +253,6 @@
 
     
 
-    <!-- cnzz Analytics icon -->
     
   </div>
 </footer>
@@ -254,11 +271,11 @@
 
 
 
-  <script src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
 
 
 
-  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
@@ -326,7 +343,7 @@
 
 
 
-  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
   <script>
     $("#post img:not(.no-zoom img, img[no-zoom])").each(
       function () {
@@ -355,6 +372,7 @@
       mermaid.initialize({theme: 'forest'});
     }
   </script>
+
 
 
 </body>

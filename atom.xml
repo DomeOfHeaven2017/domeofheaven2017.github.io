@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-14T13:36:56.475Z</updated>
+  <updated>2020-03-16T13:59:03.293Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-10-II-青蛙跳台阶问题</title>
+    <link href="http://yoursite.com/2020/03/16/%E5%89%91%E6%8C%87Offer-10-II-%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/</id>
+    <published>2020-03-16T13:57:26.000Z</published>
+    <updated>2020-03-16T13:59:03.293Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="10-II-青蛙跳台阶问题"><a href="#10-II-青蛙跳台阶问题" class="headerlink" title="(10-II)青蛙跳台阶问题"></a>(10-II)青蛙跳台阶问题</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。示例 1：输入：n = 2输出：2示例 2：输入：n = 7输出：21提示：0 &lt;= n &lt;= 100</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><p>从后往前思考，即最好一步有两种跳法,</p><ul><li>跳一步，则前面有$f(n-1)$种跳法</li><li>跳两步，则前面有$f(n-2)$种跳法</li></ul><p>则n级台阶的跳法有$f(n) = f(n-1) + f(n-2)$种跳法，与斐波那契数列的递推公式一致</p></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**     * 面试题10-II     * 青蛙跳台阶问题     * @param n n级台阶     * @return n级台阶的跳法     */public static int numWays(int n) {    if (n &lt;= 1) {        return 1;    }    long num1 = 0, num2 = 1;    long temp = 0;    int i = 0;    while (i &lt; n) {        temp = (num1 + num2)%1000000007;        num1 = num2;        num2 = temp;        i ++;    }    return (int) temp;}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;10-II-青蛙跳台阶问题&quot;&gt;&lt;a href=&quot;#10-II-青蛙跳台阶问题&quot; class=&quot;headerlink&quot; title=&quot;(10-II)青蛙跳台阶问题&quot;&gt;&lt;/a&gt;(10-II)青蛙跳台阶问题&lt;/h4&gt;&lt;h5 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="LeetCode" scheme="http://yoursite.com/tags/LeetCode/"/>
+    
+      <category term="剑指Offer" scheme="http://yoursite.com/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+      <category term="Fibonacci" scheme="http://yoursite.com/tags/Fibonacci/"/>
+    
+      <category term="递归" scheme="http://yoursite.com/tags/%E9%80%92%E5%BD%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指Offer-10-I-斐波那契数列</title>
+    <link href="http://yoursite.com/2020/03/16/%E5%89%91%E6%8C%87Offer-10-I-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/"/>
+    <id>http://yoursite.com/2020/03/16/剑指Offer-10-I-斐波那契数列/</id>
+    <published>2020-03-16T13:56:56.000Z</published>
+    <updated>2020-03-16T14:00:24.384Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="10-斐波那契数列"><a href="#10-斐波那契数列" class="headerlink" title="(10)斐波那契数列"></a>(10)斐波那契数列</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：F(0) = 0,   F(1) = 1F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。示例 1：输入：n = 2输出：1示例 2：输入：n = 5输出：5提示：0 &lt;= n &lt;= 100</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><ul><li>递归法：方法简洁，但是由于中间重复计算，会超时</li><li>循环法：从0开始计算可以记录中间值，避免进行重复计算</li><li>公式法：根据 <strong>$F_n = \frac{(\frac{1+\sqrt[]{5}}{2})^n -(\frac{1-\sqrt[]{5}}{2})^n}{\sqrt[]{5}}$</strong>,但是大数会有误差</li></ul></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**     * 面试题10-I     * 斐波那契数列     * @param n 所求第n项     * @return 斐波那契数列第n项     */public static final long THRES_HOLD = 1000000007;public static int fib(int n) {    //递归法    if (n &lt; 1) {        return n;    }    return (fib(n - 1) + fib(n - 2)) % THRES_HOLD;    //循环法    if (n &lt;= 1) {        return n;    }    long num1 = 0, num2 = 1;    long temp = 0;    int i = 2;    while (i &lt;= n) {        temp = (num1 + num2)%THRES_HOLD;        num1 = num2;        num2 = temp;        i ++;    }    return (int) temp;    //公式法    double temp = Math.sqrt(5);    return (int) ((Math.pow((1 + temp) / 2, n) - Math.pow((1 - temp) / 2, n)) / temp % THRES_HOLD) ;}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;10-斐波那契数列&quot;&gt;&lt;a href=&quot;#10-斐波那契数列&quot; class=&quot;headerlink&quot; title=&quot;(10)斐波那契数列&quot;&gt;&lt;/a&gt;(10)斐波那契数列&lt;/h4&gt;&lt;h5 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;header
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="LeetCode" scheme="http://yoursite.com/tags/LeetCode/"/>
+    
+      <category term="剑指Offer" scheme="http://yoursite.com/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+      <category term="Fibonacci" scheme="http://yoursite.com/tags/Fibonacci/"/>
+    
+      <category term="递归" scheme="http://yoursite.com/tags/%E9%80%92%E5%BD%92/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-09-用两个栈实现队列</title>

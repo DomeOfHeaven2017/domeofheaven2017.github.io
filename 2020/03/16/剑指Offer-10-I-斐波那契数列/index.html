@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>标签 - 博客 - DomeOfHeaven</title>
+  <title>剑指Offer-10-I-斐波那契数列 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
@@ -114,6 +114,33 @@
             </span>
 
             
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 三月 16日 2020, 9:56 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    339 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      1 分钟
+                  </span>
+                
+
+                
+              </p>
+            
           </div>
 
           
@@ -124,37 +151,129 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-<!--  <p class="h4">共计 1 篇文章</p>-->
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/03/10/Hexo基本命令/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hexo基本命令</span>
-      <span style="float: right;">03-10</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h4 id="10-斐波那契数列"><a href="#10-斐波那契数列" class="headerlink" title="(10)斐波那契数列"></a>(10)斐波那契数列</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：
 
+F(0) = 0,   F(1) = 1
+F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
+斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。
+答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
 
-              </div>
+示例 1：
+输入：n = 2
+输出：1
+
+示例 2：
+输入：n = 5
+输出：5
+
+提示：
+0 &lt;= n &lt;= 100
+</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote>
+<ul>
+<li>递归法：方法简洁，但是由于中间重复计算，会超时</li>
+<li>循环法：从0开始计算可以记录中间值，避免进行重复计算</li>
+<li>公式法：根据 <strong>$F_n = \frac{(\frac{1+\sqrt[]{5}}{2})^n -(\frac{1-\sqrt[]{5}}{2})^n}{\sqrt[]{5}}$</strong>,但是大数会有误差</li>
+</ul>
+</blockquote>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**
+     * 面试题10-I
+     * 斐波那契数列
+     * @param n 所求第n项
+     * @return 斐波那契数列第n项
+     */
+public static final long THRES_HOLD = 1000000007;
+public static int fib(int n) {
+    //递归法
+    if (n &lt; 1) {
+        return n;
+    }
+    return (fib(n - 1) + fib(n - 2)) % THRES_HOLD;
+    //循环法
+    if (n &lt;= 1) {
+        return n;
+    }
+    long num1 = 0, num2 = 1;
+    long temp = 0;
+    int i = 2;
+    while (i &lt;= n) {
+        temp = (num1 + num2)%THRES_HOLD;
+        num1 = num2;
+        num2 = temp;
+        i ++;
+    }
+    return (int) temp;
+
+    //公式法
+    double temp = Math.sqrt(5);
+    return (int) ((Math.pow((1 + temp) / 2, n) - Math.pow((1 - temp) / 2, n)) / temp % THRES_HOLD) ;
+}
+</code></pre>
+
             </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/数据结构与算法/">数据结构与算法</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/剑指Offer/">剑指Offer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Fibonacci/">Fibonacci</a>
+                    
+                      <a class="hover-with-bg" href="/tags/递归/">递归</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -234,6 +353,57 @@
 
 
 
+  
+  <script src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
@@ -264,7 +434,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - 博客&nbsp;",
+        "剑指Offer-10-I-斐波那契数列&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
