@@ -142,6 +142,44 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/27/Markdown基本语法速查/">
+        <p class="h4 index-header">Markdown基本语法速查</p>
+      </a>
+
+      <a href="/2020/03/27/Markdown基本语法速查/">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">MarkDown基本语法
+
+简介
+
+Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
+由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，当前许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。如GitHub、Reddit、Diaspora、Stack Exchange、OpenStreetMap 、SourceForge、简书等，甚至还能被使用来撰写电子书。</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-27&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Markdown/">Markdown</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2020/03/23/剑指Offer-11-旋转数组的的最小数字/">
         <p class="h4 index-header">剑指Offer-11-旋转数组的的最小数字</p>
       </a>
@@ -645,79 +683,19 @@ package tutoria</div>
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/10/Hexo基本命令/">
-        <p class="h4 index-header">Hexo基本命令</p>
-      </a>
-
-      <a href="/2020/03/10/Hexo基本命令/">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">inithexo init [folder]
-
-新建一个网站
-
-hexo newhexo new [layout] &lt;title&gt;
 
 
-新建一个title.md文档
-
-
-hexo generate(hexo g)
-
-
-选项
-描述
-
-
-
-
--d, –deploy
-文件生成后立即部署网站
-
-
--w, –watch
-监视文件变动
-
-
--b, –bail
-生成过程中如果发生任何未处理的异常则抛出异常
-
-
--f, –force
-强制重新生成文件 Hexo 引入了差分机制，如果 public 目录存在，那么 hexo g 只会重新生成改动的文件。 使用该参数的效果接近 hexo clean &</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-10&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/Hexo/">Hexo</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/博客/">博客</a>&nbsp;
-          
-            <a href="/tags/hexo/">hexo</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
