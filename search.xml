@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[剑指Offer-14-I-剪绳子]]></title>
+    <url>%2F2020%2F04%2F09%2F%E5%89%91%E6%8C%87Offer-14-I-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[(14-I)剪绳子问题描述给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]...k[m] 。请问 k[0]*k[1]*...*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例 1： 输入: 2 输出: 1 解释: 2 = 1 + 1, 1 × 1 = 1 示例 2: 输入: 10 输出: 36 解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示： 2 &lt;= n &lt;= 58 解题思路 动态规划 贪心算法 代码/** * 面试题14-I * 剪绳子 * @param n 绳子长度 * @return 最大乘积 */ //动态规划 public int cuttingRope(int n) { if (n &lt;= 2) { return 1; } if (n == 3) { return 2; } int[] rope = new int[n + 1]; int max = 0; rope[0] = 0; rope[1] = 1; rope[2] = 2; rope[3] = 3; for (int i = 4 ; i &lt;= n ; i ++) { for (int j = 1 ; j &lt;= i / 2 ; j ++){ int temp = rope[j]*rope[i-j]; if (max &lt; temp) { max = temp; } } rope[i] = max; } return rope[n]; } //贪心算法 public int cuttingRope(int n) { if (n &lt;= 2) { return 1; } if (n == 3) { return 2; } int time3 = n / 3; if (n - 3 * time3 == 1) { time3 -= 1; } int time = n - 3 * time3; if (time == 0) { return (int) Math.pow(3, time3); } else { return (int) (Math.pow(3, time3) * time); } }]]></content>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>贪心算法</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-27-移除元素]]></title>
     <url>%2F2020%2F04%2F08%2FLeetCode-27-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%2F</url>
     <content type="text"><![CDATA[(27)移除元素题目描述:给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。 示例 1: 给定 nums = [3,2,2,3], val = 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。 你不需要考虑数组中超出新长度后面的元素。 示例 2: 给定 nums = [0,1,2,2,3,0,4,2], val = 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。 注意这五个元素可为任意顺序。 你不需要考虑数组中超出新长度后面的元素。 说明: 为什么返回数值是整数，但输出的答案是数组呢? 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。 你可以想象内部操作如下: // nums 是以“引用”方式传递的。也就是说，不对实参作任何拷贝 int len = removeElement(nums, val); // 在函数里修改输入数组对于调用者是可见的。 // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。 for (int i = 0; i &lt; len; i++) { print(nums[i]); } 解题思路: 声明两个变量first,last first : 数组遍历位置 last : 元素替换位置 遍历数组如果匹配到所给值则将当前位置的数组元素和last位置的数组元素进行交换,最后返回last + 1 代码://Java public int removeElement(int[] nums, int val) { int first = 0; int last = nums.length -1; while(first &lt;= last){ if(nums[first] == val){ int temp = nums[first]; nums[first] = nums[last]; nums[last] = temp; last -= 1; }else{ first += 1; } } return last + 1; } //Kotlin #Python3 def removeElement(nums: List[int], val: int) -&gt; int: first,last = 0,len(nums) - 1 while first &lt;= last: if nums[first] == val: nums[first],nums[last] = nums[last],nums[first] last -= 1 else: first +=1 return last + 1]]></content>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-08T13:18:27.091Z</updated>
+  <updated>2020-04-09T14:25:41.003Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-14-I-剪绳子</title>
+    <link href="http://yoursite.com/2020/04/09/%E5%89%91%E6%8C%87Offer-14-I-%E5%89%AA%E7%BB%B3%E5%AD%90/"/>
+    <id>http://yoursite.com/2020/04/09/剑指Offer-14-I-剪绳子/</id>
+    <published>2020-04-09T14:25:00.000Z</published>
+    <updated>2020-04-09T14:25:41.003Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="14-I-剪绳子"><a href="#14-I-剪绳子" class="headerlink" title="(14-I)剪绳子"></a>(14-I)剪绳子</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]...k[m] 。请问 k[0]*k[1]*...*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。示例 1：输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1示例 2:输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36提示：2 &lt;= n &lt;= 58</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><ul><li>动态规划</li></ul><ul><li>贪心算法</li></ul></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**     * 面试题14-I     * 剪绳子     * @param n 绳子长度     * @return 最大乘积     *///动态规划public int cuttingRope(int n) {    if (n &lt;= 2) {        return 1;    }    if (n == 3) {        return 2;    }    int[] rope = new int[n + 1];    int max = 0;    rope[0] = 0;    rope[1] = 1;    rope[2] = 2;    rope[3] = 3;    for (int i = 4 ; i &lt;= n ; i ++) {        for (int j = 1 ; j &lt;= i / 2 ; j ++){            int temp = rope[j]*rope[i-j];            if (max &lt; temp) {                max = temp;            }        }        rope[i] = max;    }    return rope[n];}//贪心算法public int cuttingRope(int n) {    if (n &lt;= 2) {        return 1;    }    if (n == 3) {        return 2;    }    int time3 = n / 3;    if (n - 3 * time3 == 1) {        time3 -= 1;    }    int time = n - 3 * time3;    if (time == 0) {        return (int) Math.pow(3, time3);    } else {        return (int) (Math.pow(3, time3) * time);    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;14-I-剪绳子&quot;&gt;&lt;a href=&quot;#14-I-剪绳子&quot; class=&quot;headerlink&quot; title=&quot;(14-I)剪绳子&quot;&gt;&lt;/a&gt;(14-I)剪绳子&lt;/h4&gt;&lt;h5 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="http://yoursite.com/tags/LeetCode/"/>
+    
+      <category term="贪心算法" scheme="http://yoursite.com/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-27-移除元素</title>

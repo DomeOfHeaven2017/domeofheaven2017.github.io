@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>剑指Offer-14-I-剪绳子</title>
+    <link href="/2020/04/09/%E5%89%91%E6%8C%87Offer-14-I-%E5%89%AA%E7%BB%B3%E5%AD%90/"/>
+    <url>/2020/04/09/%E5%89%91%E6%8C%87Offer-14-I-%E5%89%AA%E7%BB%B3%E5%AD%90/</url>
+    
+    <content type="html"><![CDATA[<h4 id="14-I-剪绳子"><a href="#14-I-剪绳子" class="headerlink" title="(14-I)剪绳子"></a>(14-I)剪绳子</h4><h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><pre><code>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]...k[m] 。请问 k[0]*k[1]*...*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。示例 1：输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1示例 2:输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36提示：2 &lt;= n &lt;= 58</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><blockquote><ul><li>动态规划</li></ul><ul><li>贪心算法</li></ul></blockquote><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code class="java">/**     * 面试题14-I     * 剪绳子     * @param n 绳子长度     * @return 最大乘积     *///动态规划public int cuttingRope(int n) {    if (n &lt;= 2) {        return 1;    }    if (n == 3) {        return 2;    }    int[] rope = new int[n + 1];    int max = 0;    rope[0] = 0;    rope[1] = 1;    rope[2] = 2;    rope[3] = 3;    for (int i = 4 ; i &lt;= n ; i ++) {        for (int j = 1 ; j &lt;= i / 2 ; j ++){            int temp = rope[j]*rope[i-j];            if (max &lt; temp) {                max = temp;            }        }        rope[i] = max;    }    return rope[n];}//贪心算法public int cuttingRope(int n) {    if (n &lt;= 2) {        return 1;    }    if (n == 3) {        return 2;    }    int time3 = n / 3;    if (n - 3 * time3 == 1) {        time3 -= 1;    }    int time = n - 3 * time3;    if (time == 0) {        return (int) Math.pow(3, time3);    } else {        return (int) (Math.pow(3, time3) * time);    }}</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心算法</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode-27-移除元素</title>
     <link href="/2020/04/08/LeetCode-27-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/"/>
     <url>/2020/04/08/LeetCode-27-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/</url>
