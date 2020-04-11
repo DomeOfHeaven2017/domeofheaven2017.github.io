@@ -142,6 +142,118 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/12/ProtocolBuffers-基本使用/">
+        <p class="h4 index-header">ProtocolBuffers-基本使用</p>
+      </a>
+
+      <a href="/2020/03/12/ProtocolBuffers-基本使用/">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">Protocol Buffers​    一种跨语言，跨平台的可扩展的序列化数据格式
+
+相比XML的优势
+
+更简单
+更轻量（数据体积小3~10倍）
+更快速（20～100倍）
+自动化生成更易于编码方式使用的数据访问类
+
+
+使用方法
+   graph TD;
+   A[定义protobuf消息格式]　--> B[编译protobuf];
+   B --> C[使用protobuf API进行读写];
+
+
+使用protobuf语法描述需要存储的数据结构（编写．proto文件）
+syntax = &quot;proto3&quot;; //默认为proto2,不能为空
+
+package tutoria</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/数据结构/">数据结构</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/数据编码/">数据编码</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/12/剑指Offer-06-从尾到头打印链表/">
+        <p class="h4 index-header">剑指Offer-06-从尾到头打印链表</p>
+      </a>
+
+      <a href="/2020/03/12/剑指Offer-06-从尾到头打印链表/">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">(06)从尾到头打印链表问题描述输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
+
+示例 1：
+输入：head = [1,3,2]
+输出：[2,3,1]
+
+限制：
+0 &lt;= 链表长度 &lt;= 10000
+解题思路
+问题难点在于链表无法知道长度，以及无法进行随机访问
+
+使用栈或类似栈先进后出机制的数据结构来保存链表遍历的结果，最后将结果转换成数组即可，由于Java中有装箱拆箱机制，所以会增加耗时
+遍历两次链表，第一次取得链表的长度，以此来初始化数组长度；第二次遍历利用数组可以随机访问的特点，从数组的尾到头进行赋值。
+
+
+代码public int[] reverseP</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
+          
+            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2020/03/12/剑指Offer-05-替换空格/">
         <p class="h4 index-header">剑指Offer-05-替换空格</p>
       </a>
