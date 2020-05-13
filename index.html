@@ -18,20 +18,21 @@
   <meta name="keywords" content>
   <title>DomeOfHeaven</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
 
 <link rel="stylesheet" href="/css/main.css">
-
-
-  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
-
 
 <!-- 自定义样式保持在最底部 -->
 
@@ -56,41 +57,46 @@
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
           </li>
         
         
@@ -107,7 +113,7 @@
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
@@ -118,7 +124,7 @@
 
           
             <div class="scroll-down-bar">
-              <i class="fas fa-angle-down scroll-down-arrow"></i>
+              <i class="iconfont icon-arrowdown"></i>
             </div>
           
         </div>
@@ -129,7 +135,7 @@
   <main>
     
       <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board"
+        <div class="py-5" id="board"
           style=margin-top:0>
           
           <div class="container">
@@ -142,47 +148,42 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/04/11/剑指Offer-16-数值的整数次方/">
-        <p class="h4 index-header">剑指Offer-16-数值的整数次方</p>
-      </a>
+      <a class="index-header" href="/2020/04/11/剑指Offer-16-数值的整数次方/">剑指Offer-16-数值的整数次方</a>
 
-      <a href="/2020/04/11/剑指Offer-16-数值的整数次方/">
+      <a href="/2020/04/11/剑指Offer-16-数值的整数次方/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(16)数值的整数次方问题描述实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。
+        <div>(16)数值的整数次方问题描述实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。
 
 示例 1:
 输入: 2.00000, 10
 输出: 1024.00000
 
-示例 2:
+示例 2:
 输入: 2.10000, 3
 输出: 9.26100
 
-示例 3:
+示例 3:
 输入: 2.00000, -2
-输出: 0.25000
-解释: 2-2 = 1/22 = 1/4 = 0.25
-
-说明:
--100.0 &lt; x &lt; 100.0
-n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</div>
-        </div>
+输出: 0.25</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-11&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-11
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
         
       </div>
     </div>
@@ -192,42 +193,37 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/04/11/剑指Offer-15-二进制中1的个数/">
-        <p class="h4 index-header">剑指Offer-15-二进制中1的个数</p>
-      </a>
+      <a class="index-header" href="/2020/04/11/剑指Offer-15-二进制中1的个数/">剑指Offer-15-二进制中1的个数</a>
 
-      <a href="/2020/04/11/剑指Offer-15-二进制中1的个数/">
+      <a href="/2020/04/11/剑指Offer-15-二进制中1的个数/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(15)二进制中1的个数问题描述请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。
+        <div>(15)二进制中1的个数问题描述请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。
 
 示例 1：
 输入：00000000000000000000000000001011
 输出：3
-解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 &#39;1&#39;。
-
-示例 2：
-输入：00000000000000000000000010000000
-输出：1
-解释：输入的二进制串 0000000000000000000000001000000</div>
-        </div>
+解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 &ap</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-11&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-11
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
-            <a href="/tags/位运算/">位运算</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/位运算/">位运算</a>
+            
+          </div>
         
       </div>
     </div>
@@ -237,48 +233,39 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/04/09/剑指Offer-14-I-剪绳子/">
-        <p class="h4 index-header">剑指Offer-14-I-剪绳子</p>
-      </a>
+      <a class="index-header" href="/2020/04/09/剑指Offer-14-I-剪绳子/">剑指Offer-14-I-剪绳子</a>
 
-      <a href="/2020/04/09/剑指Offer-14-I-剪绳子/">
+      <a href="/2020/04/09/剑指Offer-14-I-剪绳子/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(14-I)剪绳子问题描述给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]...k[m] 。请问 k[0]*k[1]*...*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+        <div>(14-I)剪绳子问题描述给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]...k[m] 。请问 k[0]*k[1]*...*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
 
 示例 1：
 输入: 2
 输出: 1
-解释: 2 = 1 + 1, 1 × 1 = 1
-
-示例 2:
-输入: 10
-输出: 36
-解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
-
-提示：
-2 &lt;= n &lt;= 58
-解</div>
-        </div>
+解释: 2 </div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-09&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-09
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
-            <a href="/tags/贪心算法/">贪心算法</a>&nbsp;
-          
-            <a href="/tags/动态规划/">动态规划</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/贪心算法/">贪心算法</a>
+            
+              <a href="/tags/动态规划/">动态规划</a>
+            
+          </div>
         
       </div>
     </div>
@@ -288,17 +275,14 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/04/08/LeetCode-27-移除元素/">
-        <p class="h4 index-header">LeetCode-27-移除元素</p>
-      </a>
+      <a class="index-header" href="/2020/04/08/LeetCode-27-移除元素/">LeetCode-27-移除元素</a>
 
-      <a href="/2020/04/08/LeetCode-27-移除元素/">
+      <a href="/2020/04/08/LeetCode-27-移除元素/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(27)移除元素题目描述:给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
+        <div>(27)移除元素题目描述:给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
 
@@ -308,27 +292,23 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</div>
 
 给定 nums = [3,2,2,3], val = 3,
 
-函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。
-
-你不需要考虑数组中超出新长度后面的元素。
-示例 2:
-
-给定 nums = [0,1,2,2,3,0,4,2], val = 2,
-
-函数应该返回新的长度</div>
-        </div>
+函数应该返回新的长度 2,</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-08&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-08
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
         
       </div>
     </div>
@@ -338,17 +318,14 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/04/05/程序员面试宝典(16.01)-交换数字/">
-        <p class="h4 index-header">程序员面试宝典(16.01)-交换数字</p>
-      </a>
+      <a class="index-header" href="/2020/04/05/程序员面试宝典(16.01)-交换数字/">程序员面试宝典(16.01)-交换数字</a>
 
-      <a href="/2020/04/05/程序员面试宝典(16.01)-交换数字/">
+      <a href="/2020/04/05/程序员面试宝典(16.01)-交换数字/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(16.01)交换数字问题描述编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。
+        <div>(16.01)交换数字问题描述编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。
 
 示例：
 
@@ -360,29 +337,27 @@ numbers.length == 2
 
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/swap-numbers-lcci
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-解题思路
-根据相同的两个数异或之后会抵消的规律即可解决
-$ xor = a \bigoplus b$
-$a = xor \bigoplus a$
-$b </div>
-        </div>
+著作权归领扣网络所有。</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-05&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-05
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/位运算/">位运算</a>&nbsp;
-          
-            <a href="/tags/算法/">算法</a>&nbsp;
-          
-            <a href="/tags/程序员面试宝典/">程序员面试宝典</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/位运算/">位运算</a>
+            
+              <a href="/tags/算法/">算法</a>
+            
+              <a href="/tags/程序员面试宝典/">程序员面试宝典</a>
+            
+          </div>
         
       </div>
     </div>
@@ -392,35 +367,35 @@ $b </div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/27/Markdown基本语法速查/">
-        <p class="h4 index-header">Markdown基本语法速查</p>
-      </a>
+      <a class="index-header" href="/2020/03/27/Markdown基本语法速查/">Markdown基本语法速查</a>
 
-      <a href="/2020/03/27/Markdown基本语法速查/">
+      <a href="/2020/03/27/Markdown基本语法速查/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">MarkDown基本语法
+        <div>MarkDown基本语法
 
 简介
 
 Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
-由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，当前许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。如GitHub、Reddit、Diaspora、Stack Exchange、OpenStreetMap 、SourceForge、简书等，甚至还能被使用来撰写电子书。</div>
-        </div>
+由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，当前许多网站都广泛使用Markdown来撰写</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-27&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-03-27
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Markdown/">Markdown</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Markdown/">Markdown</a>
+            
+          </div>
         
       </div>
     </div>
@@ -430,17 +405,14 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/23/剑指Offer-11-旋转数组的的最小数字/">
-        <p class="h4 index-header">剑指Offer-11-旋转数组的的最小数字</p>
-      </a>
+      <a class="index-header" href="/2020/03/23/剑指Offer-11-旋转数组的的最小数字/">剑指Offer-11-旋转数组的的最小数字</a>
 
-      <a href="/2020/03/23/剑指Offer-11-旋转数组的的最小数字/">
+      <a href="/2020/03/23/剑指Offer-11-旋转数组的的最小数字/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(11)旋转数组的最小数字问题描述把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  
+        <div>(11)旋转数组的最小数字问题描述把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  
 
 示例 1：
 输入：[3,4,5,1,2]
@@ -450,36 +422,34 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
 输入：[2,2,2,0,1]
 输出：0
 解题思路
-注意题目中的递增排序的数组，则可以理解为所给数组由两部分组成，每个部分内部都是递增排序的，取得这两个部分里面的最小值即可
-
-遍历取得最小值，复杂度$O(n)$
-二分法查找，复杂度$O(log(n))$
-
-
-代码/**
-  </div>
-        </div>
+注意题目中的递增排序的</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-23&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
-          &nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-03-23
+          </div>
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
-            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
-          
-            <a href="/tags/二分查找/">二分查找</a>&nbsp;
-          
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/数据结构与算法/">数据结构与算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/剑指Offer/">剑指Offer</a>
+            
+              <a href="/tags/二分查找/">二分查找</a>
+            
+          </div>
         
       </div>
     </div>
@@ -489,17 +459,14 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/">
-        <p class="h4 index-header">剑指Offer-10-II-青蛙跳台阶问题</p>
-      </a>
+      <a class="index-header" href="/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/">剑指Offer-10-II-青蛙跳台阶问题</a>
 
-      <a href="/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/">
+      <a href="/2020/03/16/剑指Offer-10-II-青蛙跳台阶问题/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(10-II)青蛙跳台阶问题问题描述一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
+        <div>(10-II)青蛙跳台阶问题问题描述一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
 
 示例 1：
@@ -512,36 +479,36 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
 提示：
 0 &lt;= n &lt;= 100
 解题思路
-从后往前思考，即最好一步有两种跳法,
-
-跳一步，则前面有$f(n-1)$种跳法
-跳两步，则前面有$f(n-2)$种跳法
-
-则n级台阶的跳法有$f(n) = f(n-1) + f(n-2)$种跳法，与斐波那契数列的递推</div>
-        </div>
+从后往前思考，即</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-16&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
-          &nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-03-16
+          </div>
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
-            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
-          
-            <a href="/tags/Fibonacci/">Fibonacci</a>&nbsp;
-          
-            <a href="/tags/递归/">递归</a>&nbsp;
-          
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/数据结构与算法/">数据结构与算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/剑指Offer/">剑指Offer</a>
+            
+              <a href="/tags/Fibonacci/">Fibonacci</a>
+            
+              <a href="/tags/递归/">递归</a>
+            
+          </div>
         
       </div>
     </div>
@@ -551,60 +518,48 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/16/剑指Offer-10-I-斐波那契数列/">
-        <p class="h4 index-header">剑指Offer-10-I-斐波那契数列</p>
-      </a>
+      <a class="index-header" href="/2020/03/16/剑指Offer-10-I-斐波那契数列/">剑指Offer-10-I-斐波那契数列</a>
 
-      <a href="/2020/03/16/剑指Offer-10-I-斐波那契数列/">
+      <a href="/2020/03/16/剑指Offer-10-I-斐波那契数列/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(10)斐波那契数列问题描述写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：
+        <div>(10)斐波那契数列问题描述写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：
 
-F(0) = 0,   F(1) = 1
+F(0) = 0,   F(1) = 1
 F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。
-答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
-
-示例 1：
-输入：n = 2
-输出：1
-
-示例 2：
-输入：n = 5
-输出：5
-
-提示：
-0 &lt;= n &lt;= 100
-解题思路
-
-递归法：方法简洁</div>
-        </div>
+答案需要取模 1e9+7（1000000007），如计算初始结果为</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-16&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
-          &nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-03-16
+          </div>
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
-            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
-          
-            <a href="/tags/Fibonacci/">Fibonacci</a>&nbsp;
-          
-            <a href="/tags/递归/">递归</a>&nbsp;
-          
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/数据结构与算法/">数据结构与算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/剑指Offer/">剑指Offer</a>
+            
+              <a href="/tags/Fibonacci/">Fibonacci</a>
+            
+              <a href="/tags/递归/">递归</a>
+            
+          </div>
         
       </div>
     </div>
@@ -614,47 +569,43 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/14/剑指Offer-09-用两个栈实现队列/">
-        <p class="h4 index-header">剑指Offer-09-用两个栈实现队列</p>
-      </a>
+      <a class="index-header" href="/2020/03/14/剑指Offer-09-用两个栈实现队列/">剑指Offer-09-用两个栈实现队列</a>
 
-      <a href="/2020/03/14/剑指Offer-09-用两个栈实现队列/">
+      <a href="/2020/03/14/剑指Offer-09-用两个栈实现队列/" class="index-excerpt">
         
         
           
         
-        <div class="index-excerpt">
-          <div class="index-text mb-1">(09)用两个栈实现队列问题描述用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
+        <div>(09)用两个栈实现队列问题描述用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
 
 示例 1：
 输入：
-[&quot;CQueue&quot;,&quot;appendTail&quot;,&quot;deleteHead&quot;,&quot;deleteHead&quot;]
-[[],[3],[],[]]
-输出：[null,null,3,-1]
-
-示例 2：
-输入：
-[&quot;CQueue&quot;,&quot</div>
-        </div>
+[&quot;CQueue&quot;,&quot;appendTail&quot;,&quot;deleteHead&q</div>
       </a>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-14&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>&nbsp;
-          &nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-03-14
+          </div>
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/LeetCode/">LeetCode</a>&nbsp;
-          
-            <a href="/tags/剑指Offer/">剑指Offer</a>&nbsp;
-          
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/数据结构与算法/">数据结构与算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/剑指Offer/">剑指Offer</a>
+            
+          </div>
         
       </div>
     </div>
@@ -662,14 +613,14 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 
 
 
-  <nav aria-label="index posts navigation">
-    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
   <script>
-    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
       ele.href += '#board';
     }
   </script>
@@ -685,8 +636,8 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -719,9 +670,10 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
   <footer class="mt-5">
   <div class="text-center py-3">
     <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
     </div>
     
 
@@ -733,9 +685,7 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 
 <!-- SCRIPTS -->
 <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js"></script>
 <script src="/js/main.js"></script>
 
 
@@ -745,9 +695,8 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 
 
 
-
-
-  <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
 
 
 
@@ -755,16 +704,6 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 
 
 <!-- Plugins -->
-
-
-
-  <script src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
-  </script>
 
 
 
@@ -810,24 +749,13 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-  <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
-      function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
-        $(this).wrap(element);
-      }
-    );
-  </script>
 
 
 
@@ -840,12 +768,8 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 
 
 
-  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({theme: 'forest'});
-    }
-  </script>
+
+
 
 
 

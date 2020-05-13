@@ -18,20 +18,21 @@
   <meta name="keywords" content>
   <title>Markdown基本语法速查 - DomeOfHeaven</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
 
 <link rel="stylesheet" href="/css/main.css">
-
-
-  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
-
 
 <!-- 自定义样式保持在最底部 -->
 
@@ -56,41 +57,46 @@
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
           </li>
         
           
           
           
-          
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
           </li>
         
         
@@ -107,7 +113,7 @@
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
@@ -115,31 +121,36 @@
 
             
               
-                <p class="mt-3 post-meta">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期五, 三月 27日 2020, 9:53 晚上
-                </p>
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-03-27 21:53">
+                    2020年3月27日 晚上
+                  </time>
+                </div>
               
 
-              <p class="mt-1">
+              <div class="mt-1">
                 
                   
-                  <span class="post-meta">
-                    <i class="far fa-chart-bar"></i>
-                    989 字
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    990 字
                   </span>
                 
 
                 
                   
-                  <span class="post-meta">
-                      <i class="far fa-clock"></i>
-                      4 分钟
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    15
+                     分钟
                   </span>
                 
 
                 
-              </p>
+              </div>
             
           </div>
 
@@ -158,10 +169,10 @@
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
       <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5 z-depth-3" id="board">
+        <div class="py-5" id="board">
           <div class="post-content mx-auto" id="post">
             
-            <div class="markdown-body">
+            <article class="markdown-body">
               <h4 id="MarkDown基本语法"><a href="#MarkDown基本语法" class="headerlink" title="MarkDown基本语法"></a>MarkDown基本语法</h4><hr>
 <ol>
 <li><p>简介</p>
@@ -174,100 +185,88 @@
 <li><p>基本命令</p>
 <ul>
 <li><p>标题</p>
-<pre><code class="markdown"># 一级标题
-## 二级标题
-### 三级标题
-#### 四级标题
-##### 五级标题
-###### 六级标题
-</code></pre>
+<pre><code class="hljs markdown"><span class="hljs-section"># 一级标题</span>
+<span class="hljs-section">## 二级标题</span>
+<span class="hljs-section">### 三级标题</span>
+<span class="hljs-section">#### 四级标题</span>
+<span class="hljs-section">##### 五级标题</span>
+<span class="hljs-section">###### 六级标题</span></code></pre>
 </li>
 <li><p>字体</p>
-<pre><code class="markdown">**加粗**
-*斜体*
+<pre><code class="hljs markdown"><span class="hljs-strong">**加粗**</span>
+<span class="hljs-emphasis">*斜体*</span>
 ~~删除线~~
 &lt;u&gt;下划线&lt;/u&gt;
-`注释`
-==高亮==
-</code></pre>
+<span class="hljs-code">`注释`</span>
+==高亮==</code></pre>
 </li>
 <li><p>列表</p>
-<pre><code class="markdown">## 有序列表
-1. 
-2. 
-3. 
-## 无序列表
-- 
-- 
-- 
-## 任务列表
-- [ ] 任务1
-- [ ] 任务2
-- [x] 任务3 
-</code></pre>
+<pre><code class="hljs markdown"><span class="hljs-section">## 有序列表</span>
+<span class="hljs-bullet">1. 
+</span><span class="hljs-bullet">2. 
+</span><span class="hljs-bullet">3. 
+</span><span class="hljs-section">## 无序列表</span>
+<span class="hljs-bullet">- 
+</span><span class="hljs-bullet">- 
+</span><span class="hljs-bullet">- 
+</span><span class="hljs-section">## 任务列表</span>
+<span class="hljs-bullet">- </span>[ ] 任务1
+<span class="hljs-bullet">- </span>[ ] 任务2
+<span class="hljs-bullet">- </span>[x] 任务3</code></pre>
 </li>
 <li><p>引用</p>
-<pre><code class="markdown">&gt; 这是引用部分内容
-</code></pre>
+<pre><code class="hljs markdown"><span class="hljs-quote">&gt; 这是引用部分内容</span></code></pre>
 </li>
 <li><p>代码块</p>
-<pre><code class="markdown">​```java
-public static void main(String[] args) {
+<pre><code class="hljs markdown">​<span class="hljs-code">```java
+public static void main(String[] args) &#123;
+ 
+&#125;
+​</span></code></pre>
+<pre><code class="hljs undefined">
+- 表格
 
-}
-​
-</code></pre>
-<p><code>`</code></p>
-</li>
-<li><p>表格</p>
-<pre><code class="markdown">| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-</code></pre>
+  ```markdown
+  | First Header  | Second Header |
+  | ------------- | ------------- |
+  | Content Cell  | Content Cell  |
+  | Content Cell  | Content Cell  |</code></pre>
 </li>
 <li><p>目录</p>
-<pre><code class="markdown">[TOC]
-</code></pre>
+<pre><code class="hljs markdown">[TOC]</code></pre>
 </li>
 <li><p>链接</p>
 <ul>
 <li><p>超链接</p>
-<pre><code class="markdown">[链接名称](链接地址)
-</code></pre>
+<pre><code class="hljs markdown">[<span class="hljs-string">链接名称</span>](<span class="hljs-link">链接地址</span>)</code></pre>
 </li>
 <li><p>图片链接</p>
-<pre><code class="markdown">![图片名称](图片地址)
-</code></pre>
+<pre><code class="hljs markdown">![<span class="hljs-string">图片名称</span>](<span class="hljs-link">图片地址</span>)</code></pre>
 </li>
 </ul>
 </li>
 <li><p>脚注</p>
-<pre><code class="markdown">You can create footnotes like this[^footnote].
+<pre><code class="hljs markdown">You can create footnotes like this[^footnote].
 
-[^footnote]: Here is the *text* of the **footnote**.
-</code></pre>
+[<span class="hljs-symbol">^footnote</span>]: <span class="hljs-link">Here is the *text* of the **footnote**.</span></code></pre>
 </li>
 <li><p>Emoji表情</p>
-<pre><code class="markdown">:smile:
-:kissing_smiling_eyes::kissing_smiling_eyes:
-</code></pre>
+<pre><code class="hljs markdown">:smile:
+:kissing<span class="hljs-emphasis">_smiling_</span>eyes::kissing<span class="hljs-emphasis">_smiling_</span>eyes:</code></pre>
 </li>
 <li><p>视频</p>
-<pre><code class="markdown">&lt;video src=&quot;xxx.mp4&quot;
-</code></pre>
+<pre><code class="hljs markdown">&lt;video src="xxx.mp4"</code></pre>
 </li>
 <li><p>HTML</p>
-<pre><code class="markdown"> &lt;span style=&quot;color:red&quot;&gt;红色的文本&lt;/span&gt;
-</code></pre>
+<pre><code class="hljs markdown">&lt;span style="color:red"&gt;红色的文本&lt;/span&gt;</code></pre>
 </li>
 </ul>
 </li>
 <li><p>绘制结构图</p>
 <ul>
 <li><p>流程图</p>
-<pre><code class="markdown">## Flowchart.js
-​```flow
+<pre><code class="hljs markdown"><span class="hljs-section">## Flowchart.js</span>
+​<span class="hljs-code">```flow
 st=&gt;start: Start
 op=&gt;operation: Your Operation
 cond=&gt;condition: Yes or No?
@@ -276,22 +275,22 @@ e=&gt;end
 st-&gt;op-&gt;cond
 cond(yes)-&gt;e
 cond(no)-&gt;op
-​
-</code></pre>
+​</span></code></pre>
 <h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><p>​<pre class="mermaid">     graph LR<br>A[Hard edge] –&gt;B(Round edge)</pre></p>
 <pre><code>B --&gt; C{Decision}
 C --&gt;|One| D[Result one]
 C --&gt;|Two| E[Result two]
-</code></pre><p>​<br><code>`</code></p>
-</li>
-<li><p>时序图</p>
-<pre><code class="markdown">## js-sequence
-​```sequence
-Alice-&gt;Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob--&gt;Alice: I am good thanks!
-​
-</code></pre>
+</code></pre><p>​</p>
+<pre><code class="hljs undefined">
+- 时序图
+
+  ```markdown
+  ## js-sequence
+  ​```sequence
+  Alice-&gt;Bob: Hello Bob, how are you?
+  Note right of Bob: Bob thinks
+  Bob--&gt;Alice: I am good thanks!
+  ​</code></pre>
 <h2 id="Mermaid-1"><a href="#Mermaid-1" class="headerlink" title="Mermaid"></a>Mermaid</h2><p>​<pre class="mermaid">     %% Example of sequence diagram<br>  sequenceDiagram</pre></p>
 <pre><code>Alice-&gt;&gt;Bob: Hello Bob, how are you?
 alt is sick
@@ -302,102 +301,99 @@ end
 opt Extra response
 Bob-&gt;&gt;Alice: Thanks for asking
 end
-</code></pre><p>​<br><code>`</code></p>
-</li>
-<li><p>甘特图</p>
-<pre><code class="markdown">## Mermaid
-​&lt;pre class=&quot;mermaid&quot;&gt;     %% Example with selection of syntaxes
-        gantt
-        dateFormat  YYYY-MM-DD
-        title Adding GANTT diagram functionality to mermaid
+</code></pre><p>​</p>
+<pre><code class="hljs undefined">
+- 甘特图
 
-        section A section
-        Completed task            :done,    des1, 2014-01-06,2014-01-08
-        Active task               :active,  des2, 2014-01-09, 3d
-        Future task               :         des3, after des2, 5d
-        Future task2               :         des4, after des3, 5d
-
-​&lt;/pre&gt;
-</code></pre>
+  ```markdown
+  ## Mermaid
+  ​&lt;pre class=&quot;mermaid&quot;&gt;     %% Example with selection of syntaxes
+          gantt
+          dateFormat  YYYY-MM-DD
+          title Adding GANTT diagram functionality to mermaid
+  
+          section A section
+          Completed task            :done,    des1, 2014-01-06,2014-01-08
+          Active task               :active,  des2, 2014-01-09, 3d
+          Future task               :         des3, after des2, 5d
+          Future task2               :         des4, after des3, 5d
+  
+  ​&lt;/pre&gt;</code></pre>
 </li>
 <li><p>类图</p>
-<pre><code class="markdown">## Mermaid
-​&lt;pre class=&quot;mermaid&quot;&gt;     classDiagram
-      Animal &lt;|-- Duck
-      Animal &lt;|-- Fish
-      Animal &lt;|-- Zebra
-      Animal : +int age
-      Animal : +String gender
-      Animal: +isMammal()
-      Animal: +mate()
-      class Duck{
-          +String beakColor
-          +swim()
-          +quack()
-      }
-      class Fish{
-          -int sizeInFeet
-          -canEat()
-      }
-      class Zebra{
-          +bool is_wild
-          +run()
-      }
-​&lt;/pre&gt;
-</code></pre>
+<pre><code class="hljs markdown"><span class="hljs-section">## Mermaid</span>
+​&lt;pre class="mermaid"&gt;     classDiagram
+<span class="hljs-code">      Animal &lt;|-- Duck</span>
+<span class="hljs-code">      Animal &lt;|-- Fish</span>
+<span class="hljs-code">      Animal &lt;|-- Zebra</span>
+<span class="hljs-code">      Animal : +int age</span>
+<span class="hljs-code">      Animal : +String gender</span>
+<span class="hljs-code">      Animal: +isMammal()</span>
+<span class="hljs-code">      Animal: +mate()</span>
+<span class="hljs-code">      class Duck&#123;</span>
+<span class="hljs-code">          +String beakColor</span>
+<span class="hljs-code">          +swim()</span>
+<span class="hljs-code">          +quack()</span>
+<span class="hljs-code">      &#125;</span>
+<span class="hljs-code">      class Fish&#123;</span>
+<span class="hljs-code">          -int sizeInFeet</span>
+<span class="hljs-code">          -canEat()</span>
+<span class="hljs-code">      &#125;</span>
+<span class="hljs-code">      class Zebra&#123;</span>
+<span class="hljs-code">          +bool is_wild</span>
+<span class="hljs-code">          +run()</span>
+<span class="hljs-code">      &#125;</span>
+​&lt;/pre&gt;</code></pre>
 </li>
 <li><p>状态图</p>
-<pre><code class="markdown">​&lt;pre class=&quot;mermaid&quot;&gt;     stateDiagram
-    [*] --&gt; Still
-    Still --&gt; [*]
+<pre><code class="hljs markdown">​&lt;pre class="mermaid"&gt;     stateDiagram
+<span class="hljs-code">    [*] --&gt; Still</span>
+<span class="hljs-code">    Still --&gt; [*]</span>
 
-    Still --&gt; Moving
-    Moving --&gt; Still
-    Moving --&gt; Crash
-    Crash --&gt; [*]
-​&lt;/pre&gt;
-</code></pre>
+<span class="hljs-code">    Still --&gt; Moving</span>
+<span class="hljs-code">    Moving --&gt; Still</span>
+<span class="hljs-code">    Moving --&gt; Crash</span>
+<span class="hljs-code">    Crash --&gt; [*]</span>
+​&lt;/pre&gt;</code></pre>
 </li>
 <li><p>饼图</p>
-<pre><code class="markdown">​&lt;pre class=&quot;mermaid&quot;&gt;     pie
-    title Pie Chart
-    &quot;Dogs&quot; : 386
-    &quot;Cats&quot; : 85
-    &quot;Rats&quot; : 150 
-​&lt;/pre&gt;
-</code></pre>
+<pre><code class="hljs markdown">​&lt;pre class="mermaid"&gt;     pie
+<span class="hljs-code">    title Pie Chart</span>
+<span class="hljs-code">    "Dogs" : 386</span>
+<span class="hljs-code">    "Cats" : 85</span>
+<span class="hljs-code">    "Rats" : 150 </span>
+​&lt;/pre&gt;</code></pre>
 </li>
 </ul>
 </li>
 <li><p>数学公式</p>
-<pre><code class="markdown">## 行内公式
+<pre><code class="hljs markdown"><span class="hljs-section">## 行内公式</span>
 $ a^2 + b^2 = c^2 $
-## 行间公式
+<span class="hljs-section">## 行间公式</span>
 $$
- y = x ^ {2}
- x_{a + b} 
- x^{a + b}
-$$
-</code></pre>
+ y = x ^ &#123;2&#125;
+ x_&#123;a + b&#125; 
+ x^&#123;a + b&#125;
+$$</code></pre>
 <p>| 符号                                           | 代码                    | 具体含义   |<br>| ——————————————– | ——————— | ———- |<br>| $\sum$                                         | <code>$\sum$</code>                | 求和公式   |<br>| $\sum_{i=0}^n$                                 | <code>$\sum_{i=0}^n$</code>        | 求和上下标 |<br>| $\times$                                       | <code>$\times$</code>              | 乘号       |<br>| $\pm$                                          | <code>$\pm$</code>                 | 正负号     |<br>| $\div$                                         | <code>$\div$</code>                | 除号       |<br>| $\mid$                                         | <code>$\mid$</code>                | 竖线       |<br>| $\cdot$                                        | <code>$\cdot$</code>               | 点         |<br>| $\circ$                                        | <code>$\circ$</code>               | 圈         |<br>| $\ast $                                        | <code>$\ast $</code>               | 星号       |<br>| $\bigotimes$                                   | <code>$\bigotimes$</code>          | 克罗内克积 |<br>| $\bigoplus$                                    | <code>$\bigoplus$</code>           | 异或       |<br>| $\leq$                                         | <code>$\leq$</code>                | 小于等于   |<br>| $\geq$                                         | <code>$\geq$</code>                | 大于等于   |<br>| $\neq$                                         | <code>$\neq$</code>                | 不等于     |<br>| $\approx$                                      | <code>$\approx$</code>             | 约等于     |<br>| $\prod$                                        | <code>$\prod$</code>               | N元乘积    |<br>| $\coprod$                                      | <code>$\coprod$</code>             | N元余积    |<br>| $\cdots$                                       | <code>$\cdots$</code>              | 省略号     |<br>| $\int$                                         | <code>$\int$</code>                | 积分       |<br>| $\iint$                                        | <code>$\iint$</code>               | 双重积分   |<br>| $\oint$                                        | <code>$\oint$</code>               | 曲线积分   |<br>| $\infty$                                       | <code>$\infty$</code>              | 无穷       |<br>| $\nabla$                                       | <code>$\nabla$</code>              | 梯度       |<br>| $\because$                                     | <code>$\because$</code>            | 因为       |<br>| $\therefore$                                   | <code>$\therefore$</code>          | 所以       |<br>| $\forall$                                      | <code>$\forall$</code>             | 任意       |<br>| $\exists$                                      | <code>$\exists$</code>             | 存在       |<br>| $\not=$                                        | <code>$\not=$</code>               | 不等于     |<br>| $\not&gt;$                                        | <code>$\not&gt;$</code>               | 不大于     |<br>| $\leq$                                         | <code>$\leq$</code>                | 小于等于   |<br>| $\geq$                                         | <code>$\geq$</code>                | 大于等于   |<br>| $\not\subset$                                  | <code>$\not\subset$</code>         | 不属于     |<br>| $\emptyset$                                    | <code>$\emptyset$</code>           | 空集       |<br>| $\in$                                          | <code>$\in$</code>                 | 属于       |<br>| $\notin$                                       | <code>$\notin$</code>              | 不属于     |<br>| $\subset$                                      | <code>$\subset$</code>             | 子集       |<br>| $\subseteq$                                    | <code>$\subseteq$</code>           | 真子集     |<br>| $\bigcup$                                      | <code>$\bigcup$</code>             | 并集       |<br>| $\bigcap$                                      | <code>$\bigcap$</code>             | 交集       |<br>| $\bigvee$                                      | <code>$\bigvee$</code>             | 逻辑或     |<br>| $\bigwedge$                                    | <code>$\bigwedge$</code>           | 逻辑与     |<br>| $\alpha$                                       | <code>$\alpha$</code>              |            |<br>| $\beta$                                        | <code>$\beta$</code>               |            |<br>| $\gamma$                                       | <code>$\gamma$</code>              |            |<br>| $\Gamma$                                       | <code>$\Gamma$</code>              |            |<br>| $\delta$                                       | <code>$\delta$</code>              |            |<br>| $\Delta$                                       | <code>$\Delta$</code>              |            |<br>| $\epsilon$                                     | <code>$\epsilon$</code>            |            |<br>| $\varepsilon$                                  | <code>$\varepsilon$</code>         |            |<br>| $\zeta$                                        | <code>$\zeta$</code>               |            |<br>| $\eta$                                         | <code>$\eta$</code>                |            |<br>| $\theta$                                       | <code>$\theta$</code>              |            |<br>| $\Theta$                                       | <code>$\Theta$</code>              |            |<br>| <em>ϑ</em>                                            | <code>$\vartheta$</code>           |            |<br>| <em>ι</em>                                            | <code>$\iota$</code>               |            |<br>| <em>π</em>                                            | <code>$\pi$</code>                 |            |<br>| <em>ϕ</em>                                            | <code>$\phi$</code>                |            |<br>| Φ                                              | <code>$\Phi$</code>                |            |<br>| <em>ψ</em>                                            | <code>$\psi$</code>                |            |<br>| Ψ                                              | <code>$\Psi$</code>                |            |<br>| <em>ω</em>                                            | <code>$\omega$</code>              |            |<br>| Ω                                              | <code>$\Omega$</code>              |            |<br>| <em>χ</em>                                            | <code>\chi</code>                  |            |<br>| <em>ρ</em>                                            | <code>$\rho$</code>                |            |<br>| <em>ο</em>                                            | <code>$\omicron$</code>            |            |<br>| <em>σ</em>                                            | <code>$\sigma$</code>              |            |<br>| Σ                                              | <code>$\Sigma$</code>              |            |<br>| <em>ν</em>                                            | <code>$\nu$</code>                 |            |<br>| <em>ξ</em>                                            | <code>$\xi$</code>                 |            |<br>| <em>τ</em>                                            | <code>$\tau$</code>                |            |<br>| <em>λ</em>                                            | <code>$\lambda$</code>             |            |<br>| Λ                                              | <code>$\Lambda$</code>             |            |<br>| <em>μ</em>                                            | <code>\mu</code>                   |            |<br>| ∂                                              | <code>$\partial$</code>            |            |<br>| {}                                             | <code>$\lbrace \rbrace$</code>     |            |<br>| <em>a</em>                                            | <code>$\overline{a}$</code>        |            |</p>
 </li>
 </ol>
 <p>​     </p>
 
-            </div>
+            </article>
             <hr>
             <div>
-              <p>
+              <div class="post-metas mb-3">
                 
                 
-                  <span>
-                <i class="iconfont icon-tag"></i>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Markdown/">Markdown</a>
                     
-                  </span>
+                  </div>
                 
-              </p>
+              </div>
               
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
@@ -407,7 +403,7 @@ $$
                     
                     
                       <a href="/2020/04/05/程序员面试宝典(16.01)-交换数字/">
-                        <i class="fa fa-chevron-left"></i>
+                        <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">程序员面试宝典(16.01)-交换数字</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
@@ -419,7 +415,7 @@ $$
                       <a href="/2020/03/23/剑指Offer-11-旋转数组的的最小数字/">
                         <span class="hidden-mobile">剑指Offer-11-旋转数组的的最小数字</span>
                         <span class="visible-mobile">下一篇</span>
-                        <i class="fa fa-chevron-right"></i>
+                        <i class="iconfont icon-arrowright"></i>
                       </a>
                     
                   </div>
@@ -427,16 +423,15 @@ $$
               
             </div>
 
-              
+            
           </div>
         </div>
       </div>
     </div>
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc-start"></div>
-<div id="toc">
-  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div id="tocbot"></div>
 </div>
 
@@ -452,8 +447,8 @@ $$
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -486,9 +481,10 @@ $$
   <footer class="mt-5">
   <div class="text-center py-3">
     <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
     </div>
     
 
@@ -500,9 +496,7 @@ $$
 
 <!-- SCRIPTS -->
 <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js"></script>
 <script src="/js/main.js"></script>
 
 
@@ -511,34 +505,12 @@ $$
 
 
   
-  <script src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js"></script>
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
   <script>
     $(document).ready(function () {
-      var navHeight = $('#navbar').height();
-      var toc = $('#toc');
       var boardCtn = $('#board-ctn');
       var boardTop = boardCtn.offset().top;
-      var tocLimMax = 2 * boardTop + boardCtn.height();
 
-      $(window).scroll(function () {
-        var tocLimMin = $('#toc-start').offset().top - navHeight;
-        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
-
-        if (tocLimMin <= scroH && scroH <= tocLimMax) {
-          toc.css({
-            'display': 'block',
-            'position': 'fixed',
-            'top': navHeight,
-          });
-        } else if (scroH <= tocLimMin) {
-          toc.css({
-            'position': '',
-            'top': '',
-          });
-        } else if (scroH > tocLimMax) {
-          toc.css('display', 'none');
-        }
-      });
       tocbot.init({
         tocSelector: '#tocbot',
         contentSelector: '.post-content',
@@ -548,16 +520,13 @@ $$
         listClass: 'tocbot-list',
         isCollapsedClass: 'tocbot-is-collapsed',
         collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
         scrollSmooth: true,
         headingsOffset: -boardTop
       });
       if ($('.toc-list-item').length > 0) {
-        $('#toc > p').css('visibility', 'visible');
+        $('#toc').css('visibility', 'visible');
       }
-      var offset = boardCtn.css('margin-right')
-      $('#toc-ctn').css({
-        'right': offset
-      })
     });
   </script>
 
@@ -565,9 +534,8 @@ $$
 
 
 
-
-
-  <script defer src="https://cdn.staticfile.org/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
 
 
 
@@ -575,16 +543,6 @@ $$
 
 
 <!-- Plugins -->
-
-
-
-  <script src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
-  </script>
 
 
 
@@ -630,20 +588,22 @@ $$
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -660,12 +620,9 @@ $$
 
 
 
-  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({theme: 'forest'});
-    }
-  </script>
+
+
+
 
 
 
