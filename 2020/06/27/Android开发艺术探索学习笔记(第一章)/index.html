@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
+  <meta name="author" content="DomeOfHeaven">
+  <meta name="keywords" content>
+  <title>Android开发艺术探索学习笔记(第一章) - DomeOfHeaven</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-27 20:05">
+      2020年6月27日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="Android-开发艺术探索-第一章笔记"><a href="#Android-开发艺术探索-第一章笔记" class="headerlink" title="Android 开发艺术探索 第一章笔记"></a>Android 开发艺术探索 第一章笔记</h3><h4 id="第一章-Activity-的生命周期和启动模式"><a href="#第一章-Activity-的生命周期和启动模式" class="headerlink" title="第一章  Activity 的生命周期和启动模式"></a>第一章  Activity 的生命周期和启动模式</h4><h5 id="Activity-的生命周期"><a href="#Activity-的生命周期" class="headerlink" title="Activity 的生命周期"></a>Activity 的生命周期</h5><ol>
+<li><h5 id="典型情况下的生命周期-在用户参与的情况下，Activity-所经过的生命周期的改变"><a href="#典型情况下的生命周期-在用户参与的情况下，Activity-所经过的生命周期的改变" class="headerlink" title="典型情况下的生命周期 : 在用户参与的情况下，Activity 所经过的生命周期的改变"></a>典型情况下的生命周期 : 在用户参与的情况下，Activity 所经过的生命周期的改变</h5><ol>
+<li>onRestart:Activity 正在重新启动。</li>
+<li>onCreate:Activity 正在被创建。可以在这个方法中进行初始化工作，比如加载界面布局资源，初始化数据等。</li>
+<li>onStart:Activity 正在被启动，此时 Activity 已经<strong>可见</strong>，但是<strong>没有出现在前台</strong>，无法和用户进行交互。</li>
+<li>onResume:Activity 已经可见，且<strong>出现在前台开始活动</strong>。</li>
+<li>onPause:Activity 正在停止。</li>
+<li>onStop:Activity 即将停止，可以做一些回收工作，但不能太耗时。</li>
+<li><p>onDestroy:Activity 即将被销毁，生命周期最后一个回调，可以做一些回收工作和最终资源的释放。</p>
+<p><img src="/assets/img/Android开发艺术探索/图1-1Activity生命周期切换过程.png" srcset="/img/loading.gif" alt="图 1-1Activity 生命周期切换过程"></p>
+</li>
+</ol>
+<blockquote>
+<p>(1) 一个 Activity 第一次启动时的回调为:onCreate-&gt;onStart-&gt;onResume</p>
+<p>(2)打开新的 Activity 或切换到桌面时的回调为:onPause-&gt;onStop(如果新 Activity 采用了透明主题，则不会调用 onStop)</p>
+<p>(3)再次回到原 Activity 时的回调为:onRestart-&gt;onStart-&gt;onResume</p>
+<p>(4)使用 back 键回退时的回调:onPause-&gt;onStop-&gt;onDestroy</p>
+</blockquote>
+</li>
+</ol>
+<h6 id="Remarks-onStart-和-onStop-是从-Activity-是否可见的角度进行回调的-onResume-和-onPause-是从-Activity-是否位于前台的角度。"><a href="#Remarks-onStart-和-onStop-是从-Activity-是否可见的角度进行回调的-onResume-和-onPause-是从-Activity-是否位于前台的角度。" class="headerlink" title="Remarks:onStart 和 onStop 是从 Activity 是否可见的角度进行回调的;onResume 和 onPause 是从 Activity 是否位于前台的角度。"></a>Remarks:onStart 和 onStop 是从 Activity 是否可见的角度进行回调的;onResume 和 onPause 是从 Activity 是否位于前台的角度。</h6><ol start="2">
+<li><h5 id="异常情况下的生命周期-Activity-被系统回收或者当前设备的-Configuration-发生改变而导致-Activity-被销毁重建"><a href="#异常情况下的生命周期-Activity-被系统回收或者当前设备的-Configuration-发生改变而导致-Activity-被销毁重建" class="headerlink" title="异常情况下的生命周期 : Activity 被系统回收或者当前设备的 Configuration 发生改变而导致 Activity 被销毁重建"></a>异常情况下的生命周期 : Activity 被系统回收或者当前设备的 Configuration 发生改变而导致 Activity 被销毁重建</h5><ol>
+<li>资源相关的系统配置发生改变导致 Activity 被杀死并重新创建</li>
+<li><p>资源内存不足导致低优先级的 Activity 被杀死</p>
+<p>Activity 优先级情况(由高到低)</p>
+<ul>
+<li>前台 Activity ——正在与用户交互的 Activity，优先级最高</li>
+<li>可见但非前台 Activity</li>
+<li>后台 Activity ——已经被暂停的 Activity</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="Activity-的启动模式"><a href="#Activity-的启动模式" class="headerlink" title="Activity 的启动模式"></a>Activity 的启动模式</h5><ol>
+<li><h5 id="Activity-的-LaunchMode"><a href="#Activity-的-LaunchMode" class="headerlink" title="Activity 的 LaunchMode"></a>Activity 的 LaunchMode</h5><ol>
+<li><strong>standard</strong>:标准模式。每次启动一个 Activity 都会重新创建一个新的实例，不管这个实例是否已经存在。<em>在这种模式下，谁启动了这个 Activity，那么这个 Activity 就运行在启动它的那个 Activity 所在的栈中。</em></li>
+<li><strong>singleTop</strong>:栈顶复用模式。在这种模式下，如果新的 Activity 已经位于任务栈的栈顶，那么此 Activity 不会被重新创建，同时它的 onNewIntent 方法会被回调，并且这个 Activity 的 onCreate,onStart 不会被系统调用;如果新 Activity 的实例已存在但不是位于栈顶，那么新 Activity 仍然会重新创建。</li>
+<li><strong>singleTask</strong>:栈内复用模式。这是一种单实例模式，在这种模式下，只要 Activity 在一个栈中存在，那么多次启动此 Activity 都不会重新创建实例。</li>
+<li><p><strong>singleInstance</strong>:单实例模式。除了具有 singleTask 模式的所有特性外，在这种模式下的 Activity 只能单独地位于一个任务栈中。</p>
+<p><em>TaskAffinity:任务相关性。这个参数标识了一个 Activity 所需要的任务栈的名字，默认情况下为应用的包名。TaskAffinity 属性主要和 singleTask 启动模式或者 AllowTaskReparenting 属性配对使用；任务栈分为前台任务栈和后台任务栈，后台任务栈中的 Activity 处于暂停状态。</em></p>
+</li>
+</ol>
+</li>
+<li><h5 id="给-Activity-指定启动模式"><a href="#给-Activity-指定启动模式" class="headerlink" title="给 Activity 指定启动模式"></a>给 Activity 指定启动模式</h5><ol>
+<li><p>通过 <strong>AndroidManifest</strong> 文件给 Activity 指定启动模式</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span>
+          <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.ryg.chapter_1.secondActivity"</span>
+          <span class="hljs-attr">android:configChanges</span>=<span class="hljs-string">"screenLayout"</span>
+          <span class="hljs-attr">android:launchMode</span>=<span class="hljs-string">"singleTask"</span>
+          <span class="hljs-attr">android:label</span>=<span class="hljs-string">"@string/app_name"</span>/&gt;</span></code></pre>
+</li>
+<li><p>通过在 <strong>Intent</strong> 中设置标志位为 Activity 指定启动模式</p>
+<pre><code class="hljs java">Intent intent = <span class="hljs-keyword">new</span> Intent();
+intent.setClass(MainActivity.<span class="hljs-keyword">this</span>,SecondActivity.class);
+intent.addFlags(Intetn.FLAG_ACTIVITY_NEW_TASK);
+startActivity(intent);</code></pre>
+<blockquote>
+<p>两种方式的区别：</p>
+<ol>
+<li>第二种的优先级要高于第一种，当两种同时存在时，以第二种方式为准；</li>
+<li>第一种方式无法直接为 Activity 设定 <strong>FLAG_ACTIVITY_CLEAR_TOP</strong> 标识，而第二种方式无法为 Activity 指定 <strong>singlenstance</strong> 模式</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h5 id="Activity的Flags"><a href="#Activity的Flags" class="headerlink" title="Activity的Flags"></a>Activity的Flags</h5><ul>
+<li>FLAG_ACTIVITY_NEW_TASK:为Activity指定“singleTask”启动模式</li>
+<li>FLAG_ACTIVITY_SINGLE_TOP:为Activity指定“singleTop”启动模式</li>
+<li>FLAG_ACTIVITY_CLEAR_TOP:具有此标记位的Activity启动时，在同一个任务栈中所有位于它上面的Activity都要出栈</li>
+<li>FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS:具有此标记的Activity不会出现在历史Activity的列表中。</li>
+</ul>
+</li>
+<li><h5 id="IntentFilter-的匹配规则"><a href="#IntentFilter-的匹配规则" class="headerlink" title="IntentFilter 的匹配规则"></a>IntentFilter 的匹配规则</h5><ol>
+<li>action(字符串)的匹配规则：<strong>Intent</strong> 中的 action 必须能够和过滤规则中的 action 匹配，即 action 的字符串值完全一样。一个过滤规则中可以有多个 action，只要 <strong>Intent</strong> 中的 action 能够和过滤规则中的任何一个 action 相同即可匹配成功。但如果 <strong>Intent</strong> 中没有指定 action，则匹配失败，并且 action 区分大小写。</li>
+<li>category(字符串)的匹配规则：它要求 <strong>Intent</strong> 中如果含有 category，那么所有的 category 都必须和过滤规则中的其中一个 category 相同。如果 Intent 中没有，仍然可以匹配成功。</li>
+<li><p>data 的匹配规则</p>
+<ol>
+<li><p>结构：由 <em>mimeType</em> 和 <em>URI</em> 两部分组成。其中 <em>mimeType</em> 指的是媒体类型，<em>URI</em> 是资源地址。</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 语法 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">data</span> <span class="hljs-attr">android:scheme</span>=<span class="hljs-string">"string"</span>
+      <span class="hljs-attr">android:host</span>=<span class="hljs-string">"string"</span>
+      <span class="hljs-attr">android:port</span>=<span class="hljs-string">"string"</span>
+      <span class="hljs-attr">android:path</span>=<span class="hljs-string">"string"</span>
+      <span class="hljs-attr">andrid:pathPattern</span>=<span class="hljs-string">"string"</span>
+      <span class="hljs-attr">android:pathPrefix</span>=<span class="hljs-string">"string"</span>
+      <span class="hljs-attr">android:mimeType</span>=<span class="hljs-string">"string"</span> /&gt;</span>
+<span class="hljs-comment">&lt;!-- 结构 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">scheme</span>&gt;</span>://<span class="hljs-tag">&lt;<span class="hljs-name">host</span>&gt;</span>:<span class="hljs-tag">&lt;<span class="hljs-name">port</span>&gt;</span>/[<span class="hljs-tag">&lt;<span class="hljs-name">path</span>&gt;</span>|<span class="hljs-tag">&lt;<span class="hljs-name">pathPrefix</span>&gt;</span>|<span class="hljs-tag">&lt;<span class="hljs-name">pathPattern</span>&gt;</span>]</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>2. 匹配规则：Intent中必须含有data数据，并且data数据能够完全匹配过滤规则中的某一个data
+</code></pre>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/笔记/">笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/27/Markdown基本语法速查/">
+                        <span class="hidden-mobile">Markdown基本语法速查</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android开发艺术探索学习笔记(第一章)&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
