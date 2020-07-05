@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
+  <meta name="author" content="DomeOfHeaven">
+  <meta name="keywords" content>
+  <title>Android开发艺术探索学习笔记-第二章 - DomeOfHeaven</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-05 21:45">
+      2020年7月5日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      45
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="Android开发艺术探索-第二章笔记"><a href="#Android开发艺术探索-第二章笔记" class="headerlink" title="Android开发艺术探索 第二章笔记"></a>Android开发艺术探索 第二章笔记</h3><h4 id="第二章-IPC机制"><a href="#第二章-IPC机制" class="headerlink" title="第二章  IPC机制"></a>第二章  IPC机制</h4><ol>
+<li><h5 id="Android-IPC-简介"><a href="#Android-IPC-简介" class="headerlink" title="Android IPC 简介"></a>Android IPC 简介</h5><p>IPC：Inter-Process Communication的缩写，意思为进程间通信或者跨进程通信，指两个进程之间进行数据交换的过程。</p>
+<p>线程：CPU调度的最小单元，是一种有限的系统资源。</p>
+<p>进程：一般指一个执行单元，在PC和移动设备上指一个程序或者应用。一个进程可以包含多个线程。</p>
+</li>
+<li><h5 id="Android中的多进程模式"><a href="#Android中的多进程模式" class="headerlink" title="Android中的多进程模式"></a>Android中的多进程模式</h5><ol>
+<li><p>开启多进程模式</p>
+<p>在Android中使用多进程只有一个方法，那就是给<strong>四大组件</strong>在<strong>AndroidManifest</strong>中指定<em>android:process</em>属性。</p>
+<blockquote>
+<p>进程名以“：”开头的进程属于当前应用的私有进程，其他应用的组件不可以和它在同一进程中，而进程名不以“：”开头的进程属于全局进程，其他应用可以通过ShareUID方式和它在同一进程中。Android系统会为每个应用分配一个唯一的UID，具有相同UID的应用才能共享数据。(两个应用通过<strong>ShareUID</strong>在同一个进程张，不但<strong>ShareUID</strong>要相同，签名也必须相同才可以互相访问数据)</p>
+</blockquote>
+</li>
+<li><p>多进程模式运行机制</p>
+<p>多进程造成的问题：</p>
+<ol>
+<li>静态成员和单例模式完全失效。</li>
+<li>线程同步机制完全失效。</li>
+<li><strong>SharedPreferences</strong>的可靠性下降。</li>
+<li><strong>Application</strong>会多次创建。</li>
+</ol>
+<blockquote>
+<p>在多进程模式中，不同进程的组件会拥有独立的虚拟机，Application以及内存空间。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h5 id="IPC基础概念介绍"><a href="#IPC基础概念介绍" class="headerlink" title="IPC基础概念介绍"></a>IPC基础概念介绍</h5><ol>
+<li><p>Serializable接口：Java所提供的一个序列化接口，是一个空接口，为对象提供序列化和反序列化操作。</p>
+<p>实现只要实现该接口，并且在类的声明中指定下面的标识即可自动实现默认的序列化操作。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span></span>&#123;
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">871136882100083044L</span>
+     <span class="hljs-keyword">private</span> String userName;
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> isMale;
+     ...
+  』</code></pre>
+<pre><code class="hljs java"><span class="hljs-comment">//序列化操作</span>
+User user = <span class="hljs-keyword">new</span> User(<span class="hljs-string">"Stephanie"</span>,<span class="hljs-keyword">false</span>);
+ObjectOutputStream out = <span class="hljs-keyword">new</span> ObjectOutputStream(<span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">"cache.txt"</span>));
+out.writeObject(user);
+out.close
+
+<span class="hljs-comment">//反序列化操作</span>
+ObjectInputStream in = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> FileInputStream(<span class="hljs-string">"cache.txt"</span>));
+User user = (User)in.readObject();
+in.close();</code></pre>
+<blockquote>
+<p>serialVersionUID工作机制：序列化时系统会将当前类的serialVersionUID写入序列化的文件中，当反序列化时系统会去检测文件中的serialVersionUID，看它是否和当前类的serialVersionUID一致，一致则说明版本相同可以成功反序列化；否则无法正常反序列化</p>
+<p>Notice: </p>
+<ol>
+<li>静态成员变量属于类不属于对象，所以不会参与序列化过程；</li>
+<li>用<strong>transient</strong>关键字标记的成员变量不参与序列化过程。</li>
+<li>通过重写<strong>readObject()</strong>和<strong>writeObject()</strong>方法可以改变系统的默认序列化过程。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Parcelable接口：Android提供的新的序列化方式。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//实现Parcelable典型用法</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Parcelable</span></span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> userId;
+    <span class="hljs-keyword">public</span> String userName;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> isMale;
+    <span class="hljs-keyword">public</span> Book book;
+    <span class="hljs-comment">//构造方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">User</span><span class="hljs-params">(<span class="hljs-keyword">int</span> UserId,String userName,<span class="hljs-keyword">boolean</span> isMale)</span></span>&#123;
+        <span class="hljs-keyword">this</span>.userId = userId;
+        <span class="hljs-keyword">this</span>.userName = userName;
+        <span class="hljs-keyword">this</span>.isMale = isMale;
+    &#125;
+    <span class="hljs-comment">//返回当前对象的内容描述，含文件描述符返回1，否则返回0</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">describeContents</span><span class="hljs-params">()</span></span>&#123;
+        reaturn <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-comment">//将当前对象写入序列化结构中，flags标识有两种值(0,1),为1时标识当前对象需要作为返回值返回，不能     //立即释放资源</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeToParcel</span><span class="hljs-params">(Parcel out,<span class="hljs-keyword">int</span> flags)</span></span>&#123;
+        out.writeInt(userId);
+        out.writeString(userName);
+        out.writeInt(isMale ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);
+        out.writeParcelable(book,<span class="hljs-number">0</span>);
+    &#125;
+    <span class="hljs-comment">//实现反序列化功能</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Parcelable.Creator&lt;User&gt; CREATER = <span class="hljs-keyword">new</span> Parcelable.Creator&lt;User&gt;()&#123;
+        <span class="hljs-comment">//从序列化后的对象中创建原始对象</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">createrFromParcel</span><span class="hljs-params">(Parcel in)</span></span>&#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> User(in);
+        &#125;
+        <span class="hljs-comment">//创建指定长度的原始对象数组</span>
+        <span class="hljs-keyword">public</span> User[] newArray(<span class="hljs-keyword">int</span> size)&#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> User[size];
+        &#125;
+    &#125;;
+    <span class="hljs-comment">//</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">User</span><span class="hljs-params">(Parcel in)</span></span>&#123;
+        userId = in.readInt();
+        userName = in.readString();
+        isMale = in.readInt() == <span class="hljs-number">1</span>;
+        book = in.readParcelable(Thread.currentThread().getContextClassLoader());
+    &#125;
+&#125;</code></pre>
+<blockquote>
+<p><strong>Parcelable</strong> 和<strong>Serializable</strong>选取：</p>
+<p>Serializable是Java中的序列化接口，使用简单但需要大量I/O操作，开销很大；Parcelable使用较麻烦但在Android平台上效率很高，所以首选<strong>Parcelable</strong>接口。</p>
+</blockquote>
+</li>
+<li><p>Binder:Binder是Android中的一种跨进程通信方式。在Android开发中，Binder主要用于Service中，包括AIDL和Messenger。</p>
+<blockquote>
+<ol>
+<li>当客户端发起远程请求时，由于当前线程会被挂起直至服务端进程返回数据，所以不能在UI线程中发起耗时的远程请求；</li>
+<li>由于服务打的Binder方法运行在Binder的线程池中，所以Binder方法不管是否耗时都应该采用同步的方法去实现。</li>
+</ol>
+</blockquote>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图2-1Binder的工作机制.png" srcset="/img/loading.gif" alt="图2-1Binder的工作机制"><br>Binder实现步骤</p>
+<ol>
+<li>声明一个AIDL性质的接口，只需继承<strong>IInterface</strong>接口</li>
+<li>实现<strong>Stub</strong>类和Stub类的<strong>Proxy</strong>代理类</li>
+</ol>
+</li>
+<li><p>给Binder设置死亡代理：</p>
+<ol>
+<li><p>声明一个<strong>Deathecipient</strong>对象。<strong>Deathecipient</strong>是一个接口，我们需要实现其内部的回调方法<strong>binderDied</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> IBinder.DeathRecipient mDeathRecipient = <span class="hljs-keyword">new</span> IBinder.DeathRecipient()&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">binderDied</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">if</span>(mBookManager == <span class="hljs-keyword">null</span>)
+            <span class="hljs-keyword">return</span>;
+      mBookManager.asBinder().unlinkToDeath(mDeathRecipient,<span class="hljs-number">0</span>);
+      mBookManager = <span class="hljs-keyword">null</span>;
+    &#125;
+&#125;</code></pre>
+</li>
+<li><p>在客户端绑定远程服务成功后，给binder设置死亡代理</p>
+<pre><code class="hljs java">mService  = IMessageBoxManager.Stub.asInterface(binder);
+binder.linkToDeath(mDeathRecipient,<span class="hljs-number">0</span>);</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>通过Binderd方法<strong>isBinderAlive</strong>可以判断Binder是否死亡        </p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h5 id="Android中IPC方式"><a href="#Android中IPC方式" class="headerlink" title="Android中IPC方式"></a>Android中IPC方式</h5><ol>
+<li><p>使用Bundle</p>
+<p>四大组件中的三大组件(Activity，Service，Receiver)都是支持Intent中传递Bundle数据的，由于Bundle实现了Parcelable接口，所以它可以在不同的进程之间传输。但是，传输的数据必须能够被序列化，比如基本类型和实现了Parcelable接口的对象。</p>
+</li>
+<li><p>使用文件共享</p>
+<p>即两个进程通过<strong>读/写</strong>同一个文件来交换数据。除了可以交换一些文本信息外，还可以序列化一个对象到文件系统的同时另一个进程中恢复这个对象。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//MainActivity</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">persistToFile</span><span class="hljs-params">()</span></span>&#123;
+    <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable()&#123;
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;
+            User user = <span class="hljs-keyword">new</span> User(<span class="hljs-number">1</span>,<span class="hljs-string">"hello world"</span>,<span class="hljs-keyword">false</span>);
+            File dir = <span class="hljs-keyword">new</span> File(MyConstants.CHAPTER_2_PATH);
+            <span class="hljs-keyword">if</span>(!dir.exists())&#123;
+                dir.mkdirs();
+            &#125;
+            File cachedFile = <span class="hljs-keyword">new</span> File(MyConstants.CACHE_FILE_PATH);
+            ObjectOutputStream objectOutputStream = <span class="hljs-keyword">null</span>;
+            <span class="hljs-keyword">try</span>&#123;
+                objectOutputStream = <span class="hljs-keyword">new</span> ObjectOutputStream(<span class="hljs-keyword">new</span>                                                                FileOutputStream(cacheFile));
+                objectOutputStream.writeObject(user);
+                Log.d(TAG,<span class="hljs-string">"persist user : "</span> + user);
+            &#125;<span class="hljs-keyword">catch</span>(IOException e)&#123;
+                e.printStackTrace();
+            &#125;<span class="hljs-keyword">finally</span>&#123;
+                MyUtils.close(objectOutputStream);
+            &#125;
+        &#125;
+    &#125;).start();
+&#125;
+<span class="hljs-comment">//SecondActivity</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">recoverFromFile</span><span class="hljs-params">()</span></span>&#123;
+    <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable()&#123;
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;
+            User user = <span class="hljs-keyword">null</span>;
+            File cachedFile = <span class="hljs-keyword">new</span> File(MyConstants.CACHE_FILE_PATH);
+            <span class="hljs-keyword">if</span>(cachedFile.exists())&#123;
+                ObjectInputStream objectInputStream = <span class="hljs-keyword">null</span>;
+                <span class="hljs-keyword">try</span>&#123;
+                    objectInputStream = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> FileInputStream(
+                                                                 cachedFile));
+                    user = (User) objectInputStream.readObject();
+                    Log.d(TAG,<span class="hljs-string">"recover user :"</span>+user);
+                &#125;<span class="hljs-keyword">catch</span>(IOException)&#123;
+                    e.printStackTrace();
+                &#125;<span class="hljs-keyword">catch</span>(ClassNotFoundException e)&#123;
+                    e.printStackTrace();
+                &#125;<span class="hljs-keyword">finally</span>&#123;
+                    MyUtils.close(objectInputStream);
+                &#125;
+            &#125;
+        &#125;
+    &#125;).start();
+&#125;</code></pre>
+<blockquote>
+<p>文件共享方式适合在对数据同步要求不高的进程之间进行通信，并且要妥善处理<strong>并发读/写</strong>的问题。</p>
+</blockquote>
+</li>
+<li><p>使用Messenger</p>
+<p>译为“信使”，可以在Message中放入需要传递的数据，通过它在不同进程中传递Message对象。它的底层实现是AIDL</p>
+<pre><code class="hljs java"><span class="hljs-comment">//Messenger的构造方法</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Messenger</span><span class="hljs-params">(Handler target)</span></span>&#123;
+    mTarget = target.getIMessenger();
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Messenger</span><span class="hljs-params">(IBinder target)</span></span>&#123;
+    mTarget = IMessenger.Stub.asInterface(target);
+&#125;</code></pre>
+<blockquote>
+<p>Messenger一次处理一个请求，因此在服务端不用考虑线程同步的问题</p>
+</blockquote>
+<p>实现Messenger的步骤：</p>
+<ol>
+<li><p>服务端进程</p>
+<p>首先在服务端创建一个Service来处理客户端的连接请求，同时创建一个Handler并通过它来创建    Messenger对象，然后在Service的onBind中返回Messenger对象底层的Binder。</p>
+</li>
+<li><p>客户端进程</p>
+<p>首先绑定服务端的Service，绑定成功后用服务端返回的IBinder对象创建一个Messenger，通过这个Messenger就可以向服务端发送Message对象。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//服务端</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MessengerService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Service</span></span>&#123;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TAG = <span class="hljs-string">"MessengerService"</span>;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MessengerHandler</span> <span class="hljs-title">extend</span> <span class="hljs-title">Handler</span></span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleMessage</span><span class="hljs-params">(Message msg)</span></span>&#123;
+        <span class="hljs-keyword">switch</span>(msg.what)&#123;
+          <span class="hljs-keyword">case</span> MyConstants.MSG_FROM_CLIENT:
+            Log.i(TAG,<span class="hljs-string">"receive msg from client : "</span>+msg.getData().getString(<span class="hljs-string">"msg"</span>));
+            <span class="hljs-keyword">break</span>;
+          <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">super</span>.handleMessage(msg);
+        &#125;
+    &#125;
+&#125;
+&#125;</code></pre>
+<pre><code class="hljs xml">//注册Service
+<span class="hljs-tag">&lt;<span class="hljs-name">service</span>
+         <span class="hljs-attr">android:name</span> = <span class="hljs-string">"com.ryg.chapter_2.messenger.MessengerService"</span>
+         <span class="hljs-attr">android:process</span> = <span class="hljs-string">":remote"</span>&gt;</span></code></pre>
+<pre><code class="hljs java"><span class="hljs-comment">//客户端</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MessengerActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Activity</span></span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TAG = <span class="hljs-string">"MessengerActivity"</span>;
+    <span class="hljs-keyword">private</span> Messenger mService;
+    <span class="hljs-keyword">private</span> ServicerConnection mConnection = <span class="hljs-keyword">new</span> ServiceConnection()&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onServiceConnected</span><span class="hljs-params">(ComponentName className,IBinder service)</span></span>&#123;
+            mService = <span class="hljs-keyword">new</span> Messenger(service);
+            Message msg = Message.obtain(<span class="hljs-keyword">null</span>,<span class="hljs-string">"MyConstants.MSG_FROM_CLIENT"</span>);
+            Bundle data = <span class="hljs-keyword">new</span> Bundle();
+            data.putString(<span class="hljs-string">"msg"</span>,<span class="hljs-string">"hello ,this is client."</span>);
+            msg.setData(data);
+            <span class="hljs-keyword">try</span>&#123;
+                mService.send(msg);
+            &#125;<span class="hljs-keyword">catch</span>(RemoteException e)&#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onServiceDisconnected</span><span class="hljs-params">(ComponentName className)</span></span>&#123;&#125;
+    &#125;;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span></span>&#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_messenger);
+        Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,MessengerService.class);
+        bindService(intent,mConnection,Conatext.BIND_AUTO_CREATE);
+    &#125;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDestroy</span><span class="hljs-params">()</span></span>&#123;
+        unbindService(mConnection);
+        <span class="hljs-keyword">super</span>.onDestroy();
+    &#125;
+&#125;</code></pre>
+</li>
+</ol>
+</li>
+<li><p>使用AIDL</p>
+<p>AIDL的使用流程:</p>
+<ol>
+<li><p>服务端</p>
+<ul>
+<li>创建一个Service用来监听客户端的连接</li>
+<li>创建一个AIDL文件声明给客户端的接口</li>
+<li>在Service中实现这个AIDL接口</li>
+</ul>
+</li>
+<li><p>客户端</p>
+<ul>
+<li>需要绑定服务端的Service</li>
+<li>绑定成功后将服务端返回的Binder对象转换成AIDL接口所属的类型</li>
+</ul>
+</li>
+<li><p>AIDL接口的创建</p>
+<pre><code class="hljs java"><span class="hljs-comment">//IBookManager.aidl</span>
+<span class="hljs-keyword">package</span> com.ryg.chapter_2.aidl
+<span class="hljs-keyword">import</span> com.ryg.chapter_2.aidl.Book;
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IBookManager</span></span>&#123;
+  <span class="hljs-function">List&lt;Book&gt; <span class="hljs-title">getBookList</span><span class="hljs-params">()</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addBook</span><span class="hljs-params">(in Book book)</span></span>;
+&#125;</code></pre>
+<p>AIDL文件支持的数据类型</p>
+<ul>
+<li>基本数据类型(int , long , char , boolean , double等);</li>
+<li>String和CharSequence;</li>
+<li>List:只支持<strong>ArrayList</strong>,并且里面的每个元素都必须能够被AIDL支持；</li>
+<li>Map:只支持<strong>Hashap</strong>，并且里面的每个元素都必须能够被AIDL支持；</li>
+<li>Parcelabel：所有实现了Parcelable接口的对象；</li>
+<li>AIDL：所有的AIDL接口本身也可以在AIDL文件中使用。</li>
+</ul>
+<blockquote>
+<p>自定义的Parcelable对象和AIDL对象必须要显式<strong>import</strong>进来，无论它是否与当前AIDL文件位于同一个包内。</p>
+<p>如果AIDL文件中用到了自定义的Parcelable对象，必须新建一个和它同名的AIDL文件，并在其中声明它为Parcelabel类型。</p>
+<p>AIDL中除了基本数据类型，其他类型的参数必须标上方向：in，out，inout</p>
+<p>AIDL中的定向 tag 表示了在跨进程通信中数据的流向,数据流向是针对在客户端中的那个传入方法的对象而言的。</p>
+<p>​         in： 表示数据只能由客户端流向服务端</p>
+<p>​         out：表示数据只能由服务端流向客户端</p>
+<p>​         inout：表示数据可在服务端与客户端之间双向流通     </p>
+</blockquote>
+</li>
+<li><p>远程服务端Service的实现</p>
+<pre><code class="hljs java"><span class="hljs-comment">//服务端Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookManagerService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Service</span></span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TAG = <span class="hljs-string">"BMS"</span>;
+    <span class="hljs-comment">//CopyOnWriteArrayList:支持并发读/写。</span>
+    <span class="hljs-keyword">private</span> CopyOnWriteArrayList&lt;Book&gt; mBookList = <span class="hljs-keyword">new</span> CopyOnWriteArrayList&lt;Book&gt;();
+    <span class="hljs-keyword">private</span> Binder mBinder = <span class="hljs-keyword">new</span> IBookManager.Stub()&#123;
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Book&gt; <span class="hljs-title">getBookList</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException</span>&#123;
+            <span class="hljs-keyword">return</span> mBookList;
+        &#125;
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addBook</span><span class="hljs-params">(Book book)</span><span class="hljs-keyword">throws</span> RemoteException</span>&#123;
+            mBookList.add(Book);
+        &#125;
+    &#125;;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">super</span>.onCreate();
+        mBookList.add(<span class="hljs-keyword">new</span> Book(<span class="hljs-number">1</span>,<span class="hljs-string">"Android"</span>));
+        mBookList.add(<span class="hljs-keyword">new</span> Book(<span class="hljs-number">2</span>,<span class="hljs-string">"IOS"</span>));
+    &#125;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IBinder <span class="hljs-title">onBind</span><span class="hljs-params">(Intent intent)</span></span>&#123;
+        <span class="hljs-keyword">return</span> mBinder;
+
+    &#125;
+&#125;</code></pre>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">service</span>
+         <span class="hljs-attr">android:name</span>=<span class="hljs-string">".aidl.BookManagerService"</span>
+         <span class="hljs-attr">android:process</span>=<span class="hljs-string">":remote"</span>/&gt;</span></code></pre>
+</li>
+<li><p>客户端的实现</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookManagerActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Activity</span></span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TAG = <span class="hljs-string">"BookManagerActivity"</span>;
+    <span class="hljs-keyword">private</span> ServiceConnection mConnection = <span class="hljs-keyword">new</span> ServiceConnection()&#123;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onServiceConnected</span><span class="hljs-params">(ComponentName className,IBinder service)</span></span>&#123;
+            IBookManager bookManager = IBookManager.Stub.asInterface(service);
+            <span class="hljs-keyword">try</span>&#123;
+                List&lt;Book&gt; list = bookManager.getBookList();
+                Log.i(TAG,<span class="hljs-string">"query book list ,list"</span>+                      
+                            <span class="hljs-string">"type:"</span>+list.getClass().getCanonicalName());
+                Log.i(TAG,<span class="hljs-string">"query book list :"</span>+list.toString());
+            &#125;<span class="hljs-keyword">catch</span>(RemoteException e)&#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onServiceDisconnected</span><span class="hljs-params">(ComponentName className)</span></span>&#123;&#125;
+    &#125;;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span></span>&#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_book_manager);
+        Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,BookManagerService.class);
+        bindService(intent,mConnection,Context.BIND_AUTOCREATE);
+    &#125;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDestroy</span><span class="hljs-params">()</span></span>&#123;
+        unbindService(mConnection);
+        <span class="hljs-keyword">super</span>.onDestroy();                                          
+    &#125;
+&#125;</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>6. 解除监听
+
+   `RemoteCallbackList`是系统提供的用于删除跨进程Listener的接口
+
+   <pre><code class="hljs java"><span class="hljs-comment">//声明RemoteCalbackList</span>
+   <span class="hljs-keyword">private</span> RemoteCallbackList&lt;IOnNewBookListener&gt; mListenerList = <span class="hljs-keyword">new</span> RemoteCallbackList&lt;&gt;();
+   <span class="hljs-comment">//修改注册和注销方法</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">registerListener</span><span class="hljs-params">(IOnNewBookListener listener)</span> <span class="hljs-keyword">throws</span> RemoteException</span>&#123;
+    mListener.register(listener);
+   &#125;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unregisterListener</span><span class="hljs-params">(IOnNewBookListener listener)</span> <span class="hljs-keyword">throws</span> RemoteException</span>&#123;
+       mListener.unregister(listener);
+&#125;
+   <span class="hljs-comment">//通知Listener</span>
+<span class="hljs-keyword">int</span> N = mListenerList.beginBroadcast();
+   <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;
+    IOnNewBookListener l = mListenerList.getBroadcastItem(i);
+       <span class="hljs-keyword">if</span>(l != <span class="hljs-keyword">null</span>)&#123;
+           ......
+       &#125;
+   &#125;
+   mListenerList.finishBroadcast();</code></pre>
+
+
+   &gt; RemoteCallbackList并不是一个List,遍历时必须按照上述流程进行，`beginBroadcast`和`finishBroadcast`必须要配对使用。
+   &gt;
+   &gt; 客户端的`onServiceConnected`和`onServiceDisconnected`方法都运行在主线程，不能在其中直接调用服务端的耗时方法。
+   &gt;
+   &gt; `onServiceDiscnnected`在客户端的UI线程中被回调，而`binderDied`在客户端的Binder线程池中被回调
+
+7. 在AIDL中进行权限验证
+
+   - 在onBind中进行验证
+   - 在服务端的onTransact方法中进行验证
+</code></pre><ol start="5">
+<li><p>使用ContentProvider</p>
+<p>ContentProvider是Android中提供的用于不同应用间进行数据共享的方式,其底层实现是Binder。</p>
+<p>自定义ContentProvider步骤：</p>
+<ul>
+<li>继承自ContentProvider类</li>
+<li>实现其中的抽象方法：onCreate,query,update,insert,delete和getType。</li>
+<li>注册这个类</li>
+</ul>
+<blockquote>
+<p>与query方法不同的是，update,insert和delete方法会引起数据源的改变，需要通过ContentResolver的<strong>notifyhange</strong>方法进行更新。</p>
+<p>要观察一个ContentProvider中的数据变化，可以通过ContentResolver的registerContentObserver方法注册观察者，用unregisterContentObserver来进行解除。</p>
+</blockquote>
+</li>
+<li><p>使用Socket</p>
+<p>Socket，也称为“套接字”，它分为<strong>流式套接字</strong>和<strong>用户数据报套接字</strong>，分别对应与网络传输控制层中的<strong>TCP</strong>和<strong>UDP</strong>协议。两个进程可以通过Socket来实现信息的传输，Socket本身可以支持传输任意字节流。</p>
+<p>Socket连接过程</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/socket_connect.png" srcset="/img/loading.gif" alt></p>
+</li>
+</ol>
+<ol start="5">
+<li><h5 id="Binder连接池"><a href="#Binder连接池" class="headerlink" title="Binder连接池"></a>Binder连接池</h5><p>将每个业务模块的Binder请求统一转发到远程Service中去执行，从而避免了重复创建Service。</p>
+</li>
+<li><h5 id="选用合适的IPC方式"><a href="#选用合适的IPC方式" class="headerlink" title="选用合适的IPC方式"></a>选用合适的IPC方式</h5><p>| 名称              | 优点                                | 缺点                                       | 适用场景                               |<br>| ————— | ——————————— | —————————————- | ———————————- |<br>| Bundle          | 简单易用                              | 只能传输Bundle支持的数据类型                        | 四大组件间的进程间通信                        |<br>| 文件共享            | 简单易用                              | 不适合高并发场景，并且无法做到进程间的即时通信                  | 无并发访问情形，交换简单的数据实时性不高的场景            |<br>| AIDL            | 功能强大                              | 使用稍复杂，需要处理好线程同步                          | 一对多通信且有RPC需求                       |<br>| Messenger       | 功能一般，支持一对多串行通信，支持实时通信             | 不能很好处理高并发，不支持RPC，数据只能通过Message传输Bundle支持的数据类型 | 低并发的一对多即时通信，无RPC需求，或者无须要返回结果的RPC需求 |<br>| ContentProvicer | 数据源访问功能强大，支持一对多并发数据共享，可通过Call方法扩展 | 可以理解为受约束的AIDL，主要提供数据源的CRUD操作             | 一对多的进程间的数据共享                       |<br>| Socket          | 功能强大，可以通过网络传输字节流，支持一对多并发实时通信      | 实现细节稍繁琐，不支持直接的RPC                        | 网络数据交换                             |</p>
+</li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android开发艺术探索/">Android开发艺术探索</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/笔记/">笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/27/Android开发艺术探索学习笔记(第一章)/">
+                        <span class="hidden-mobile">Android开发艺术探索学习笔记(第一章)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android开发艺术探索学习笔记-第二章&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
