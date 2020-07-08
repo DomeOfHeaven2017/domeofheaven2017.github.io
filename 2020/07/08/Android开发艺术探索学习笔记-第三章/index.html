@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
+  <meta name="author" content="DomeOfHeaven">
+  <meta name="keywords" content>
+  <title>Android开发艺术探索学习笔记-第三章 - DomeOfHeaven</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>DomeOfHeaven</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-08 21:53">
+      2020年7月8日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="Android开发艺术探索-第三章笔记"><a href="#Android开发艺术探索-第三章笔记" class="headerlink" title="Android开发艺术探索 第三章笔记"></a>Android开发艺术探索 第三章笔记</h3><h4 id="第三章-View的事件体系"><a href="#第三章-View的事件体系" class="headerlink" title="第三章 View的事件体系"></a>第三章 View的事件体系</h4><h5 id="3-1-View基础知识"><a href="#3-1-View基础知识" class="headerlink" title="3.1 View基础知识"></a>3.1 View基础知识</h5><ol>
+<li><p>什么是View</p>
+<p>View是Android中所有控件的基类，是一种界面层的控件的一种抽象。ViewGroup内部包含了许多控件，是一组View，它们之间的关系如下图。</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-1View的层级结构.png" srcset="/img/loading.gif" alt="图3-1View的层级结构"></p>
+</li>
+<li><p>View的位置参数</p>
+<p>View的位置由它的四个顶点决定，分别对应于View的四个属性：<strong>top, left, right, bottom </strong>即它的四个坐标，并且这四个坐标都是相对与View的父容器来说的，是相对坐标。</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-2View的位置坐标和父容器的关系.png" srcset="/img/loading.gif" alt="图3-2View的位置坐标和父容器的关系"></p>
+<blockquote>
+<p>width = right - left</p>
+<p>height = bottom - top</p>
+</blockquote>
+</li>
+<li><p>MotionEvent和TouchSlop</p>
+<ol>
+<li><p>MotionEvent:在手指接触屏幕后所产生的一系列事件</p>
+<ul>
+<li>ACTION_DOWN——手指刚接触屏幕</li>
+<li>ACTION_MOVE——手指在屏幕上移动</li>
+<li>ACTION_UP——手指从屏幕上松开的一瞬间</li>
+</ul>
+<ol>
+<li>典型事件序列</li>
+</ol>
+<ul>
+<li>点击屏幕后离开松开，事件序列为——DOWN -&gt; UP;</li>
+<li>点击屏幕滑动一会儿在松开，事件序列为——DOWN-&gt;MOVE-&gt;…-&gt;MOVE-&gt;UP</li>
+</ul>
+<ol start="2">
+<li>通过MotionEvent对象可以得到点击事件发生的<strong>x</strong>和<strong>y</strong>坐标。</li>
+</ol>
+<ul>
+<li>getX/getY——返回的是相对于当前View左上角的x和y坐标；</li>
+<li>getRawX/getRawY——返回的是相对于手机屏幕左上角的x和y坐标。</li>
+</ul>
+</li>
+<li><p>TouchSlop：系统所能识别的滑动的最小距离，当两次滑动之间的距离小于这个常量时，系统不能识别为是滑动事件，值和设备有关，通过如下方法可以获取这个常量。</p>
+<pre><code class="hljs java">ViewConfiguration.get(getContext()).getScaledTouchSlop();</code></pre>
+</li>
+</ol>
+</li>
+<li><p>VelocityTracker,GestureDetector和Scroller</p>
+<ol>
+<li><p>VelocityTracker：速度追踪，用于追踪手指在滑动过程中的速度，包括水平和竖直方向。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//1.首先在View的onTouchEvent方法中追踪当前点击事件的速度</span>
+VelocityTracker velocityTracker = VelocityTracker.obtain();
+velocityTracker.addMovement(event);
+<span class="hljs-comment">//2.获取当前速度</span>
+velocityTracker.computeCurrentVelocity(<span class="hljs-number">1000</span>);<span class="hljs-comment">//计算一个时间段内的速度</span>
+<span class="hljs-keyword">int</span> xVelocity = (<span class="hljs-keyword">int</span>) velocityTracker.getXVelocity();
+<span class="hljs-keyword">int</span> yVelocity = (<span class="hljs-keyword">int</span>) velocityTracker.getYVelocity();
+<span class="hljs-comment">//3.重置并回收内存</span>
+velocityTracker.clear();
+velocityTracker.recycle();</code></pre>
+</li>
+<li><p>GestureDetector：手势检测，用于辅助检测用户的单击，滑动，长按，双击等行为。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//1.创建一个GestureDetector对象，实现onGestureListener接口</span>
+GestureDetector mGestureDetector = <span class="hljs-keyword">new</span> GestureDetector(<span class="hljs-keyword">this</span>);
+mGestureDetector.setIsLongpressEnabled(<span class="hljs-keyword">false</span>);<span class="hljs-comment">//解决长按屏幕后无法拖动的现象</span>
+<span class="hljs-comment">//2.接管目标View的onTouchEvent方法,在其中使用</span>
+<span class="hljs-keyword">boolean</span> consume = mGestureDetector.onTouchEvent(event);
+<span class="hljs-keyword">return</span> consume;
+<span class="hljs-comment">//3.选择实现onGestureListener和OnDoubleTapListener中的方法</span>
+<span class="hljs-comment">//比如onSingleTapup():单击 ，onFling():滑动，onScroll():拖动，onLongPress():长按，</span>
+<span class="hljs-comment">//onDoubleTap():双击</span></code></pre>
+</li>
+<li><p>Scroller：弹性滑动对象，用于实现View的弹性滑动。</p>
+<pre><code class="hljs java">Scroller mScroller = <span class="hljs-keyword">new</span> Scroller(mContext);
+<span class="hljs-comment">//缓慢滚动到指定位置</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">smoothScrollTo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> destX,<span class="hljs-keyword">int</span> destY)</span></span>&#123;
+  <span class="hljs-keyword">int</span> scrollX = getScrollX();
+  <span class="hljs-keyword">int</span> delta = destX-scrollX;
+  mScroller.startScroll(ScrollX,<span class="hljs-number">0</span>,delta,<span class="hljs-number">0</span>,<span class="hljs-number">1000</span>);
+&#125;
+<span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">computeScroll</span><span class="hljs-params">()</span></span>&#123;
+  <span class="hljs-keyword">if</span>(mScroller.computeScrollOffset())&#123;
+    smoothScrollTo(mScroller.getCurrX(),mScroller.getCurrY());
+    postInvalidate();
+  &#125;
+&#125;</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="3-2-View的滑动"><a href="#3-2-View的滑动" class="headerlink" title="3.2 View的滑动"></a>3.2 View的滑动</h5><ol>
+<li><p>使用ScrollTo/scrollBy</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> scrollTo（ <span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y）&#123;
+  <span class="hljs-keyword">if</span>(mScrollX != x||mScrollY !=y)&#123;
+    <span class="hljs-keyword">int</span> oldX = mScrollX;
+    <span class="hljs-keyword">int</span> oldY = mScrollY;
+    mScrollX = x;
+    mScrollY = y;
+    invalidateParentCaches();
+    onScrollChanged(mScrollX,mScrollY,oldX,oldY);
+    <span class="hljs-keyword">if</span>(!awakenScrollBars())&#123;
+      postInvalidateOnAnimation();
+    &#125;
+  &#125;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">scrollBy</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span>&#123;
+    scrollTo(mScrollX + x,mScrollY + y);
+  &#125;
+&#125;</code></pre>
+<blockquote>
+<p>在滑动过程中，mScrollX的值总是等于View左边缘和View内容左边缘在水平方向的距离；mScrollY的值等于View上边缘和View内容上边缘在竖直方向上的距离</p>
+<p>scrollTo和scrollBy只能改变View内容的位置而不能改变View在布局中的位置。</p>
+<p>如果从左向右滑动，那么mScrollX为负值，反之为正值；如果从上往下滑动，那么mScrollY为负值，反之为正值。</p>
+</blockquote>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-3mScrollX和mScrollY的变换规律.png" srcset="/img/loading.gif" alt="图3-3mScrollX和mScrollY的变换规律"> b</p>
+</li>
+<li><p>使用动画</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--View动画实现移动--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">translate</span>
+           <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"100"</span>
+           <span class="hljs-attr">android:fromXDelta</span>=<span class="hljs-string">"0"</span>
+           <span class="hljs-attr">android:fromYDelta</span>=<span class="hljs-string">"0"</span>
+           <span class="hljs-attr">android:interpolator</span>=<span class="hljs-string">"@android:anim/linear_interpolator"</span>
+           <span class="hljs-attr">android:toXDelta</span>=<span class="hljs-string">"100"</span>
+           <span class="hljs-attr">android:toYDelta</span>=<span class="hljs-string">"100"</span>/&gt;</span></code></pre>
+<pre><code class="hljs java"><span class="hljs-comment">//属性动画实现移动</span>
+ObjectAnimator.ofFloat(targetView,<span class="hljs-string">"translationX"</span>,<span class="hljs-number">0</span>,<span class="hljs-number">100</span>)
+              .setDuration(<span class="hljs-number">100</span>)
+              .start();</code></pre>
+</li>
+<li><p>改变布局参数：即改变<strong>LayoutParams</strong></p>
+<pre><code class="hljs java">MarginLayoutParams params = (MarginLayoutParams)mButton.getLayoutParams();
+params.width +=<span class="hljs-number">100</span>;
+params.leftMargin +=<span class="hljs-number">100</span>;
+mButton.requestLayout(); <span class="hljs-comment">//或者 mButton.setLayoutParams(params);</span></code></pre>
+</li>
+<li><p>各种滑动方式的对比</p>
+<ul>
+<li>scrollTo/scrollBy :  操作简单，适合对View内容的滑动</li>
+<li>动画 ：操作简单，主要适用于没有交互的View和实现复杂的动画效果</li>
+<li>改变布局参数 ：操作稍复杂，适用于有交互的View</li>
+</ul>
+</li>
+</ol>
+<h5 id="3-3-弹性滑动"><a href="#3-3-弹性滑动" class="headerlink" title="3.3 弹性滑动"></a>3.3 弹性滑动</h5><ol>
+<li><p>使用Scroller</p>
+<p>当View重绘后会在在<code>draw</code>方法中调用<strong>computeScroll</strong>，而computeScroll又会去向当前<strong>Scroller</strong>获取当前的<code>scrollX</code>和<code>scrollY</code>；然后通过<code>scrollTo</code>方法实现滑动，然后继续重绘，循环反复。</p>
+</li>
+<li><p>通过动画</p>
+</li>
+<li><p>使用延时策略</p>
+<p>通过发送一系列延时消息达到渐进式的效果，可以使用<code>Handler</code>或View的<code>postDelayed</code>方法。</p>
+</li>
+</ol>
+<h5 id="3-4-View的事件分发机制"><a href="#3-4-View的事件分发机制" class="headerlink" title="3.4 View的事件分发机制"></a>3.4 View的事件分发机制</h5><ol>
+<li><p>点击事件的传递规则</p>
+<pre><code class="hljs java"><span class="hljs-comment">//点击事件分发过程中的三个重要方法</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dispatchTouchEvent</span><span class="hljs-params">(MotionEvent e)</span>  <span class="hljs-comment">//用来进行事件的分发</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(MotionEvent e)</span> <span class="hljs-comment">//用来判断是否拦截某个事件</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(MotionEvent e)</span>  <span class="hljs-comment">//在dispatchTouchEvent中调用，用来处理点击事件</span>
+<span class="hljs-comment">//三个方法的关系（伪代码）</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dispatchTouchEvent</span><span class="hljs-params">(MotionEvent e)</span></span>&#123;
+  <span class="hljs-keyword">boolean</span> consume =<span class="hljs-keyword">false</span>;
+  <span class="hljs-keyword">if</span>(onInterceptTouchEvent(e))&#123;
+    consume =onTOuchEvent(e);
+  &#125;<span class="hljs-keyword">else</span>&#123;
+    consume = child.dispatchTouchEvent(e);
+  &#125;
+  <span class="hljs-keyword">return</span> consume;
+&#125;</code></pre>
+<p>当一个点击事件产生时，它的传递过程为：<strong>Activity -&gt; Window -&gt;View</strong>,即事件先传递给Activity，Activity再传递给Window，最后Window再传递给顶级View，顶级View接收到事件后，就会按照事件分发机制去分发事件。</p>
+<blockquote>
+<p>PS：</p>
+<ol>
+<li>同一个事件序列是指从手指接触屏幕那一刻起到手指离开屏幕的那一刻结束，在这一过程中产生的一系列事件；</li>
+<li>正常情况下，一个事件序列只能被一个View拦截且消耗；</li>
+<li>某个View一旦决定拦截，那么这个事件序列都只能由它处理，并且它的onInterceptTouchEvent不会被调用；</li>
+<li>某个View一旦开始处理事件，如果它不消耗ACTION_DOWN(onTouchEvent返回false)，那么同一事件序列的其它事件都不会交由它处理，事件会重新交由它的父元素处理(调用父元素的onTouchEvent);</li>
+<li>ViewGroup默认不拦截任何事件；</li>
+<li>View没有onInterceptTouchEvent方法，一旦有点击 事件传递给它，它的onTouchEvent方法就会调用；</li>
+<li>View的onTouchEvent默认都会消耗事件(返回true)。除非它是不可点击的(clickable和longClickable都为false)；</li>
+<li>View的enable属性不影响onTouchEvent的默认返回值。、</li>
+<li>onClick会发生的前提是当前View是可点击的，并且它收到了down和up事件；</li>
+<li>事件传递过程是由外向内的，即事件总是先传递给父元素，再由父元素分发给子View，通过requestDisallowInterceptTouchEvent方法可以在子元素中干预父元素的事件分发过程，但是ACTION_DOWN事件除外。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>事件分发的源码解析</p>
+<ol>
+<li><p>Activity对点击事件的分发过程</p>
+<p>当一个点击操作发生时，事件最先传递给当前Activity，由Activity的dispatchTouchEvent来进行事件分发，具体是由Activity的Window来完成的。Window会将事件传递给<strong>decor view</strong>，decor view 一般是当前界面的底层容器(即setContentView所设置的View的父容器)。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//Activity # dispatchTouchEvent</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dispatchTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span></span>&#123;
+  <span class="hljs-keyword">if</span>(ev.getAction() == MotionEvent.ACTION_DOWN)&#123;
+    onUserInteraction();
+  &#125;
+  <span class="hljs-comment">//交由所附属的Window进行分发</span>
+  <span class="hljs-keyword">if</span>(getWindow().superDispatchTouchEvent(ev))&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    
+  &#125;
+  <span class="hljs-keyword">return</span> onTouchEvent(ev);<span class="hljs-comment">//所有View都没有处理，调用Activity的onTouchEvent()</span>
+&#125;</code></pre>
+<pre><code class="hljs java"><span class="hljs-comment">//Window的分发</span>
+<span class="hljs-comment">//Window # superDispatchTouchEvent</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">superDispatchTouchEvent</span><span class="hljs-params">(MotionEvent event)</span>
+<span class="hljs-comment">//Window的唯一实现是PhoneWindow</span>
+<span class="hljs-comment">//PhoneWindow # superDispatchTouchEvent</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">superDispatchTouchEvent</span><span class="hljs-params">(MotionEvent event)</span></span>&#123;
+  <span class="hljs-keyword">return</span> mDecor.superDispatchTouchEvent(event);
+&#125;
+<span class="hljs-comment">//DecorView</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DecorView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">FrameLayout</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">RootViewSurfaceTaker</span></span>&#123;
+  <span class="hljs-keyword">private</span> DecorView mDecor;
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> View <span class="hljs-title">getDecorView</span><span class="hljs-params">()</span></span>&#123;
+    <span class="hljs-keyword">if</span>(mDecor == <span class="hljs-keyword">null</span>)&#123;
+      installDecor();
+    &#125;
+    <span class="hljs-keyword">return</span> mDecor;
+  &#125;
+&#125;</code></pre>
+</li>
+<li><p>顶级View对点击事件的分发过程</p>
+<p>点击事件到达顶级View(一般是ViewGroup)以后，会调用ViewGroup的<strong>dispatchTouchEvent</strong>方法，然后如果ViewGroup拦截事件(<strong>onInterceptTouchEvent</strong>返回true)，则事件由ViewGroup处理，此时如果ViewGroup设置了<strong>onTouchListener</strong>，则<strong>onTouch</strong>会被调用，否则调用<strong>onTouchEvent</strong>，且如果设置了<strong>onClickListener</strong>，则会调用<strong>onClick</strong>。如果顶级View不拦截，则事件会传递给它所在的点击事件链上的子View，调用子View的<strong>dispatchTouchEvent</strong>，如此循环，完成整个事件的分发。</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-4顶级View的事件分发.png" srcset="/img/loading.gif" alt="图3-4顶级View的事件分发"></p>
+<pre><code class="hljs java"><span class="hljs-comment">//check for interception # dispatchTouchEvent # ViewGroup</span>
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> intercepted;
+<span class="hljs-keyword">if</span>(actionMasked == MotionEvent.ACTION_DOWN || mFirstTouchTarget != <span class="hljs-keyword">null</span>)&#123;
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> disallowIntercept = (mGroupFlags &amp; FLAG_DISALLOW_INTERCEPT) != <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">if</span>(!disallowIntercept)&#123;
+    intercepted = onInterceptTouchEvent(ev);
+    ev.setAction(action);<span class="hljs-comment">//restore action in case it was changed</span>
+  &#125;<span class="hljs-keyword">else</span>&#123;
+    intercepted = <span class="hljs-keyword">true</span>;
+  &#125;
+&#125;<span class="hljs-keyword">else</span>&#123;
+  intercepated = <span class="hljs-keyword">true</span>;
+&#125;</code></pre>
+<blockquote>
+<ol>
+<li><code>onInterceptTouchEvent</code>不是每次事件都会被调用，当事件能够传递到当前的<strong>ViewGroup</strong>时，<code>dispatchTouchEvent</code>会每次都调用</li>
+<li><code>FLAG_DISALLOW_INTERCEPT</code>标记可以让<strong>ViewGroup</strong>不再拦截事件</li>
+</ol>
+</blockquote>
+</li>
+<li><p>View对点击事件的处理过程</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/View点击事件处理流程.png" srcset="/img/loading.gif" alt></p>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="3-5-View的滑动冲突"><a href="#3-5-View的滑动冲突" class="headerlink" title="3.5 View的滑动冲突"></a>3.5 View的滑动冲突</h5><ol>
+<li><p>常见的滑动冲突场景</p>
+<ol>
+<li><p>外部滑动方向和内部滑动方向不一致</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-5常见滑动冲突场景1.png" srcset="/img/loading.gif" alt="图3-5常见滑动冲突场景1"></p>
+</li>
+<li><p>外部滑动方向和内部滑动方向一致</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-6常见滑动冲突场景2.png" srcset="/img/loading.gif" alt="图3-6常见滑动冲突场景2"></p>
+</li>
+<li><p>上面两种情况的嵌套</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图3-7常见滑动冲突场景3.png" srcset="/img/loading.gif" alt="图3-7常见滑动冲突场景3"></p>
+</li>
+</ol>
+</li>
+<li><p>滑动冲突的处理规则</p>
+<ul>
+<li>第一种滑动冲突：根据滑动时水平滑动还是竖直滑动来判断由谁拦截事件。</li>
+<li>第二种滑动冲突：根据实际业务需求来进行处理</li>
+<li>第三种滑动冲突：与第二种一致</li>
+</ul>
+</li>
+<li><p>滑动冲突的解决方式</p>
+<ol>
+<li><p>外部拦截法</p>
+<p>点击事件都先经过父容器的拦截处理，根据父容器的需求即可解决滑动冲突</p>
+</li>
+<li><p>内部拦截法</p>
+<p>父容器不拦截任何事件，所有的事件都传递给子元素，子元素可以直接消耗掉或者交由父容器进行处理。需要配合<code>requestDisallowInterceptTouchEvent</code>方法才能正常工作。</p>
+</li>
+</ol>
+</li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android开发艺术探索/">Android开发艺术探索</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/笔记/">笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/05/Android开发艺术探索学习笔记-第二章/">
+                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第二章</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android开发艺术探索学习笔记-第三章&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
