@@ -222,6 +222,9 @@ sup > a::before,
 #local-search-result .search-list-content {
   padding: 0 1.25rem;
 }
+#local-search-result .search-word {
+  color: #ff4500;
+}
 html,
 body {
   font-size: 16px;
@@ -535,6 +538,17 @@ img[srcset] {
 .navbar .dropdown-collapse {
   background-color: #2f4154;
 }
+@media (min-width: 992px) {
+  .navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+  .navbar .dropdown > .dropdown-toggle:active {
+    pointer-events: none;
+  }
+  .navbar .dropdown-menu {
+    top: 95%;
+  }
+}
 .navbar .animated-icon {
   width: 30px;
   height: 20px;
@@ -674,8 +688,14 @@ img[srcset] {
   max-width: 90%;
   margin: 1.5rem auto;
   display: block;
-  box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15) !important;
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
   border-radius: 3px;
+}
+.markdown-body details {
+  cursor: pointer;
+}
+.markdown-body details summary {
+  outline: none;
 }
 .markdown-body div.hljs {
   overflow-x: initial;
@@ -1329,6 +1349,7 @@ post-content strong {
 .group-image-container img {
   margin: 0 auto;
   border-radius: 3px;
+  box-shadow: 0 3px 9px 0 rgba(0,0,0,0.15), 0 3px 9px 0 rgba(0,0,0,0.15);
 }
 .group-image-row {
   margin-bottom: 0.5rem;
