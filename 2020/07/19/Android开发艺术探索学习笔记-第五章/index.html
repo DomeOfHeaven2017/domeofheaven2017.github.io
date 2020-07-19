@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>ProtocolBuffers-基本使用 - DomeOfHeaven</title>
+  <title>Android开发艺术探索学习笔记-第五章 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-03-12 21:11" pubdate>
-      2020年3月12日 晚上
+    <time datetime="2020-07-19 20:46" pubdate>
+      2020年7月19日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      851 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      10
        分钟
     </span>
   
@@ -201,191 +201,125 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">ProtocolBuffers-基本使用</h1>
+            <h1 style="display: none">Android开发艺术探索学习笔记-第五章</h1>
             
             <div class="markdown-body" id="post-body">
-              <h4 id="Protocol-Buffers"><a href="#Protocol-Buffers" class="headerlink" title="Protocol Buffers"></a>Protocol Buffers</h4><p>​    <em>一种跨语言，跨平台的可扩展的序列化数据格式</em></p>
-<ol>
-<li><p>相比XML的优势</p>
-<ul>
-<li>更简单</li>
-<li>更轻量（数据体积小3~10倍）</li>
-<li>更快速（20～100倍）</li>
-<li>自动化生成更易于编码方式使用的数据访问类</li>
-</ul>
-</li>
-<li><p>使用方法</p>
-<pre class="mermaid">   graph TD;
-   A[定义protobuf消息格式]　--> B[编译protobuf];
-   B --> C[使用protobuf API进行读写];</pre>
+              <h3 id="理解RemoteViews"><a href="#理解RemoteViews" class="headerlink" title="理解RemoteViews"></a>理解RemoteViews</h3><h4 id="1-RemoteViews的应用"><a href="#1-RemoteViews的应用" class="headerlink" title="1. RemoteViews的应用"></a>1. RemoteViews的应用</h4><p>RemoteViews在实际开发中主要用在通知栏和桌面小部件的开发中。通知栏主要通过<code>NotificationManager</code>的<strong>notify</strong>方法实现，桌面小部件则通过<code>AppWidgetProvider</code>实现。这两个的界面都运行在系统的<strong>SystemServer</strong>进程中，无法直接更新View.</p>
+<h5 id="1-RemoteViews在通知栏上的应用"><a href="#1-RemoteViews在通知栏上的应用" class="headerlink" title="1.RemoteViews在通知栏上的应用"></a>1.RemoteViews在通知栏上的应用</h5><ul>
+<li><p>使用系统默认样式</p>
+<pre><code class="hljs java"><span class="hljs-comment">// Build the notification and add the action.</span>
+Notification newMessageNotification = <span class="hljs-keyword">new</span> Notification.Builder(context, CHANNEL_ID)
+        .setSmallIcon(R.drawable.ic_message)
+        .setContentTitle(getString(R.string.title))
+        .setContentText(getString(R.string.content))
+        .addAction(action)
+        .build();
 
-<ol>
-<li><p>使用protobuf语法描述需要存储的数据结构（编写．proto文件）</p>
-<pre><code class="hljs protobuf">syntax = <span class="hljs-string">"proto3"</span>; <span class="hljs-comment">//默认为proto2,不能为空</span>
+<span class="hljs-comment">// Issue the notification.</span>
+NotificationManagerCompat notificationManager = NotificationManagerCompat.from(<span class="hljs-keyword">this</span>);
+notificationManager.notify(notificationId, newMessageNotification);</code></pre>
+</li>
+<li><p>自定义通知</p>
+<pre><code class="hljs java"><span class="hljs-comment">// Get the layouts to use in the custom notification</span>
+RemoteViews notificationLayout = <span class="hljs-keyword">new</span> RemoteViews(getPackageName(), R.layout.notification_small);
+RemoteViews notificationLayoutExpanded = <span class="hljs-keyword">new</span> RemoteViews(getPackageName(), R.layout.notification_large);
 
-<span class="hljs-keyword">package</span> tutorial;　<span class="hljs-comment">//避免命名冲突</span>
-
-<span class="hljs-keyword">option</span> java_package = <span class="hljs-string">"com.example.tutorial"</span>;　<span class="hljs-comment">//生成类的包结构</span>
-<span class="hljs-keyword">option</span> java_outer_classname = <span class="hljs-string">"AddressBookProtos"</span>;　<span class="hljs-comment">//生成包括当前文件所有类的类名，默认是MyProto,生成my_proto.proto，不能与内部定义的类名称相同（不能设为AddressBook）</span>
-
-<span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">Person</span> </span>&#123;
-   <span class="hljs-built_in">string</span> name = <span class="hljs-number">1</span>;　<span class="hljs-comment">//用于二进制编码的唯一标识</span>
-   <span class="hljs-built_in">int32</span> id = <span class="hljs-number">2</span>;
-   <span class="hljs-built_in">string</span> email = <span class="hljs-number">3</span>;
-
-  <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">PhoneType</span> </span>&#123;
-    MOBILE = <span class="hljs-number">0</span>;　<span class="hljs-comment">//必须包含标识０，用于设置默认值和与proto2语义兼容</span>
-    HOME = <span class="hljs-number">1</span>;
-    WORK = <span class="hljs-number">2</span>;
-  &#125;
-
-  <span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">PhoneNumber</span> </span>&#123;
-     <span class="hljs-built_in">string</span> number = <span class="hljs-number">1</span>;
-     PhoneType type = <span class="hljs-number">2</span> [packed = HOME];
-  &#125;
-
-   PhoneNumber phones = <span class="hljs-number">4</span>;
-&#125;
-
-<span class="hljs-class"><span class="hljs-keyword">message</span> <span class="hljs-title">AddressBook</span> </span>&#123;
-   Person people = <span class="hljs-number">1</span>;
-&#125;</code></pre>
-<blockquote>
-<p>基本语法（proto3）：</p>
-<ol>
-<li><p>消息是各种类型数据的集合，</p>
-</li>
-<li><p>可以包含<code>bool</code>,<code>int32</code>,<code>float</code>,<code>double</code>,<code>string</code>,枚举或者其他的消息</p>
-</li>
-<li><p>标识的范围为1 ~ 2^29^ - 1,1~15的标识比较高的数字少一个字节进行编码，适宜一些常用或者重复的字段;16以上的适用不太常使用的可选字段;19000 ~ 19999不可使用，为内置保留．</p>
-</li>
-<li><p>每个字段都必须标明注解：</p>
-<ol>
-<li><code>required</code>:该字段必须设置值，否则该消息将被视为“未初始化”,构建未初始化的消息将抛出RuntimeException,解析未初始化的消息将抛出IOException;除此之外与<code>optional</code>一致</li>
-<li><code>optional</code>:该字段是可选字段，可以设置值也可以不设置值。如果不设置值，则使用默认值．</li>
-<li><code>repeated</code>:该字段可以重复任意次数（包括零），重复值的顺序将保留在<strong>protobuf</strong>中。可将其视为动态大小的数组．</li>
-</ol>
-</li>
-<li><p>Any字段：</p>
-<pre><code class="hljs protobuf">&gt;    import "google/protobuf/any.proto";
-&gt;    
-&gt;    message ErrorStatus &#123;
-&gt;      string message = 1;
-&gt;      google.protobuf.Any details = 2;
-&gt;    &#125;
-&gt;</code></pre>
-</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="6">
-<li><p>Oneof字段：</p>
-</li>
-<li><p>一个.proto文件中可以定义多种消息</p>
-</li>
-<li><p>每个message类以及它的子类有自己的<code>builder</code>类 ，通过<code>builder</code>类来进行设置</p>
-</li>
-<li><p>数据类型</p>
-</li>
-<li><p>不能在proto3中直接导入proto2的枚举进行使用，要导入其消息．</p>
-</li>
-<li><p>Map类型</p>
-<pre><code class="hljs protobuf">&gt;     map&lt;key_type, value_type&gt; map_field = N;
-&gt;     map&lt;<span class="hljs-built_in">string</span>, Project&gt; projects = <span class="hljs-number">3</span>;
-&gt;</code></pre>
-</li>
-</ol>
-</blockquote>
-<blockquote>
-<pre><code>1. `key_type` 可以是任何 int 或者 string 类型(任何的标量类型，具体可以见上面标量类型对应表格，但是要除去 float、double 和 bytes)
-2. `value_type` 可以是除去 map 以外的任何类型。
-</code></pre><ol start="12">
-<li><p>定义service</p>
-<p>如果要使用 RPC（远程过程调用）系统的消息类型，可以在 <code>.proto</code> 文件中定义 RPC 服务接口，protocol buffer 编译器将使用所选语言生成服务接口代码和 stubs</p>
-<pre><code class="hljs protobuf">&gt;     <span class="hljs-comment">//参数为SearchRequest,返回值为SearchResponse</span>
-&gt;     <span class="hljs-class"><span class="hljs-keyword">service</span> <span class="hljs-title">SearchService</span> </span>&#123;
-&gt;       <span class="hljs-function"><span class="hljs-keyword">rpc</span> Search (SearchRequest) <span class="hljs-keyword">returns</span> (SearchResponse)</span>;
-&gt;     &#125;
-&gt;</code></pre>
-</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="13">
-<li>JSON Map</li>
-</ol>
-<p>如果一个值在json编码的数据中丢失或者它的值是null, 在被解析成protocol buffer时它将设置为对应的默认值.如果一个字段的值正好是protocol buffer的默认值, 这个字段默认就不会出现在json编码的数据中以便节约空间.</p>
-</blockquote>
-</li>
-<li><p>通过protobuf编译器编译．proto文件（生成对应平台的文件）</p>
-<ul>
-<li>使用命令</li>
-</ul>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#命令格式</span></span>
-protoc [option] PROTO_FILES
-<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#Java</span></span>
-protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto
-<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#Python</span></span>
-protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
-<blockquote>
-<ul>
-<li><p>SRC_DIR:源代码路径，默认为当前文件夹</p>
-</li>
-<li><p>DST_DIR:生成的代码路径，默认与SRC_DIR相同</p>
-</li>
-<li><p>–Java_out:生成不同语言对应的文件</p>
-</li>
-<li><p>对于Android使用Java Lite可以减小生成类的体积</p>
-<p>1.安装java_lite环境</p>
-<p>2.编译java_lite版文件</p>
-<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">   protoc --javalite_out=<span class="hljs-variable">$DST_DIR</span> PROTO_FILES</span>
-<span class="hljs-meta">&gt;</span><span class="bash"></span></code></pre>
+<span class="hljs-comment">// Apply the layouts to the notification</span>
+Notification customNotification = <span class="hljs-keyword">new</span> NotificationCompat.Builder(context, CHANNEL_ID)
+        .setSmallIcon(R.drawable.notification_icon)
+        .setStyle(<span class="hljs-keyword">new</span> NotificationCompat.DecoratedCustomViewStyle())
+        .setCustomContentView(notificationLayout)
+        .setCustomBigContentView(notificationLayoutExpanded)
+        .build();</code></pre>
 </li>
 </ul>
+<h5 id="2-RemoteViews在桌面小部件上的应用"><a href="#2-RemoteViews在桌面小部件上的应用" class="headerlink" title="2.RemoteViews在桌面小部件上的应用"></a>2.RemoteViews在桌面小部件上的应用</h5><pre><code>AppWidgetProvider是Android中提供的用于实现桌面小部件的类，本质是一个广播
+</code></pre><ul>
+<li><p>定义小部件界面</p>
+<p>在res/layout/下建立小部件布局界面</p>
+</li>
+<li><p>定义小部件配置信息</p>
+<p>在res/xml/下建立小部件配置信息</p>
+<blockquote>
+<p>重要参数说明：</p>
+<p>initLayout:初始化界面</p>
+<p>updatePeriodMillis:自动更新周期</p>
 </blockquote>
+</li>
+<li><p>定义小部件的实现类</p>
+<p>继承AppWidgetProvider实现具体逻辑</p>
+<blockquote>
+<p>重要方法说明：</p>
+<p>onEnable:小部件第一次添加到桌面时调用该方法</p>
+<p>onUpdate:小部件被添加时或者每次小部件更新时都会调用该方法</p>
+<p>onDeleted:每删除一次桌面小部件就调用一次</p>
+<p>onDisabled:最后一个该类型的桌面小部件被删除时调用该方法</p>
+<p>onReceive:分发具体的事件给其他方法</p>
+</blockquote>
+</li>
+<li><p>在AndroidManifest.xml中声明小部件</p>
+<h5 id="3-PendingIntent概述"><a href="#3-PendingIntent概述" class="headerlink" title="3.PendingIntent概述"></a>3.PendingIntent概述</h5></li>
+</ul>
+<p>​        PendingIntent表示一种处于待定，等待，即将发生状态的意图，支持三种待定意图：启动Activity,启动Service,发送        广播</p>
+<pre><code class="hljs java">getActivity(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);
+getService(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);
+getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);</code></pre>
 <ul>
-<li><p>使用Android Studio</p>
-<ol>
-<li>安装Protocol Support插件</li>
-<li>配置gradle</li>
-<li>编写．proto文件</li>
-<li>编译项目</li>
-</ol>
-<p><img src="https://img2.tuicool.com/AnMFRbi.jpg!web" srcset="/img/loading.gif" alt="img"></p>
+<li><p>匹配规则：如果两个PendingIntent它们内部的<code>Intent</code>相同并且<code>requestCode</code>也相同，则这两个PendingIntent相同</p>
+<blockquote>
+<p>Intent匹配规则：如果两个Intent的<code>ComponentName</code>和<code>intent-filter</code>都相同，则这两个Intent相同</p>
+</blockquote>
+</li>
+<li><p>Flag参数</p>
+<ul>
+<li><p>FLAG_ONE_SHOT</p>
+<p>当前PendingIntent只能使用一次</p>
+</li>
+<li><p>FLAG_NO_CREATE</p>
+<p>当前PendingIntent不会主动创建，如果不存在，则get方法会直接返回<code>null</code></p>
+</li>
+<li><p>FLAG_CANCEL_CURRENT</p>
+<p>当前描述的PendingIntent如果已存在，那么它们都会被<code>cancel</code></p>
+</li>
+<li><p>FLAG_UPDATE_CURRENT</p>
+<p>当前描述的PendingIntent如果已存在，那么它们都会被更新</p>
 </li>
 </ul>
 </li>
-<li><p>使用protobuf进行数据读写</p>
-<p> 除了访问器，生成的类中还有其它的方法：</p>
-<p> 消息构建接口</p>
-<ul>
-<li><code>isInitialized()</code>:检测 所有<code>required</code>的字段是否有被设置</li>
-<li><code>toString()</code>: 生成可读的字符串</li>
-<li><code>mergeFrom(Message other)</code>: (builder only)与另一个消息进行合并</li>
-<li><p><code>clear()</code>: (builder only) 将所有字段清除为空状态</p>
-<p>解析接口</p>
-</li>
-<li><code>byte[] toByteArray();</code>: 序列化数据</li>
-<li><code>static Person parseFrom(byte[] data);</code>: 反序列化数据</li>
-<li><code>void writeTo(OutputStream output);</code>: 序列化数据并写入<code>OutputStream</code></li>
-<li><code>static Person parseFrom(InputStream input);</code>: 从<code>InputStream</code>中解析读取消息</li>
 </ul>
-<ol start="4">
-<li>具体Demo</li>
-</ol>
+<h4 id="2-RemoteViews的内部机制"><a href="#2-RemoteViews的内部机制" class="headerlink" title="2.RemoteViews的内部机制"></a>2.RemoteViews的内部机制</h4><ul>
+<li><p>构造方法</p>
+<pre><code class="hljs java"><span class="hljs-comment">/**
+* <span class="hljs-doctag">@param</span> packageName 当前应用的包名
+* <span class="hljs-doctag">@param</span> layoutId 待加载的布局文件
+**/</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RemoteViews</span><span class="hljs-params">(String packageName, <span class="hljs-keyword">int</span> layoutId)</span></span></code></pre>
+<blockquote>
+<p>RemoteViews目前并不支持所有的View类型，支持的所有类型如下</p>
+<p>Layout : FrameLayout, LinearLayout, RelativeLayout, GridLayout</p>
+<p>View : AnalogClock, Button, Chronometer, ImageButton, ImageView, ProgressBar, TextView, ViewFlipper, ListView, GridView, StackView, AdapterViewFlipper, ViewStub</p>
+</blockquote>
 </li>
-<li><p>兼容处理</p>
-<p>如果要让新版本向后兼容，旧版本向前兼容，需要遵守以下规则</p>
+<li><p>使用</p>
+<p>RemoteViews没有提供findViewById方法，无法直接访问View元素，必须通过RemoteViews所提供的一系列<code>set</code>方法来完成</p>
+</li>
+<li><p>内部机制</p>
 <ol>
-<li>不能修改已存在字段的标识（tag）</li>
-<li>不能添加或删除<code>required</code>字段</li>
-<li>可以删除<code>optional</code>或<code>repeated</code>字段</li>
-<li>可以增加<code>optional</code>或<code>repeated</code>字段，但必须使用没有用过的标识，已经删除的也不能用</li>
-</ol>
+<li><p>RemoteViews会通过Binder传递到SystemServer进程</p>
+</li>
+<li><p>系统根据RemoteViews中的包名等信息得到该应用的资源，加载RemoteViews中的文件</p>
+</li>
+<li><p>系统对生成的View进行一系列界面更新任务</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图5-1RemoteViews内部机制.png" srcset="/img/loading.gif" alt></p>
+<blockquote>
+<p>单击事件，RemoteViews中只支持发起PendingIntent,不支持onClickListener.</p>
+<p>setOnClickPendingIntent用于给普通View设置单击事件，但不能给集合(ListView,StackView)中的View设置单击事件</p>
+<p>要给ListView或StackView中的item添加单击事件，必须将setPendingIntentTemplate和setOnClickFillInIntent组合使用</p>
+</blockquote>
 </li>
 </ol>
 </li>
-</ol>
+</ul>
 
             </div>
             <hr>
@@ -395,7 +329,7 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/数据结构/">数据结构</a>
+                      <a class="hover-with-bg" href="/categories/Android开发艺术探索/">Android开发艺术探索</a>
                     
                   </div>
                 
@@ -403,7 +337,9 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/数据编码/">数据编码</a>
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/笔记/">笔记</a>
                     
                   </div>
                 
@@ -416,18 +352,12 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/03/27/Markdown基本语法速查/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Markdown基本语法速查</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/03/10/Hexo基本命令/">
-                        <span class="hidden-mobile">Hexo基本命令</span>
+                      <a href="/2020/07/12/Android开发艺术探索学习笔记-第四章/">
+                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第四章</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -564,7 +494,7 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "ProtocolBuffers-基本使用&nbsp;",
+        "Android开发艺术探索学习笔记-第五章&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

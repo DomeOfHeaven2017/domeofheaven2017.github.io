@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -23,7 +23,7 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
 
@@ -33,6 +33,7 @@
 
 
   <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -112,7 +113,12 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -125,7 +131,7 @@
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fade-in-up">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
@@ -158,24 +164,30 @@
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/12/Android开发艺术探索学习笔记-第四章/">Android开发艺术探索学习笔记-第四章</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/07/19/Android开发艺术探索学习笔记-第五章/">Android开发艺术探索学习笔记-第五章</a>
+      </h1>
 
-      <a href="/2020/07/12/Android开发艺术探索学习笔记-第四章/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/07/19/Android开发艺术探索学习笔记-第五章/">
           
-        
-        <div>Android开发艺术探索 第四章笔记第四章  View的工作原理
-初识ViewRoot和DecorView
-ViewRoot:对应于ViewRootImpl类，是连接WindowManager和DecorView的纽带，View的三大流程(measure,layout,draw)来完成的。
-//在ActivityThread中，当Activity对象被创建完后，会将DecorView添加到Win</div>
-      </a>
+          
+            
+          
+          理解RemoteViews1. RemoteViews的应用RemoteViews在实际开发中主要用在通知栏和桌面小部件的开发中。通知栏主要通过NotificationManager的notify方法实现，桌面小部件则通过AppWidgetProvider实现。这两个的界面都运行在系统的SystemServer进程中，无法直接更新View.
+1.RemoteViews在通知栏上的应用
+使用系统默认
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-12
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-19 20:46" pubdate>
+              2020-07-19
+            </time>
           </div>
         
         
@@ -197,33 +209,92 @@ ViewRoot:对应于ViewRootImpl类，是连接WindowManager和DecorView的纽带�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/08/Android开发艺术探索学习笔记-第三章/">Android开发艺术探索学习笔记-第三章</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/07/12/Android开发艺术探索学习笔记-第四章/">Android开发艺术探索学习笔记-第四章</a>
+      </h1>
 
-      <a href="/2020/07/08/Android开发艺术探索学习笔记-第三章/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/07/12/Android开发艺术探索学习笔记-第四章/">
           
+          
+            
+          
+          Android开发艺术探索 第四章笔记第四章  View的工作原理
+初识ViewRoot和DecorView
+ViewRoot:对应于ViewRootImpl类，是连接WindowManager和DecorView的纽带，View的三大流程(measure,layout,draw)来完成的。
+//在ActivityThread中，当Activity对象被创建完后，会将DecorView添加到Win
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
         
-        <div>Android开发艺术探索 第三章笔记第三章 View的事件体系3.1 View基础知识
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-12 21:03" pubdate>
+              2020-07-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android开发艺术探索/">Android开发艺术探索</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android/">Android</a>
+            
+              <a href="/tags/笔记/">笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/07/08/Android开发艺术探索学习笔记-第三章/">Android开发艺术探索学习笔记-第三章</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/07/08/Android开发艺术探索学习笔记-第三章/">
+          
+          
+            
+          
+          Android开发艺术探索 第三章笔记第三章 View的事件体系3.1 View基础知识
 什么是View
 View是Android中所有控件的基类，是一种界面层的控件的一种抽象。ViewGroup内部包含了许多控件，是一组View，它们之间的关系如下图。
 
 
 View的位置参数
-View的位置由它的四个顶点决定，分别对应于View的四个属性：top, left, right, bottom 即它的</div>
-      </a>
+View的位置由它的四个顶点决定，分别对应于View的四个属性：top, left, right, bottom 即它的
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-08
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-08 21:53" pubdate>
+              2020-07-08
+            </time>
           </div>
         
         
@@ -245,32 +316,39 @@ View的位置由它的四个顶点决定，分别对应于View的四个属性：
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/05/Android开发艺术探索学习笔记-第二章/">Android开发艺术探索学习笔记-第二章</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/07/05/Android开发艺术探索学习笔记-第二章/">Android开发艺术探索学习笔记-第二章</a>
+      </h1>
 
-      <a href="/2020/07/05/Android开发艺术探索学习笔记-第二章/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/07/05/Android开发艺术探索学习笔记-第二章/">
           
-        
-        <div>Android开发艺术探索 第二章笔记第二章  IPC机制
+          
+            
+          
+          Android开发艺术探索 第二章笔记第二章  IPC机制
 Android IPC 简介IPC：Inter-Process Communication的缩写，意思为进程间通信或者跨进程通信，指两个进程之间进行数据交换的过程。
 线程：CPU调度的最小单元，是一种有限的系统资源。
 进程：一般指一个执行单元，在PC和移动设备上指一个程序或者应用。一个进程可以包含多个线程。
 
-Android中的多进程模式</div>
-      </a>
+Android中的多进程模式
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-05
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-05 21:45" pubdate>
+              2020-07-05
+            </time>
           </div>
         
         
@@ -292,31 +370,38 @@ Android中的多进程模式</div>
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/06/27/Android开发艺术探索学习笔记(第一章)/">Android开发艺术探索学习笔记(第一章)</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/06/27/Android开发艺术探索学习笔记(第一章)/">Android开发艺术探索学习笔记(第一章)</a>
+      </h1>
 
-      <a href="/2020/06/27/Android开发艺术探索学习笔记(第一章)/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/06/27/Android开发艺术探索学习笔记(第一章)/">
           
-        
-        <div>Android 开发艺术探索 第一章笔记第一章  Activity 的生命周期和启动模式Activity 的生命周期
+          
+            
+          
+          Android 开发艺术探索 第一章笔记第一章  Activity 的生命周期和启动模式Activity 的生命周期
 典型情况下的生命周期 : 在用户参与的情况下，Activity 所经过的生命周期的改变
 onRestart:Activity 正在重新启动。
 onCreate:Activity 正在被创建。可以在这个方法中进行初始化工作，比如加载界面布局资源，初始化数据等。
-onStart:Act</div>
-      </a>
+onStart:Act
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-27
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-27 20:05" pubdate>
+              2020-06-27
+            </time>
           </div>
         
         
@@ -338,32 +423,39 @@ onStart:Act</div>
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/03/27/Markdown基本语法速查/">Markdown基本语法速查</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/03/27/Markdown基本语法速查/">Markdown基本语法速查</a>
+      </h1>
 
-      <a href="/2020/03/27/Markdown基本语法速查/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/03/27/Markdown基本语法速查/">
           
-        
-        <div>MarkDown基本语法
+          
+            
+          
+          MarkDown基本语法
 
 简介
 
 Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
-由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，当前许多网站都广泛使用Markdown来撰写</div>
-      </a>
+由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，当前许多网站都广泛使用Markdown来撰写
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-03-27
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-03-27 21:53" pubdate>
+              2020-03-27
+            </time>
           </div>
         
         
@@ -376,21 +468,24 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/03/12/ProtocolBuffers-基本使用/">ProtocolBuffers-基本使用</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/03/12/ProtocolBuffers-基本使用/">ProtocolBuffers-基本使用</a>
+      </h1>
 
-      <a href="/2020/03/12/ProtocolBuffers-基本使用/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/03/12/ProtocolBuffers-基本使用/">
           
-        
-        <div>Protocol Buffers​    一种跨语言，跨平台的可扩展的序列化数据格式
+          
+            
+          
+          Protocol Buffers​    一种跨语言，跨平台的可扩展的序列化数据格式
 
 相比XML的优势
 
@@ -404,13 +499,17 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
    graph TD;
    A[定义protobuf消息格式]　--> B[编译protobuf];
    B --> C[使用protobuf API进行读写];
-</div>
-      </a>
+
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-03-12
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-03-12 21:11" pubdate>
+              2020-03-12
+            </time>
           </div>
         
         
@@ -430,21 +529,24 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/03/10/Hexo基本命令/">Hexo基本命令</a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/03/10/Hexo基本命令/">Hexo基本命令</a>
+      </h1>
 
-      <a href="/2020/03/10/Hexo基本命令/" class="index-excerpt">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/03/10/Hexo基本命令/">
           
-        
-        <div>inithexo init [folder]
+          
+            
+          
+          inithexo init [folder]
 
 新建一个网站
 
@@ -472,13 +574,17 @@ hexo generate(hexo g)
 
 
 -b, –bail
-生成过程中如果发生任何未处理的异常则抛</div>
-      </a>
+生成过程中如果发生任何未处理的异常则抛
+        </a>
+      </p>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-03-10
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-03-10 21:13" pubdate>
+              2020-03-10
+            </time>
           </div>
         
         
@@ -500,7 +606,7 @@ hexo generate(hexo g)
           </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
 
