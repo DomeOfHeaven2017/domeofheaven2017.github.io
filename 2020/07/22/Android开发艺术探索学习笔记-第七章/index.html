@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>Android开发艺术探索学习笔记-第五章 - DomeOfHeaven</title>
+  <title>Android开发艺术探索学习笔记-第七章 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-19 20:46" pubdate>
-      2020年7月19日 晚上
+    <time datetime="2020-07-22 21:26" pubdate>
+      2020年7月22日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      851 字
+      625 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      8
        分钟
     </span>
   
@@ -201,125 +201,120 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Android开发艺术探索学习笔记-第五章</h1>
+            <h1 style="display: none">Android开发艺术探索学习笔记-第七章</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="理解RemoteViews"><a href="#理解RemoteViews" class="headerlink" title="理解RemoteViews"></a>理解RemoteViews</h3><h4 id="1-RemoteViews的应用"><a href="#1-RemoteViews的应用" class="headerlink" title="1. RemoteViews的应用"></a>1. RemoteViews的应用</h4><p>RemoteViews在实际开发中主要用在通知栏和桌面小部件的开发中。通知栏主要通过<code>NotificationManager</code>的<strong>notify</strong>方法实现，桌面小部件则通过<code>AppWidgetProvider</code>实现。这两个的界面都运行在系统的<strong>SystemServer</strong>进程中，无法直接更新View.</p>
-<h5 id="1-RemoteViews在通知栏上的应用"><a href="#1-RemoteViews在通知栏上的应用" class="headerlink" title="1.RemoteViews在通知栏上的应用"></a>1.RemoteViews在通知栏上的应用</h5><ul>
-<li><p>使用系统默认样式</p>
-<pre><code class="hljs java"><span class="hljs-comment">// Build the notification and add the action.</span>
-Notification newMessageNotification = <span class="hljs-keyword">new</span> Notification.Builder(context, CHANNEL_ID)
-        .setSmallIcon(R.drawable.ic_message)
-        .setContentTitle(getString(R.string.title))
-        .setContentText(getString(R.string.content))
-        .addAction(action)
-        .build();
+              <h3 id="Android动画深入分析"><a href="#Android动画深入分析" class="headerlink" title="Android动画深入分析"></a>Android动画深入分析</h3><hr>
+<h4 id="1-View动画"><a href="#1-View动画" class="headerlink" title="1. View动画"></a>1. View动画</h4><p>​    View动画的作用对象是View,支持<code>平移动画</code>,<code>缩放动画</code>,<code>旋转动画</code>,<code>透明度动画</code>四种动画效果</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">标签</th>
+<th style="text-align:center">子类</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">平移动画</td>
+<td style="text-align:center">&lt;translate&#62;</td>
+<td style="text-align:center">TransateAnimation</td>
+<td style="text-align:center">移动View</td>
+</tr>
+<tr>
+<td style="text-align:center">缩放动画</td>
+<td style="text-align:center">&lt;scale&#62;</td>
+<td style="text-align:center">ScaleAnimation</td>
+<td style="text-align:center">放大或缩小View</td>
+</tr>
+<tr>
+<td style="text-align:center">旋转动画</td>
+<td style="text-align:center">&lt;rotate&#62;</td>
+<td style="text-align:center">RotateAnimation</td>
+<td style="text-align:center">旋转View</td>
+</tr>
+<tr>
+<td style="text-align:center">透明度动画</td>
+<td style="text-align:center">&lt;alpha&#62;</td>
+<td style="text-align:center">AlphaAnimation</td>
+<td style="text-align:center">改变View透明度</td>
+</tr>
+</tbody>
+</table>
+<h5 id="1-使用步骤"><a href="#1-使用步骤" class="headerlink" title="1.使用步骤"></a>1.使用步骤</h5><ol>
+<li><p>在res/anim/路径下创建动画的xml文件</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">set</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://scemas.android.com/apk/res/android"</span>
+     <span class="hljs-attr">android:fillAfter</span>=<span class="hljs-string">"true"</span>
+     <span class="hljs-attr">android:zAdjustment</span>=<span class="hljs-string">"normal"</span> &gt;</span>
 
-<span class="hljs-comment">// Issue the notification.</span>
-NotificationManagerCompat notificationManager = NotificationManagerCompat.from(<span class="hljs-keyword">this</span>);
-notificationManager.notify(notificationId, newMessageNotification);</code></pre>
+    <span class="hljs-tag">&lt;<span class="hljs-name">rotate</span>
+            <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"400"</span>
+            <span class="hljs-attr">android:fromDegress</span>=<span class="hljs-string">"0"</span>
+            <span class="hljs-attr">android:toDegress</span>=<span class="hljs-string">"90"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">set</span>&gt;</span></code></pre>
 </li>
-<li><p>自定义通知</p>
-<pre><code class="hljs java"><span class="hljs-comment">// Get the layouts to use in the custom notification</span>
-RemoteViews notificationLayout = <span class="hljs-keyword">new</span> RemoteViews(getPackageName(), R.layout.notification_small);
-RemoteViews notificationLayoutExpanded = <span class="hljs-keyword">new</span> RemoteViews(getPackageName(), R.layout.notification_large);
-
-<span class="hljs-comment">// Apply the layouts to the notification</span>
-Notification customNotification = <span class="hljs-keyword">new</span> NotificationCompat.Builder(context, CHANNEL_ID)
-        .setSmallIcon(R.drawable.notification_icon)
-        .setStyle(<span class="hljs-keyword">new</span> NotificationCompat.DecoratedCustomViewStyle())
-        .setCustomContentView(notificationLayout)
-        .setCustomBigContentView(notificationLayoutExpanded)
-        .build();</code></pre>
+<li><p>在代码中调用</p>
+<pre><code class="hljs java">Animation animation = AnimationUtils.loadAnimation(<span class="hljs-keyword">this</span>, R.anim.animation_file);
+mButton.startAnimation(animation)</code></pre>
+<p>也可直接在代码中进行设置和调用</p>
+<pre><code class="hljs java">AlphaAnimation alphaAnim = <span class="hljs-keyword">new</span> AlphaAnimation(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+alphaAnim.setDuration(<span class="hljs-number">300</span>);
+mButton.startAnimation(animation)</code></pre>
 </li>
-</ul>
-<h5 id="2-RemoteViews在桌面小部件上的应用"><a href="#2-RemoteViews在桌面小部件上的应用" class="headerlink" title="2.RemoteViews在桌面小部件上的应用"></a>2.RemoteViews在桌面小部件上的应用</h5><pre><code>AppWidgetProvider是Android中提供的用于实现桌面小部件的类，本质是一个广播
-</code></pre><ul>
-<li><p>定义小部件界面</p>
-<p>在res/layout/下建立小部件布局界面</p>
-</li>
-<li><p>定义小部件配置信息</p>
-<p>在res/xml/下建立小部件配置信息</p>
+</ol>
+<h5 id="2-自定义View动画"><a href="#2-自定义View动画" class="headerlink" title="2.自定义View动画"></a>2.自定义View动画</h5><ol>
+<li>继承Animation</li>
+<li><p>重写<code>initialize</code>和<code>applyTransformation</code>方法</p>
 <blockquote>
-<p>重要参数说明：</p>
-<p>initLayout:初始化界面</p>
-<p>updatePeriodMillis:自动更新周期</p>
-</blockquote>
-</li>
-<li><p>定义小部件的实现类</p>
-<p>继承AppWidgetProvider实现具体逻辑</p>
-<blockquote>
-<p>重要方法说明：</p>
-<p>onEnable:小部件第一次添加到桌面时调用该方法</p>
-<p>onUpdate:小部件被添加时或者每次小部件更新时都会调用该方法</p>
-<p>onDeleted:每删除一次桌面小部件就调用一次</p>
-<p>onDisabled:最后一个该类型的桌面小部件被删除时调用该方法</p>
-<p>onReceive:分发具体的事件给其他方法</p>
-</blockquote>
-</li>
-<li><p>在AndroidManifest.xml中声明小部件</p>
-<h5 id="3-PendingIntent概述"><a href="#3-PendingIntent概述" class="headerlink" title="3.PendingIntent概述"></a>3.PendingIntent概述</h5></li>
-</ul>
-<p>​        PendingIntent表示一种处于待定，等待，即将发生状态的意图，支持三种待定意图：启动Activity,启动Service,发送        广播</p>
-<pre><code class="hljs java">getActivity(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);
-getService(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);
-getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);</code></pre>
-<ul>
-<li><p>匹配规则：如果两个PendingIntent它们内部的<code>Intent</code>相同并且<code>requestCode</code>也相同，则这两个PendingIntent相同</p>
-<blockquote>
-<p>Intent匹配规则：如果两个Intent的<code>ComponentName</code>和<code>intent-filter</code>都相同，则这两个Intent相同</p>
-</blockquote>
-</li>
-<li><p>Flag参数</p>
-<ul>
-<li><p>FLAG_ONE_SHOT</p>
-<p>当前PendingIntent只能使用一次</p>
-</li>
-<li><p>FLAG_NO_CREATE</p>
-<p>当前PendingIntent不会主动创建，如果不存在，则get方法会直接返回<code>null</code></p>
-</li>
-<li><p>FLAG_CANCEL_CURRENT</p>
-<p>当前描述的PendingIntent如果已存在，那么它们都会被<code>cancel</code></p>
-</li>
-<li><p>FLAG_UPDATE_CURRENT</p>
-<p>当前描述的PendingIntent如果已存在，那么它们都会被更新</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-RemoteViews的内部机制"><a href="#2-RemoteViews的内部机制" class="headerlink" title="2.RemoteViews的内部机制"></a>2.RemoteViews的内部机制</h4><ul>
-<li><p>构造方法</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**
-* <span class="hljs-doctag">@param</span> packageName 当前应用的包名
-* <span class="hljs-doctag">@param</span> layoutId 待加载的布局文件
-**/</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RemoteViews</span><span class="hljs-params">(String packageName, <span class="hljs-keyword">int</span> layoutId)</span></span></code></pre>
-<blockquote>
-<p>RemoteViews目前并不支持所有的View类型，支持的所有类型如下</p>
-<p>Layout : FrameLayout, LinearLayout, RelativeLayout, GridLayout</p>
-<p>View : AnalogClock, Button, Chronometer, ImageButton, ImageView, ProgressBar, TextView, ViewFlipper, ListView, GridView, StackView, AdapterViewFlipper, ViewStub</p>
-</blockquote>
-</li>
-<li><p>使用</p>
-<p>RemoteViews没有提供findViewById方法，无法直接访问View元素，必须通过RemoteViews所提供的一系列<code>set</code>方法来完成</p>
-</li>
-<li><p>内部机制</p>
-<ol>
-<li><p>RemoteViews会通过Binder传递到SystemServer进程</p>
-</li>
-<li><p>系统根据RemoteViews中的包名等信息得到该应用的资源，加载RemoteViews中的文件</p>
-</li>
-<li><p>系统对生成的View进行一系列界面更新任务</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图5-1RemoteViews内部机制.png" srcset="/img/loading.gif" alt></p>
-<blockquote>
-<p>单击事件，RemoteViews中只支持发起PendingIntent,不支持onClickListener.</p>
-<p>setOnClickPendingIntent用于给普通View设置单击事件，但不能给集合(ListView,StackView)中的View设置单击事件</p>
-<p>要给ListView或StackView中的item添加单击事件，必须将setPendingIntentTemplate和setOnClickFillInIntent组合使用</p>
+<p>initialize : 初始化</p>
+<p>applyTransformation : 进行相应的矩阵变换</p>
 </blockquote>
 </li>
 </ol>
+<h4 id="2-帧动画"><a href="#2-帧动画" class="headerlink" title="2. 帧动画"></a>2. 帧动画</h4><p>​    帧动画是顺序播放一组预先定义好的图片。</p>
+<h5 id="1-使用步骤-1"><a href="#1-使用步骤-1" class="headerlink" title="1. 使用步骤"></a>1. 使用步骤</h5><ol>
+<li><p>通过XML定义AnimationDrawable</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- res/drawable/frame_anim.xml --&gt;</span>
+<span class="hljs-meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">animation-list</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://scemas.android.com/apk/res/android"</span>
+                <span class="hljs-attr">android:oneshot</span>=<span class="hljs-string">"false"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">andrid:drawable</span>=<span class="hljs-string">"@drawable/image1"</span> <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"500"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">andrid:drawable</span>=<span class="hljs-string">"@drawable/image2"</span> <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"500"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">andrid:drawable</span>=<span class="hljs-string">"@drawable/image3"</span> <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"500"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">animation-list</span>&gt;</span></code></pre>
+<ol start="2">
+<li>代码中调用</li>
+</ol>
+<pre><code class="hljs java">mButton.setBackroundResource(R.drawable.frame_anim);
+AnimationDrawable drawable = (AnimationDrawable) mButton.getBackground();
+drawable.start();</code></pre>
 </li>
-</ul>
+</ol>
+<h4 id="3-View动画的特殊使用场景"><a href="#3-View动画的特殊使用场景" class="headerlink" title="3. View动画的特殊使用场景"></a>3. View动画的特殊使用场景</h4><ol>
+<li><p>LayoutAnimation</p>
+<p>LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，子元素都会具有该动画效果</p>
+</li>
+<li><p>Activity的切换效果</p>
+<p>主要用到<code>overridePendingTransition(int enterAnim, int exitAnim)</code>方法，这个方法必须在<strong>startActivity</strong>或者<strong>finish</strong>方法之后调用才能生效</p>
+<p>enterAnim ： Activity被打开时的动画资源</p>
+<p>exitAnim ： Activity被暂停时的动画资源</p>
+</li>
+</ol>
+<h4 id="4-属性动画"><a href="#4-属性动画" class="headerlink" title="4. 属性动画"></a>4. 属性动画</h4><p>​        属性动画可以对任意对象的属性进行动画而不仅仅是View,动画的默认时间间隔是300ms,默认帧率是10ms/帧，其可以达到的效果是：在一个时间间隔内完成对象从一个属性值到另一个属性值的改变。</p>
+<blockquote>
+<p>插值器(TimeInterpolator)：根据时间流逝的百分比来计算当前属性值改变的百分比</p>
+<p>估值器(TypeEvaluator)：根据当前属性改变的百分比来计算改变后的属性值</p>
+</blockquote>
+<p>属性动画的监听器：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AnimatorListener</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationStart</span><span class="hljs-params">(Animator animation)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationEnd</span><span class="hljs-params">(Animator animation)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationCancel</span><span class="hljs-params">(Animator animation)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationRepeat</span><span class="hljs-params">(Animator animation)</span></span>;
+&#125;</code></pre>
+<p>属性动画的工作原理：</p>
 
             </div>
             <hr>
@@ -352,18 +347,12 @@ getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode,
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/22/Android开发艺术探索学习笔记-第七章/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第七章</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/12/Android开发艺术探索学习笔记-第四章/">
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第四章</span>
+                      <a href="/2020/07/19/Android开发艺术探索学习笔记-第五章/">
+                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第五章</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -500,7 +489,7 @@ getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode,
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Android开发艺术探索学习笔记-第五章&nbsp;",
+        "Android开发艺术探索学习笔记-第七章&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
