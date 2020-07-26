@@ -330,17 +330,23 @@ img[srcset] {
   }
   :root:not([data-user-color-scheme]) .markdown-body table tr {
     background-color: var(--board-bg-color);
+    transition: background-color 0.2s ease-in-out;
   }
   :root:not([data-user-color-scheme]) .markdown-body table tr:nth-child(2n) {
     background-color: var(--board-bg-color);
+    transition: background-color 0.2s ease-in-out;
   }
   :root:not([data-user-color-scheme]) .markdown-body table th,
   :root:not([data-user-color-scheme]) .markdown-body table td {
     border-color: #435266;
+    transition: border-color 0.2s ease-in-out;
   }
   :root:not([data-user-color-scheme]) hr {
     border-top-color: #435266;
     transition: border-top-color 0.2s ease-in-out;
+  }
+  :root:not([data-user-color-scheme]) .note :not(pre) > code {
+    background-color: rgba(27,31,35,0.05);
   }
   :root:not([data-user-color-scheme]) .modal-dialog .modal-content .modal-header {
     border-bottom-color: #435266;
@@ -399,17 +405,23 @@ img[srcset] {
 }
 [data-user-color-scheme='dark'] .markdown-body table tr {
   background-color: var(--board-bg-color);
+  transition: background-color 0.2s ease-in-out;
 }
 [data-user-color-scheme='dark'] .markdown-body table tr:nth-child(2n) {
   background-color: var(--board-bg-color);
+  transition: background-color 0.2s ease-in-out;
 }
 [data-user-color-scheme='dark'] .markdown-body table th,
 [data-user-color-scheme='dark'] .markdown-body table td {
   border-color: #435266;
+  transition: border-color 0.2s ease-in-out;
 }
 [data-user-color-scheme='dark'] hr {
   border-top-color: #435266;
   transition: border-top-color 0.2s ease-in-out;
+}
+[data-user-color-scheme='dark'] .note :not(pre) > code {
+  background-color: rgba(27,31,35,0.05);
 }
 [data-user-color-scheme='dark'] .modal-dialog .modal-content .modal-header {
   border-bottom-color: #435266;
