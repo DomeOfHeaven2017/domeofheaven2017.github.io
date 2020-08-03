@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>Android开发艺术探索学习笔记-第九章 - DomeOfHeaven</title>
+  <title>Android开发艺术探索学习笔记-第十章 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-02 20:13" pubdate>
-      2020年8月2日 晚上
+    <time datetime="2020-08-03 22:49" pubdate>
+      2020年8月3日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      889 字
     </span>
   
 
@@ -201,178 +201,125 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Android开发艺术探索学习笔记-第九章</h1>
+            <h1 style="display: none">Android开发艺术探索学习笔记-第十章</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="第九章-四大组件的工作过程"><a href="#第九章-四大组件的工作过程" class="headerlink" title="第九章　四大组件的工作过程"></a>第九章　四大组件的工作过程</h3><ol>
-<li><h4 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a>四大组件的运行状态</h4><ul>
-<li><p>Activity</p>
-<p>展示一个界面并和用户进行交互．由<strong>Intent</strong>触发启动 ，分为显示Intent和隐式Intent，显示Intent可以明确指向一个Activity组件，隐式Intent可以指向<strong>一个或多个</strong>Activity组件</p>
-</li>
-<li><p>Service</p>
-<p>一种计算型组件，用于在后台执行一系列计算．与Activity只有一种启动状态不同，Service有两种状态：启动状态（startService）和绑定状态（bindService）．Service是运行在主线程中的．</p>
-</li>
-<li><p>BroadcastReceiver</p>
-<p>一种消息型组件，用于在不同的组件，不同的应用之间传递消息．</p>
-<p>广播有两种注册方式：</p>
+              <h3 id="Android的消息机制"><a href="#Android的消息机制" class="headerlink" title="Android的消息机制"></a>Android的消息机制</h3><hr>
 <ol>
-<li>静态注册：在AndroidManifest中注册广播，在应用安装时被系统解析，无须应用启动就可以收到相应的广播．</li>
-<li>动态注册：通过<strong>Context.registerReceiver()</strong>和<strong>Context.unRegisterReceiver()</strong>来注册和注销广播，需要应用启动才能注册并接收广播．</li>
-</ol>
+<li><h4 id="Android的消息机制概述"><a href="#Android的消息机制概述" class="headerlink" title="Android的消息机制概述"></a>Android的消息机制概述</h4><p>Android的消息机制主要指<strong>Handler</strong>的运行机制以及<strong>Handler</strong>所附带的<strong>MessageQueue</strong>和<strong>Looper</strong>的工作过程，Handler的主要作用是将一个任务切换到某个指定的线程中去执行。Handler创建时会采用当前线程的Looper来构建内部的消息循环系统，如果没有Looper会报错。线程中默认是没有Looper的，主线程（UI线程，即ActivityThread）被创建时会初始化Looper，所以主线程默认可以使用Handler</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图10-1Handler的工作过程.png" srcset="/img/loading.gif" alt="图10-1Handler的工作过程"></p>
 </li>
-<li><p>ContentProvider</p>
-<p>一种数据共享型组件，用于向其它组件和应用共享数据．</p>
-</li>
-</ul>
-</li>
-<li><h4 id="Activity的工作过程"><a href="#Activity的工作过程" class="headerlink" title="Activity的工作过程"></a>Activity的工作过程</h4><ul>
-<li><p>显示调用，启动Activity</p>
-<pre><code class="hljs java">Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>, TestActivity.Class);
-startActivity(intent);</code></pre>
-</li>
-<li><p>启动流程</p>
-<pre class="mermaid">     sequenceDiagram
-Activity ->> Activity : startActvity
-Activity ->> Activity : startActivityForResult
-Activity ->> Instrumentation : execStartActivity
-Instrumentation ->> ActivityManagerService : ActivityManagerNative.getDefault().startActivity
-ActivityManagerService ->> ActivityManagerService : startActivity
-ActivityManagerService ->> ActivityStackSupervisor : startActivityLocked
-ActivityStackSupervisor ->> ActivityStack : resumeTopActivitiesLocked
-ActivityStack ->> ActivityStackSupervisor : startSpecificActivityLocked
-ActivityStackSupervisor ->> ActivityStackSupervisor : realStartActivityLocked
-ActivityStackSupervisor ->> ApplicationThread : sceduleLaunchActivity
-ApplicationThread ->> ActivityThread : handleLaunchActivity
-ActivityThread ->> ActivityThread : performLaunchActivity</pre>
+<li><h4 id="Android的消息机制分析"><a href="#Android的消息机制分析" class="headerlink" title="Android的消息机制分析"></a>Android的消息机制分析</h4><ul>
+<li><p>ThreadLocal的工作原理</p>
+<p>ThreadLocal:是一个线程内部的数据存储类，可以通过它在指定的线程存储和获取数据（其他线程无法获取）</p>
+<pre><code class="hljs java"><span class="hljs-comment">//定义</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocal</span>&lt;<span class="hljs-title">T</span>&gt;
 
-<p><code>performLaunchActivity</code>方法具体内容：</p>
-<ol>
-<li>从<strong>ActivityClientRecord</strong>中获取待启动的Activity的组件信息</li>
-<li>通过<strong>Instrumentation</strong>的<em>newActivity</em>方法使用类加载器创建Activity对象</li>
-<li>通过<strong>LoadedApk</strong>的<em>makeApplication</em>方法来尝试创建Application对象</li>
-<li>创建<strong>ContextImpl</strong>对象并通过Activity的<em>attach</em>方法完成h重要数据初始化</li>
-<li>调用Activity的<em>onCreate</em>方法</li>
-</ol>
+//<span class="hljs-title">set</span>方法
+<span class="hljs-title">public</span> <span class="hljs-title">void</span> <span class="hljs-title">set</span>(<span class="hljs-title">T</span> <span class="hljs-title">value</span>) </span>&#123;
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>)
+            map.set(<span class="hljs-keyword">this</span>, value);
+        <span class="hljs-keyword">else</span>
+            createMap(t, value);
+  &#125;
+  
+<span class="hljs-comment">//get方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>&#123;
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>) &#123;
+            ThreadLocalMap.Entry e = map.getEntry(<span class="hljs-keyword">this</span>);
+            <span class="hljs-keyword">if</span> (e != <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-meta">@SuppressWarnings</span>(<span class="hljs-string">"unchecked"</span>)
+                T result = (T)e.value;
+                <span class="hljs-keyword">return</span> result;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> setInitialValue();
+    &#125;</code></pre>
 </li>
 </ul>
 </li>
-<li><h4 id="Service的工作过程"><a href="#Service的工作过程" class="headerlink" title="Service的工作过程"></a>Service的工作过程</h4><ul>
-<li><p>启动状态：主要用于执行后台计算</p>
-<pre><code class="hljs java"><span class="hljs-comment">//启动Service</span>
-Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
-startService(intentService);</code></pre>
-</li>
-<li><p>绑定状态：用于其他组件和Service的交互</p>
-<pre><code class="hljs java"><span class="hljs-comment">//绑定Service</span>
-Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
-bindService(intentService,mServiceConn,BIND_AUTO_CREATE);</code></pre>
-</li>
-</ul>
-<blockquote>
-<p>两种状态可以共存，一个Service既可以处于启动状态，也可以同时处于绑定状态</p>
-</blockquote>
-<ol>
-<li><p>Service的启动过程</p>
-<pre class="mermaid">      sequenceDiagram
-Activity ->> ContextWrapper : startService
-ContextWrapper ->> ContextImpl : startService
-ContextImpl ->> ContextImpl : startServiceCommon
-ContextImpl ->> ActivityManagerService : startService
-ActivityManagerService ->> ActiveServices : startServiceLocked
-ActiveServices ->> ActiveServices : startServiceInnerLocked
-ActiveServices ->> ActiveServices : bringUpServiceLocked
-ActiveServices ->> ApplicationThread : realStartServiceLocked
-ApplicationThread ->> ApplicationThread : scheduleCreateService
-ApplicationThread ->> ActivityThread : handleCreateService</pre>
-
-<p><code>handleCreateService</code>方法具体内容：</p>
-<ol>
-<li>通过类加载器创建<strong>Service</strong>的实例</li>
-<li>创建<strong>Application</strong>对象并调用其<em>onCreate</em></li>
-<li>创建<strong>ContextImpl</strong>对象并通过<strong>Service</strong>的<em>attach</em>方法建立联系</li>
-<li>调用<strong>Service</strong>的<em>onCreate</em>方法并将<strong>Service</strong>对象存到<strong>ActivityThread</strong>的列表中</li>
 </ol>
-</li>
-<li><p>Service的绑定过程</p>
-<pre class="mermaid">      sequenceDiagram
-ContextWrapper ->> ContextImpl : bindService
-ContextImpl ->> ContextImpl : bindServiceCommon
-ContextImpl ->> LoadedApk : getServiceDispatcher
-LoadedApk -->> ContextImpl : ServiceDispatcher.InnerConnection
-ContextImpl ->> ActivityManagerService : bindService
-ActivityManagerService ->> ActiveServices : bindServiceLocked
-ActiveServices ->> ActiveServices : bringUpServiceLocked
-ActiveServices ->> ApplicationThread : realStartServiceLocked
-ApplicationThread ->> ActivityManagerService : handleBindService
-ActivityManagerService ->> ActivityManagerService : publishService
-ActivityManagerService ->> ActiveServices : publishServiceLocked</pre>
-</li>
-</ol>
-</li>
-<li><h4 id="BroadcastReceiver的工作过程"><a href="#BroadcastReceiver的工作过程" class="headerlink" title="BroadcastReceiver的工作过程"></a>BroadcastReceiver的工作过程</h4><ol>
-<li><p>广播的注册过程</p>
 <ul>
-<li><p>静态注册</p>
-<p>静态注册的广播在应用安装时由<code>PackageManagerService</code>来完成整个注册过程(其它三大组件亦是如此)</p>
-</li>
-<li><p>动态注册</p>
-<pre class="mermaid">        sequenceDiagram
-ContextWrapper ->> ContextImpl : registerReceiver
-ContextImpl ->> ContextImpl : registerReceiverInternal
-ContextImpl ->> LoadedApk : getReceiverDispatcher
-LoadedApk -->> ContextImpl : IIntentReceiver
-ContextImpl ->> ActivityManagerService : registerReceiver</pre>
-</li>
-</ul>
-</li>
-<li><p>广播的发送和接收过程</p>
-<ul>
-<li><p>广播的发送过程</p>
-<pre class="mermaid">        sequenceDiagram
-ContextWrapper ->> ContextImpl : sendBroadcast
-ContextImpl ->> ActivityManagerService : broadcastIntent
-ActivityManagerService ->> ActivityManagerService : broadcastIntentLocked
-ActivityManagerService ->> ActivityManagerService : scheduleBroadcastsLocked
-ActivityManagerService ->> ActivityManagerService : processNextBroadcast
-ActivityManagerService ->> ActivityManagerService : performReceiveLocked
-ActivityManagerService ->> ApplicationThread : scheduleRegisteredReceiver
-ApplicationThread ->> InnerReceiver : performReceiver
-InnerReceiver ->> LoadedApk.ReceiverDispatcher : performReceive</pre>
-
+<li><p>消息队列的工作原理</p>
+<p>MessageQueue主要包含两个操作：<strong>插入</strong>和<strong>读取</strong>，对应<em>enqueueMessage</em>和<em>next</em>，MessageQueue是通过一个单链表的数据结构来维护消息列表的，不是队列。</p>
 <blockquote>
-<p>应用处于停止状态的两种情形：</p>
-<ol>
-<li>应用安装后未运行</li>
-<li>应用被手动或其他应用强制停止</li>
-</ol>
+<p>enqueueMessage方法的主要操作是单链表的插入操作</p>
+<p>next方法的主要操作是构建一个无限循环，有消息时返回这条消息并移除；无消息时则进行阻塞。</p>
 </blockquote>
 </li>
-</ul>
+<li><p>Looper的工作原理</p>
+<p>Looper是消息循环，会不停的查看MessageQueue中是否有新消息，有则立即处理；无则进行阻塞。</p>
+<p>重要方法：</p>
+<p><code>prepare</code> : 为当前线程创建一个Looper</p>
+<p><code>prepareMainLooper</code> : ActivityThread创建Looper使用</p>
+<p><code>getMainLooper</code> : 获取主线程的Looper</p>
+<p><code>quit</code> : 直接退出Looper</p>
+<p><code>quitSafely</code> : 设定退出标记，在把消息队列中已有消息处理完后安全退出</p>
+<p><code>loop</code> : 调用MessageQueue的next方法来获取新消息</p>
 </li>
-</ol>
-</li>
-<li><h4 id="ContentProvider的工作过程"><a href="#ContentProvider的工作过程" class="headerlink" title="ContentProvider的工作过程"></a>ContentProvider的工作过程</h4><p><strong>ContentProvider</strong>是一种内容共享型组件，它通过<em>Binder</em>向其他组件乃至其他应用提供数据。当<strong>ContentProvider</strong>所在的进程启动时，<strong>ContentProvider</strong>会同时启动并被发布到<strong>AMS</strong>中。这时候<strong>ContentProvider</strong>的<em>onCreate</em>要先于<strong>Application</strong>的<em>onCreate</em>而执行<br><img src="D:\Downloads\图片\图9-1 ContentProvider的启动过程.png" srcset="/img/loading.gif" alt="image-20200802104139887"></p>
-<p>ContentProvider启动后，外界可以提供它所提供的<strong>增删改查</strong>四个接口来操作数据源，这四个方法都是通过Binder来调用的，外界无法直接访问ContentProvider，只能通过ActivityManagerService根据Uri来获取对应的ContentProvider的Binder接口IContentProvider，再通过IContentProvider访问ContentProvider中的数据源</p>
-<ul>
-<li><p>ContentProvider的启动过程(以query为例)</p>
-<pre class="mermaid">     sequenceDiagram
-ActivityThread ->> ActivityManagerService : startProcessLocked
-ActivityManagerService ->> ActivityThread : main
-ActivityThread ->> ActivityThread : attach
-ActivityThread ->> ActivityManagerService : attachApplication
-ActivityManagerService ->> ActivityManagerService : attachApplicationLocked
-ActivityManagerService ->> ApplicationThread : bindApplication
-ApplicationThread ->> ActivityThread : handleBindApplication</pre>
-
-<p><code>handleBindApplication</code>具体内容：</p>
-<ol>
-<li>创建<strong>ContextImpl</strong>和<strong>Instrumentation</strong></li>
-<li>创建<strong>Application</strong>对象</li>
-<li>启动当前进程的<strong>ContentProvider</strong>并调用其<em>onCreate</em>f方法</li>
-<li>调用<strong>Application</strong>的<em>onCreate</em>方法</li>
-</ol>
+<li><p>Handler的工作原理</p>
+<p><strong>Handler</strong>的工作主要包含消息的发送和接收过程。</p>
+<p>发送消息的过程为向消息队列中插入一条消息，随后<strong>MessageQueue</strong>返回消息给<strong>Looper</strong>，<strong>Looper</strong>在交由<strong>Handler</strong>处理，即调用<strong>Handler</strong>的<em>dispatchMessage</em>方法</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图10-2Handler消息处理流程.png" srcset="/img/loading.gif" alt="image-20200803223746136"></p>
 </li>
 </ul>
+<ol start="3">
+<li><h4 id="主线程的消息循环"><a href="#主线程的消息循环" class="headerlink" title="主线程的消息循环"></a>主线程的消息循环</h4><p>主线程即ActivityThread,其入口方法为main，在main方法中通过Looper.prepareMainLooper来创建主线程的Looper以及MessageQueue，并通过Looper.loop方法来开启主线程的消息循环</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="hljs-string">"ActivityThreadMain"</span>);
+   
+    <span class="hljs-comment">// Install selective syscall interception</span>
+    AndroidOs.install();
+   
+    <span class="hljs-comment">// CloseGuard defaults to true and can be quite spammy.  We</span>
+    <span class="hljs-comment">// disable it here, but selectively enable it later (via</span>
+    <span class="hljs-comment">// StrictMode) on debug builds, but using DropBox, not logs.</span>
+    CloseGuard.setEnabled(<span class="hljs-keyword">false</span>);
+   
+    Environment.initForCurrentUser();
+   
+    <span class="hljs-comment">// Make sure TrustedCertificateStore looks in the right place for CA certificates</span>
+    <span class="hljs-keyword">final</span> File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());
+    TrustedCertificateStore.setDefaultUserDirectory(configDir);
+   
+    Process.setArgV0(<span class="hljs-string">"&lt;pre-initialized&gt;"</span>);
+   
+    Looper.prepareMainLooper();
+   
+    <span class="hljs-comment">// Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span>
+    <span class="hljs-comment">// It will be in the format "seq=114"</span>
+    <span class="hljs-keyword">long</span> startSeq = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span> (args != <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = args.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;
+            <span class="hljs-keyword">if</span> (args[i] != <span class="hljs-keyword">null</span> &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;
+                startSeq = Long.parseLong(
+                        args[i].substring(PROC_START_SEQ_IDENT.length()));
+            &#125;
+        &#125;
+    &#125;
+    ActivityThread thread = <span class="hljs-keyword">new</span> ActivityThread();
+    thread.attach(<span class="hljs-keyword">false</span>, startSeq);
+   
+    <span class="hljs-keyword">if</span> (sMainThreadHandler == <span class="hljs-keyword">null</span>) &#123;
+        sMainThreadHandler = thread.getHandler();
+    &#125;
+   
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">false</span>) &#123;
+        Looper.myLooper().setMessageLogging(<span class="hljs-keyword">new</span>
+                LogPrinter(Log.DEBUG, <span class="hljs-string">"ActivityThread"</span>));
+    &#125;
+   
+    <span class="hljs-comment">// End of event ActivityThreadMain.</span>
+    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
+    Looper.loop();
+   
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"Main thread loop unexpectedly exited"</span>);
+&#125;</code></pre>
+<p>ActivityThread通过ActivityThread.H来和消息队列进行交互。具体流程为：ActivityThread通过ApplicationThread和ActivityManagerService进行进程间通信，AMS以进程间通信的方式完成ActivityTread的请求后会回调ApplicationThread中的Binder方法，然后ApplicationThread会向H发送消息，H收到消息后将ApplicationThread中的逻辑切换到ActivityThread中去执行，即切换到主线程执行。</p>
 </li>
 </ol>
 
@@ -407,18 +354,12 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/03/Android开发艺术探索学习笔记-第十章/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第十章</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/26/Android开发艺术探索学习笔记-第八章/">
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第八章</span>
+                      <a href="/2020/08/02/Android开发艺术探索学习笔记-第九章/">
+                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第九章</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -555,7 +496,7 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Android开发艺术探索学习笔记-第九章&nbsp;",
+        "Android开发艺术探索学习笔记-第十章&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
