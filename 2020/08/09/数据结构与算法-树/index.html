@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>Android开发艺术探索学习笔记-第九章 - DomeOfHeaven</title>
+  <title>数据结构与算法-树 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-02 20:13" pubdate>
-      2020年8月2日 晚上
+    <time datetime="2020-08-09 22:50" pubdate>
+      2020年8月9日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      888 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      9
        分钟
     </span>
   
@@ -201,180 +201,80 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Android开发艺术探索学习笔记-第九章</h1>
+            <h1 style="display: none">数据结构与算法-树</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="第九章-四大组件的工作过程"><a href="#第九章-四大组件的工作过程" class="headerlink" title="第九章　四大组件的工作过程"></a>第九章　四大组件的工作过程</h3><ol>
-<li><h4 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a>四大组件的运行状态</h4><ul>
-<li><p>Activity</p>
-<p>展示一个界面并和用户进行交互．由<strong>Intent</strong>触发启动 ，分为显示Intent和隐式Intent，显示Intent可以明确指向一个Activity组件，隐式Intent可以指向<strong>一个或多个</strong>Activity组件</p>
-</li>
-<li><p>Service</p>
-<p>一种计算型组件，用于在后台执行一系列计算．与Activity只有一种启动状态不同，Service有两种状态：启动状态（startService）和绑定状态（bindService）．Service是运行在主线程中的．</p>
-</li>
-<li><p>BroadcastReceiver</p>
-<p>一种消息型组件，用于在不同的组件，不同的应用之间传递消息．</p>
-<p>广播有两种注册方式：</p>
-<ol>
-<li>静态注册：在AndroidManifest中注册广播，在应用安装时被系统解析，无须应用启动就可以收到相应的广播．</li>
-<li>动态注册：通过<strong>Context.registerReceiver()</strong>和<strong>Context.unRegisterReceiver()</strong>来注册和注销广播，需要应用启动才能注册并接收广播．</li>
-</ol>
-</li>
-<li><p>ContentProvider</p>
-<p>一种数据共享型组件，用于向其它组件和应用共享数据．</p>
-</li>
-</ul>
-</li>
-<li><h4 id="Activity的工作过程"><a href="#Activity的工作过程" class="headerlink" title="Activity的工作过程"></a>Activity的工作过程</h4><ul>
-<li><p>显示调用，启动Activity</p>
-<pre><code class="hljs java">Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>, TestActivity.Class);
-startActivity(intent);</code></pre>
-</li>
-<li><p>启动流程</p>
-<pre class="mermaid">     sequenceDiagram
-Activity ->> Activity : startActvity
-Activity ->> Activity : startActivityForResult
-Activity ->> Instrumentation : execStartActivity
-Instrumentation ->> ActivityManagerService : ActivityManagerNative.getDefault().startActivity
-ActivityManagerService ->> ActivityManagerService : startActivity
-ActivityManagerService ->> ActivityStackSupervisor : startActivityLocked
-ActivityStackSupervisor ->> ActivityStack : resumeTopActivitiesLocked
-ActivityStack ->> ActivityStackSupervisor : startSpecificActivityLocked
-ActivityStackSupervisor ->> ActivityStackSupervisor : realStartActivityLocked
-ActivityStackSupervisor ->> ApplicationThread : sceduleLaunchActivity
-ApplicationThread ->> ActivityThread : handleLaunchActivity
-ActivityThread ->> ActivityThread : performLaunchActivity</pre>
-
-<p><code>performLaunchActivity</code>方法具体内容：</p>
-<ol>
-<li>从<strong>ActivityClientRecord</strong>中获取待启动的Activity的组件信息</li>
-<li>通过<strong>Instrumentation</strong>的<em>newActivity</em>方法使用类加载器创建Activity对象</li>
-<li>通过<strong>LoadedApk</strong>的<em>makeApplication</em>方法来尝试创建Application对象</li>
-<li>创建<strong>ContextImpl</strong>对象并通过Activity的<em>attach</em>方法完成h重要数据初始化</li>
-<li>调用Activity的<em>onCreate</em>方法</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><h4 id="Service的工作过程"><a href="#Service的工作过程" class="headerlink" title="Service的工作过程"></a>Service的工作过程</h4><ul>
-<li><p>启动状态：主要用于执行后台计算</p>
-<pre><code class="hljs java"><span class="hljs-comment">//启动Service</span>
-Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
-startService(intentService);</code></pre>
-</li>
-<li><p>绑定状态：用于其他组件和Service的交互</p>
-<pre><code class="hljs java"><span class="hljs-comment">//绑定Service</span>
-Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
-bindService(intentService,mServiceConn,BIND_AUTO_CREATE);</code></pre>
-</li>
-</ul>
+              <h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><hr>
+<h4 id="一-定义"><a href="#一-定义" class="headerlink" title="一. 定义"></a>一. 定义</h4><p>树是一种 <code>抽象数据类型(ADT)</code> 或是实现这种抽象数据类型的数据结构，用来模拟具有树状结构性质的数据集合。它是由 n 个有限节点组成的一个具有层次关系的集合。</p>
 <blockquote>
-<p>两种状态可以共存，一个Service既可以处于启动状态，也可以同时处于绑定状态</p>
+<p>抽象数据类型(<strong>A</strong>bstract <strong>D</strong>ata <strong>T</strong>ype，<strong>ADT</strong>),是计算机科学中具有类似行为的特定类别的数据结构的数学模型</p>
 </blockquote>
-<ol>
-<li><p>Service的启动过程</p>
-<pre class="mermaid">      sequenceDiagram
-Activity ->> ContextWrapper : startService
-ContextWrapper ->> ContextImpl : startService
-ContextImpl ->> ContextImpl : startServiceCommon
-ContextImpl ->> ActivityManagerService : startService
-ActivityManagerService ->> ActiveServices : startServiceLocked
-ActiveServices ->> ActiveServices : startServiceInnerLocked
-ActiveServices ->> ActiveServices : bringUpServiceLocked
-ActiveServices ->> ApplicationThread : realStartServiceLocked
-ApplicationThread ->> ApplicationThread : scheduleCreateService
-ApplicationThread ->> ActivityThread : handleCreateService</pre>
-
-<p><code>handleCreateService</code>方法具体内容：</p>
-<ol>
-<li>通过类加载器创建<strong>Service</strong>的实例</li>
-<li>创建<strong>Application</strong>对象并调用其<em>onCreate</em></li>
-<li>创建<strong>ContextImpl</strong>对象并通过<strong>Service</strong>的<em>attach</em>方法建立联系</li>
-<li>调用<strong>Service</strong>的<em>onCreate</em>方法并将<strong>Service</strong>对象存到<strong>ActivityThread</strong>的列表中</li>
-</ol>
-</li>
-<li><p>Service的绑定过程</p>
-<pre class="mermaid">      sequenceDiagram
-ContextWrapper ->> ContextImpl : bindService
-ContextImpl ->> ContextImpl : bindServiceCommon
-ContextImpl ->> LoadedApk : getServiceDispatcher
-LoadedApk -->> ContextImpl : ServiceDispatcher.InnerConnection
-ContextImpl ->> ActivityManagerService : bindService
-ActivityManagerService ->> ActiveServices : bindServiceLocked
-ActiveServices ->> ActiveServices : bringUpServiceLocked
-ActiveServices ->> ApplicationThread : realStartServiceLocked
-ApplicationThread ->> ActivityManagerService : handleBindService
-ActivityManagerService ->> ActivityManagerService : publishService
-ActivityManagerService ->> ActiveServices : publishServiceLocked</pre>
-</li>
-</ol>
-</li>
-<li><h4 id="BroadcastReceiver的工作过程"><a href="#BroadcastReceiver的工作过程" class="headerlink" title="BroadcastReceiver的工作过程"></a>BroadcastReceiver的工作过程</h4><ol>
-<li><p>广播的注册过程</p>
-<ul>
-<li><p>静态注册</p>
-<p>静态注册的广播在应用安装时由<code>PackageManagerService</code>来完成整个注册过程(其它三大组件亦是如此)</p>
-</li>
-<li><p>动态注册</p>
-<pre class="mermaid">        sequenceDiagram
-ContextWrapper ->> ContextImpl : registerReceiver
-ContextImpl ->> ContextImpl : registerReceiverInternal
-ContextImpl ->> LoadedApk : getReceiverDispatcher
-LoadedApk -->> ContextImpl : IIntentReceiver
-ContextImpl ->> ActivityManagerService : registerReceiver</pre>
-</li>
+<h4 id="二-特点"><a href="#二-特点" class="headerlink" title="二. 特点"></a>二. 特点</h4><ul>
+<li>每个节点只有有限个子节点或无子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>树里面没有环路</li>
 </ul>
-</li>
-<li><p>广播的发送和接收过程</p>
-<ul>
-<li><p>广播的发送过程</p>
-<pre class="mermaid">        sequenceDiagram
-ContextWrapper ->> ContextImpl : sendBroadcast
-ContextImpl ->> ActivityManagerService : broadcastIntent
-ActivityManagerService ->> ActivityManagerService : broadcastIntentLocked
-ActivityManagerService ->> ActivityManagerService : scheduleBroadcastsLocked
-ActivityManagerService ->> ActivityManagerService : processNextBroadcast
-ActivityManagerService ->> ActivityManagerService : performReceiveLocked
-ActivityManagerService ->> ApplicationThread : scheduleRegisteredReceiver
-ApplicationThread ->> InnerReceiver : performReceiver
-InnerReceiver ->> LoadedApk.ReceiverDispatcher : performReceive</pre>
-
-<blockquote>
-<p>应用处于停止状态的两种情形：</p>
-<ol>
-<li>应用安装后未运行</li>
-<li>应用被手动或其他应用强制停止</li>
+<h4 id="三-术语"><a href="#三-术语" class="headerlink" title="三. 术语"></a>三. 术语</h4><ol>
+<li><strong>节点的度</strong>：一个节点含有的子树的个数称为该节点的度</li>
+<li><strong>树的度</strong>：一棵树中，最大的节点度称为树的度</li>
+<li><strong>叶节点</strong>或<strong>终端节点</strong>：度为零的节点</li>
+<li><strong>非终端节点</strong>或<strong>分支节点</strong>：度不为零的节点</li>
+<li><strong>父亲节点</strong>或<strong>父节点</strong>：若一个节点含有子节点，则这个节点称为其子节点的父节点</li>
+<li><strong>孩子节点</strong>或<strong>子节点</strong>：一个节点含有的子树的根节点称为该节点的子节点</li>
+<li><strong>兄弟节点</strong>：具有相同父节点的节点互称为兄弟节点</li>
+<li>节点的<strong>层次</strong>：从根开始定义起，根为第 1 层，根的子节点为第 2 层，以此类推</li>
+<li><strong>深度</strong>：对于任意节点 n,n 的深度为从根到 n 的唯一路径长，根的深度为 0</li>
+<li><strong>高度</strong>：对于任意节点 n,n 的高度为从 n 到一片树叶的最长路径长，所有树叶的高度为 0</li>
+<li><strong>堂兄弟节点</strong>：父节点在同一层的节点互为堂兄弟</li>
+<li><strong>节点的祖先</strong>：从根到该节点所经分支上的所有节点</li>
+<li><strong>子孙</strong>：以某节点为根的子树中任一节点都称为该节点的子孙</li>
+<li><strong>森林</strong>：由 m（m&gt;=0）棵互不相交的树的集合称为森林</li>
 </ol>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><h4 id="ContentProvider的工作过程"><a href="#ContentProvider的工作过程" class="headerlink" title="ContentProvider的工作过程"></a>ContentProvider的工作过程</h4><p><strong>ContentProvider</strong>是一种内容共享型组件，它通过<em>Binder</em>向其他组件乃至其他应用提供数据。当<strong>ContentProvider</strong>所在的进程启动时，<strong>ContentProvider</strong>会同时启动并被发布到<strong>AMS</strong>中。这时候<strong>ContentProvider</strong>的<em>onCreate</em>要先于<strong>Application</strong>的<em>onCreate</em>而执行<br><img src="D:\Downloads\图片\图9-1 ContentProvider的启动过程.png" srcset="/img/loading.gif" alt="image-20200802104139887"></p>
-<p>ContentProvider启动后，外界可以提供它所提供的<strong>增删改查</strong>四个接口来操作数据源，这四个方法都是通过Binder来调用的，外界无法直接访问ContentProvider，只能通过ActivityManagerService根据Uri来获取对应的ContentProvider的Binder接口IContentProvider，再通过IContentProvider访问ContentProvider中的数据源</p>
-<ul>
-<li><p>ContentProvider的启动过程(以query为例)</p>
-<pre class="mermaid">     sequenceDiagram
-ActivityThread ->> ActivityManagerService : startProcessLocked
-ActivityManagerService ->> ActivityThread : main
-ActivityThread ->> ActivityThread : attach
-ActivityThread ->> ActivityManagerService : attachApplication
-ActivityManagerService ->> ActivityManagerService : attachApplicationLocked
-ActivityManagerService ->> ApplicationThread : bindApplication
-ApplicationThread ->> ActivityThread : handleBindApplication</pre>
+<h4 id="四-树的分类"><a href="#四-树的分类" class="headerlink" title="四. 树的分类"></a>四. 树的分类</h4><pre class="mermaid">graph LR
+A[树] --> B[无序树]
+A --> C[有序树]
+C --> D[二叉树]
+C --> E[霍夫曼树]
+C --> F[B树]
+D --> G[完全二叉树]
+D --> H[平衡二叉树]
+D --> I[排序二叉树]
+G --> J[满二叉树]</pre>
 
-<p><code>handleBindApplication</code>具体内容：</p>
-<ol>
-<li>创建<strong>ContextImpl</strong>和<strong>Instrumentation</strong></li>
-<li>创建<strong>Application</strong>对象</li>
-<li>启动当前进程的<strong>ContentProvider</strong>并调用其<em>onCreate</em>f方法</li>
-<li>调用<strong>Application</strong>的<em>onCreate</em>方法</li>
+<ul>
+<li>无序树：树中任意节点的子节点之间没有顺序关系</li>
+<li>有序树：树中任意节点的子节点之间有顺序关系<ol>
+<li>二叉树：每个节点最多含有两个子树的树</li>
+<li>霍夫曼树：带权路径最短的二叉树称为哈夫曼树或最优二叉树</li>
+<li>B 树：一种对读写操作进行优化的自平衡的二叉查找树，能够保持数据有序，拥有多于两个子树</li>
 </ol>
 </li>
 </ul>
+<h4 id="五-树的遍历"><a href="#五-树的遍历" class="headerlink" title="五. 树的遍历"></a>五. 树的遍历</h4><pre class="mermaid">graph LR
+a[树的遍历] --> b
+b[深度优先遍历] --> c[前序遍历]
+b --> e[中序遍历]
+b --> f[后序遍历]
+a --> d[广度优先遍历]</pre>
+
+<ul>
+<li><p>深度优先遍历：先访问子节点，再访问父节点，最后是第二个子节点</p>
+<ol>
+<li><p>前序遍历：先访问根，然后访问子树的遍历方式<br><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/Sorted_binary_tree_preorder.svg" srcset="/img/loading.gif" alt></p>
+<p>前序遍历：<strong>F, B, A, D, C, E, G, I, H</strong>.</p>
+</li>
+<li><p>中序遍历：先访问左（右）子树，然后访问根，最后访问右（左）子树的遍历方式<br><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/Sorted_binary_tree_inorder.svg" srcset="/img/loading.gif" alt></p>
+<p>中序遍历：<strong>A, B, C, D, E, F, G, H, I</strong>.</p>
+</li>
+<li><p>后序遍历:先访问子树，然后访问根的遍历方式</p>
+<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/Sorted_binary_tree_postorder.svg" srcset="/img/loading.gif" alt></p>
+<p>后序遍历：<strong>A, C, E, D, B, H, I, G, F</strong>.</p>
 </li>
 </ol>
+</li>
+<li>广度优先遍历<br><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/Sorted_binary_tree_breadth-first_traversal.svg" srcset="/img/loading.gif" alt><br>层次遍历：<strong>F, B, G, A, D, I, C, E, H</strong>.</li>
+</ul>
 
             </div>
             <hr>
@@ -384,7 +284,7 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Android开发艺术探索/">Android开发艺术探索</a>
+                      <a class="hover-with-bg" href="/categories/树/">树</a>
                     
                   </div>
                 
@@ -392,9 +292,7 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
-                    
-                      <a class="hover-with-bg" href="/tags/笔记/">笔记</a>
+                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
                     
                   </div>
                 
@@ -407,9 +305,9 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/03/Android开发艺术探索学习笔记-第十章/">
+                      <a href="/2020/08/09/数据结构与算法-二叉树/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第十章</span>
+                        <span class="hidden-mobile">数据结构与算法-二叉树</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -417,8 +315,8 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/26/Android开发艺术探索学习笔记-第八章/">
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第八章</span>
+                      <a href="/2020/08/04/Android开发艺术探索学习笔记-第十一章/">
+                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第十一章</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -555,7 +453,7 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Android开发艺术探索学习笔记-第九章&nbsp;",
+        "数据结构与算法-树&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

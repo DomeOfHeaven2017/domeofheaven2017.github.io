@@ -321,11 +321,11 @@
 <ul>
 <li>使用命令</li>
 </ul>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#命令格式</span></span>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span>#命令格式
 protoc [option] PROTO_FILES
-<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#Java</span></span>
+<span class="hljs-meta">#</span>#Java
 protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto
-<span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">#Python</span></span>
+<span class="hljs-meta">#</span>#Python
 protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
 <blockquote>
 <ul>
@@ -338,8 +338,8 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
 <li><p>对于Android使用Java Lite可以减小生成类的体积</p>
 <p>1.安装java_lite环境</p>
 <p>2.编译java_lite版文件</p>
-<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">   protoc --javalite_out=<span class="hljs-variable">$DST_DIR</span> PROTO_FILES</span>
-<span class="hljs-meta">&gt;</span><span class="bash"></span></code></pre>
+<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span>   protoc --javalite_out=$DST_DIR PROTO_FILES
+<span class="hljs-meta">&gt;</span></code></pre>
 </li>
 </ul>
 </blockquote>
@@ -638,14 +638,6 @@ protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</code></pre>
 
 
 
-
-
-  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({theme: 'forest'});
-    }
-  </script>
 
 
 
