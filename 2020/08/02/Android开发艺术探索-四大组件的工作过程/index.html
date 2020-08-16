@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>Android开发艺术探索学习笔记-第四章 - DomeOfHeaven</title>
+  <title>Android开发艺术探索-四大组件的工作过程 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-12 21:03" pubdate>
-      2020年7月12日 晚上
+    <time datetime="2020-08-02 20:13" pubdate>
+      2020年8月2日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1k 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      12
        分钟
     </span>
   
@@ -201,156 +201,178 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Android开发艺术探索学习笔记-第四章</h1>
+            <h1 style="display: none">Android开发艺术探索-四大组件的工作过程</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="Android开发艺术探索-第四章笔记"><a href="#Android开发艺术探索-第四章笔记" class="headerlink" title="Android开发艺术探索 第四章笔记"></a>Android开发艺术探索 第四章笔记</h3><h4 id="第四章-View的工作原理"><a href="#第四章-View的工作原理" class="headerlink" title="第四章  View的工作原理"></a>第四章  View的工作原理</h4><ol>
-<li><p>初识ViewRoot和DecorView</p>
-<p>ViewRoot:对应于ViewRootImpl类，是连接WindowManager和DecorView的纽带，View的三大流程(measure,layout,draw)来完成的。</p>
-<pre><code class="hljs java"><span class="hljs-comment">//在ActivityThread中，当Activity对象被创建完后，会将DecorView添加到Window中，同时创建 </span>
-<span class="hljs-comment">//ViewRootImpl对象，并将这两者关联起来</span>
-root = <span class="hljs-keyword">new</span> ViewRootImpl(view.getContext(),display);
-root.setView(view,wparams,panelParentView);</code></pre>
-<p>View的绘制流程从ViewRoot的performTraversals方法开始，经过三大流程完成绘制。</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图4-1performTraversals的工作流程图.png" srcset="/img/loading.gif" alt="图4-1performTraversals的工作流程图"></p>
-<p>​                                            图 4-1 performTraversals的工作流程图</p>
-<blockquote>
-<p>measure:测量View的宽和高</p>
-<p>layout:确定View在父容器中的放置位置</p>
-<p>draw:将View绘制在屏幕上</p>
-</blockquote>
+              <h3 id="第九章-四大组件的工作过程"><a href="#第九章-四大组件的工作过程" class="headerlink" title="第九章　四大组件的工作过程"></a>第九章　四大组件的工作过程</h3><ol>
+<li><h4 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a>四大组件的运行状态</h4><ul>
+<li><p>Activity</p>
+<p>展示一个界面并和用户进行交互．由<strong>Intent</strong>触发启动 ，分为显示Intent和隐式Intent，显示Intent可以明确指向一个Activity组件，隐式Intent可以指向<strong>一个或多个</strong>Activity组件</p>
 </li>
-<li><p>理解MeasureSpec</p>
-<p>在很大程度上决定了一个View的尺寸规格(会受到父容器的影响)。</p>
+<li><p>Service</p>
+<p>一种计算型组件，用于在后台执行一系列计算．与Activity只有一种启动状态不同，Service有两种状态：启动状态（startService）和绑定状态（bindService）．Service是运行在主线程中的．</p>
+</li>
+<li><p>BroadcastReceiver</p>
+<p>一种消息型组件，用于在不同的组件，不同的应用之间传递消息．</p>
+<p>广播有两种注册方式：</p>
 <ol>
-<li><p>MeasureSpec:代表一个32位int值，高2位代表<strong>SpecMode</strong>，低30位代表<strong>SpecSize</strong>。</p>
-<ul>
-<li>SpecMode：测量模式</li>
-<li>SpecSize：在某种测量模式下的规格大小</li>
+<li>静态注册：在AndroidManifest中注册广播，在应用安装时被系统解析，无须应用启动就可以收到相应的广播．</li>
+<li>动态注册：通过<strong>Context.registerReceiver()</strong>和<strong>Context.unRegisterReceiver()</strong>来注册和注销广播，需要应用启动才能注册并接收广播．</li>
+</ol>
+</li>
+<li><p>ContentProvider</p>
+<p>一种数据共享型组件，用于向其它组件和应用共享数据．</p>
+</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MODE_SHIFT = <span class="hljs-number">30</span>;
-<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MODE_MASK = <span class="hljs-number">0x3</span> &lt;&lt; MODE_SHIFT;
-<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> UNSPECIFIED = <span class="hljs-number">0</span> &lt;&lt; MODE_SHIFT;
-<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> EXACTLY = <span class="hljs-number">1</span> &lt;&lt; MODE_SHIFT;
-<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AT_MOST = <span class="hljs-number">2</span> &lt;&lt; MODE_SHIFT;
+</li>
+<li><h4 id="Activity的工作过程"><a href="#Activity的工作过程" class="headerlink" title="Activity的工作过程"></a>Activity的工作过程</h4><ul>
+<li><p>显示调用，启动Activity</p>
+<pre><code class="hljs java">Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>, TestActivity.Class);
+startActivity(intent);</code></pre>
+</li>
+<li><p>启动流程</p>
+<pre class="mermaid">     sequenceDiagram
+Activity ->> Activity : startActvity
+Activity ->> Activity : startActivityForResult
+Activity ->> Instrumentation : execStartActivity
+Instrumentation ->> ActivityManagerService : ActivityManagerNative.getDefault().startActivity
+ActivityManagerService ->> ActivityManagerService : startActivity
+ActivityManagerService ->> ActivityStackSupervisor : startActivityLocked
+ActivityStackSupervisor ->> ActivityStack : resumeTopActivitiesLocked
+ActivityStack ->> ActivityStackSupervisor : startSpecificActivityLocked
+ActivityStackSupervisor ->> ActivityStackSupervisor : realStartActivityLocked
+ActivityStackSupervisor ->> ApplicationThread : sceduleLaunchActivity
+ApplicationThread ->> ActivityThread : handleLaunchActivity
+ActivityThread ->> ActivityThread : performLaunchActivity</pre>
 
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">makeMeasureSpec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size,<span class="hljs-keyword">int</span> mode)</span></span>&#123;
-  <span class="hljs-keyword">if</span>(sUseBrokenMakeMeasureSpec)&#123;
-    <span class="hljs-keyword">return</span> size + mode;
-  &#125;<span class="hljs-keyword">else</span>&#123;
-    <span class="hljs-keyword">return</span> (size &amp; ~MODE_MASK) | (mode &amp; MODE_MASK)
-  &#125;
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> measureSpec)</span></span>&#123;
-  <span class="hljs-keyword">return</span> (measureSpec &amp; MODE_MASK);
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span> measureSpec)</span></span>&#123;
-  <span class="hljs-keyword">return</span> (measureSpec &amp; ~MODE_MASK);
-&#125;</code></pre>
-<ul>
-<li><strong>UNSPECIFIED</strong>:父容器不对View有任何限制</li>
-<li><strong>EXACTLY</strong>：父容器已检测出View所需要的精确大小，对应于LayoutParams中的match_parent和具体的尺寸数值。</li>
-<li><strong>AT_MOST</strong>：父容器给View指定了可用大小，View的大小不能大于这个值，对应于LayoutParams中的wrap_content。</li>
-</ul>
-</li>
-<li><p>MeasureSpec和LayoutParams的对应关系</p>
+<p><code>performLaunchActivity</code>方法具体内容：</p>
 <ol>
-<li><p>顶级View（Decoriew）：Measurespec由窗口的尺寸和其自身的LayoutParams来共同确定；</p>
-<ul>
-<li>MATVH_PARENT：精确模式，大小就是窗口的大小；</li>
-<li>WRAP_CONTENT:最大模式，大小不定，不能超过窗口的大小；</li>
-<li>固定大小：精确模式，大小为LayoutParams中指定到大小。</li>
-</ul>
-</li>
-<li><p>普通View:Measurespec由父容器的MeasureSpec和自身到LayoutParams共同决定。</p>
-<p>TODO</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/普通View的MeasureSpec的流程.png" srcset="/img/loading.gif" alt></p>
-</li>
+<li>从<strong>ActivityClientRecord</strong>中获取待启动的Activity的组件信息</li>
+<li>通过<strong>Instrumentation</strong>的<em>newActivity</em>方法使用类加载器创建Activity对象</li>
+<li>通过<strong>LoadedApk</strong>的<em>makeApplication</em>方法来尝试创建Application对象</li>
+<li>创建<strong>ContextImpl</strong>对象并通过Activity的<em>attach</em>方法完成h重要数据初始化</li>
+<li>调用Activity的<em>onCreate</em>方法</li>
 </ol>
 </li>
-</ol>
-</li>
-<li><p>View的工作流程</p>
-<ol>
-<li><p>measure过程</p>
-<ul>
-<li><p>View的measure过程</p>
-<pre><code class="hljs java"><span class="hljs-comment">//在View的measur方法中会去调用View的onMeasure方法</span>
-<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;
-    setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(),widthMeasureSpec),getDefaultSize(getSuggestedMinimumHeight(),heightMeasureSpec));
-&#125;</code></pre>
-<blockquote>
-<p>getSuggestedMinimumXXX:如果View没有设置背景，那么返回<code>android:minXXX</code>这个属性的值；如果View设置了背景，则返回<code>android:minXXX</code>和背景的最小尺寸这两个的最大值。</p>
-<p>直接继承View的自定义控件需要重写onMeasure方法并设置wrap_content时的大小，否则在布局中使用wrap_content就相当于使用match_parent</p>
-</blockquote>
-</li>
-<li><p>ViewGroup的measure过程</p>
-<p>除了完成自己的measure过程外，还需要遍历所有子元素的measure方法。</p>
-<pre><code class="hljs java"><span class="hljs-comment">//ViewGroup是抽象类，没有重写onMeasure方法，提供了measureChildren方法</span>
-<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measureChildren</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;
-    <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> size = mChildrenCount;
-    <span class="hljs-keyword">final</span> View[] children = mChildren;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;
-        <span class="hljs-keyword">final</span> View child = children[i];
-        <span class="hljs-keyword">if</span> ((child.mViewFlags &amp; VISIBILITY_MASK) != GONE) &#123;
-            measureChild(child, widthMeasureSpec, heightMeasureSpec);
-        &#125;
-    &#125;
-&#125;</code></pre>
-<blockquote>
-<p>measure完成后，通过<code>getMeasuredWidth/Height</code>方法就可以正确获取到View的宽高，但由于存在多次measure的情况，所以在onMeasure中得到的测量宽高不一定准确，<strong>在onLayout方法中获取宽高比较好一点</strong>。<br>View的measue过程和Activity的生命周期方法不是同步执行的。可以通过以下方法解决：</p>
-<ul>
-<li>Activity/View#onWindowFocusChanged</li>
-<li>view.post(runnable)</li>
-<li>ViewTreeObserver</li>
-<li>view.measure(int widthMeasureSpec, int heightMeasureSpec) </li>
-</ul>
-</blockquote>
-</li>
 </ul>
 </li>
-<li><p>layout过程</p>
-<p>Layout的作用是ViewGroup用来确定子元素的位置，当ViewGroup的位置被确定后，它在onLayout中会遍历所有的子元素并调用其layout方法，在layout方法中onLayout又会被调用。</p>
-<ul>
-<li><p>View的layout方法流程</p>
-<p>首先通过<code>setFrame</code>方法来设定View的四个顶点的位置，接着调用onLayout方法。</p>
+<li><h4 id="Service的工作过程"><a href="#Service的工作过程" class="headerlink" title="Service的工作过程"></a>Service的工作过程</h4><ul>
+<li><p>启动状态：主要用于执行后台计算</p>
+<pre><code class="hljs java"><span class="hljs-comment">//启动Service</span>
+Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
+startService(intentService);</code></pre>
+</li>
+<li><p>绑定状态：用于其他组件和Service的交互</p>
+<pre><code class="hljs java"><span class="hljs-comment">//绑定Service</span>
+Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
+bindService(intentService,mServiceConn,BIND_AUTO_CREATE);</code></pre>
 </li>
 </ul>
 <blockquote>
-<p>在View的默认实现中，View的测量宽高和最终宽高是相等的，不同点是测量宽高形成于View的measure过程，最终宽高形成于View的layout过程。</p>
+<p>两种状态可以共存，一个Service既可以处于启动状态，也可以同时处于绑定状态</p>
+</blockquote>
+<ol>
+<li><p>Service的启动过程</p>
+<pre class="mermaid">      sequenceDiagram
+Activity ->> ContextWrapper : startService
+ContextWrapper ->> ContextImpl : startService
+ContextImpl ->> ContextImpl : startServiceCommon
+ContextImpl ->> ActivityManagerService : startService
+ActivityManagerService ->> ActiveServices : startServiceLocked
+ActiveServices ->> ActiveServices : startServiceInnerLocked
+ActiveServices ->> ActiveServices : bringUpServiceLocked
+ActiveServices ->> ApplicationThread : realStartServiceLocked
+ApplicationThread ->> ApplicationThread : scheduleCreateService
+ApplicationThread ->> ActivityThread : handleCreateService</pre>
+
+<p><code>handleCreateService</code>方法具体内容：</p>
+<ol>
+<li>通过类加载器创建<strong>Service</strong>的实例</li>
+<li>创建<strong>Application</strong>对象并调用其<em>onCreate</em></li>
+<li>创建<strong>ContextImpl</strong>对象并通过<strong>Service</strong>的<em>attach</em>方法建立联系</li>
+<li>调用<strong>Service</strong>的<em>onCreate</em>方法并将<strong>Service</strong>对象存到<strong>ActivityThread</strong>的列表中</li>
+</ol>
+</li>
+<li><p>Service的绑定过程</p>
+<pre class="mermaid">      sequenceDiagram
+ContextWrapper ->> ContextImpl : bindService
+ContextImpl ->> ContextImpl : bindServiceCommon
+ContextImpl ->> LoadedApk : getServiceDispatcher
+LoadedApk -->> ContextImpl : ServiceDispatcher.InnerConnection
+ContextImpl ->> ActivityManagerService : bindService
+ActivityManagerService ->> ActiveServices : bindServiceLocked
+ActiveServices ->> ActiveServices : bringUpServiceLocked
+ActiveServices ->> ApplicationThread : realStartServiceLocked
+ApplicationThread ->> ActivityManagerService : handleBindService
+ActivityManagerService ->> ActivityManagerService : publishService
+ActivityManagerService ->> ActiveServices : publishServiceLocked</pre>
+</li>
+</ol>
+</li>
+<li><h4 id="BroadcastReceiver的工作过程"><a href="#BroadcastReceiver的工作过程" class="headerlink" title="BroadcastReceiver的工作过程"></a>BroadcastReceiver的工作过程</h4><ol>
+<li><p>广播的注册过程</p>
+<ul>
+<li><p>静态注册</p>
+<p>静态注册的广播在应用安装时由<code>PackageManagerService</code>来完成整个注册过程(其它三大组件亦是如此)</p>
+</li>
+<li><p>动态注册</p>
+<pre class="mermaid">        sequenceDiagram
+ContextWrapper ->> ContextImpl : registerReceiver
+ContextImpl ->> ContextImpl : registerReceiverInternal
+ContextImpl ->> LoadedApk : getReceiverDispatcher
+LoadedApk -->> ContextImpl : IIntentReceiver
+ContextImpl ->> ActivityManagerService : registerReceiver</pre>
+</li>
+</ul>
+</li>
+<li><p>广播的发送和接收过程</p>
+<ul>
+<li><p>广播的发送过程</p>
+<pre class="mermaid">        sequenceDiagram
+ContextWrapper ->> ContextImpl : sendBroadcast
+ContextImpl ->> ActivityManagerService : broadcastIntent
+ActivityManagerService ->> ActivityManagerService : broadcastIntentLocked
+ActivityManagerService ->> ActivityManagerService : scheduleBroadcastsLocked
+ActivityManagerService ->> ActivityManagerService : processNextBroadcast
+ActivityManagerService ->> ActivityManagerService : performReceiveLocked
+ActivityManagerService ->> ApplicationThread : scheduleRegisteredReceiver
+ApplicationThread ->> InnerReceiver : performReceiver
+InnerReceiver ->> LoadedApk.ReceiverDispatcher : performReceive</pre>
+
+<blockquote>
+<p>应用处于停止状态的两种情形：</p>
+<ol>
+<li>应用安装后未运行</li>
+<li>应用被手动或其他应用强制停止</li>
+</ol>
 </blockquote>
 </li>
-<li><p>draw过程</p>
-<p>将View绘制到屏幕上，绘制过程如下：</p>
-<ol>
-<li>绘制背景：backgroud.draw(canvas)</li>
-<li>绘制自身：onDraw</li>
-<li>绘制子元素：dispatchDraw</li>
-<li>绘制装饰：onDrawScrollBars</li>
-</ol>
-<p>View绘制过程的传递通过dispatchDraw实现，该方法会遍历调用所有子元素的draw方法</p>
-</li>
-</ol>
-</li>
-<li><p>自定义View</p>
-<ol>
-<li><p>自定义View的分类</p>
-<pre class="mermaid">      graph LR
-A[自定义View] --> B[继承View重写onDraw方法]
-A --> C[继承ViewGroup派生特殊的Layout]
-A --> D[继承特定的View 如TextView等]
-A --> E[继承特定的ViewGroup 如LinearLayout等]</pre>
-</li>
-<li><p>自定义View须知</p>
-<ul>
-<li>让View支持<code>wrap_content</code></li>
-<li>支持<code>Padding</code></li>
-<li>尽量不要在View中使用Handler</li>
-<li>View中如果有线程或者动画，需要及时停止(<code>View#onDetachedFromWindow</code>)</li>
-<li>处理好滑动冲突</li>
 </ul>
 </li>
 </ol>
+</li>
+<li><h4 id="ContentProvider的工作过程"><a href="#ContentProvider的工作过程" class="headerlink" title="ContentProvider的工作过程"></a>ContentProvider的工作过程</h4><p><strong>ContentProvider</strong>是一种内容共享型组件，它通过<em>Binder</em>向其他组件乃至其他应用提供数据。当<strong>ContentProvider</strong>所在的进程启动时，<strong>ContentProvider</strong>会同时启动并被发布到<strong>AMS</strong>中。这时候<strong>ContentProvider</strong>的<em>onCreate</em>要先于<strong>Application</strong>的<em>onCreate</em>而执行<br><img src="D:\Downloads\图片\图9-1 ContentProvider的启动过程.png" srcset="/img/loading.gif" alt="image-20200802104139887"></p>
+<p>ContentProvider启动后，外界可以提供它所提供的<strong>增删改查</strong>四个接口来操作数据源，这四个方法都是通过Binder来调用的，外界无法直接访问ContentProvider，只能通过ActivityManagerService根据Uri来获取对应的ContentProvider的Binder接口IContentProvider，再通过IContentProvider访问ContentProvider中的数据源</p>
+<ul>
+<li><p>ContentProvider的启动过程(以query为例)</p>
+<pre class="mermaid">     sequenceDiagram
+ActivityThread ->> ActivityManagerService : startProcessLocked
+ActivityManagerService ->> ActivityThread : main
+ActivityThread ->> ActivityThread : attach
+ActivityThread ->> ActivityManagerService : attachApplication
+ActivityManagerService ->> ActivityManagerService : attachApplicationLocked
+ActivityManagerService ->> ApplicationThread : bindApplication
+ApplicationThread ->> ActivityThread : handleBindApplication</pre>
+
+<p><code>handleBindApplication</code>具体内容：</p>
+<ol>
+<li>创建<strong>ContextImpl</strong>和<strong>Instrumentation</strong></li>
+<li>创建<strong>Application</strong>对象</li>
+<li>启动当前进程的<strong>ContentProvider</strong>并调用其<em>onCreate</em>f方法</li>
+<li>调用<strong>Application</strong>的<em>onCreate</em>方法</li>
+</ol>
+</li>
+</ul>
 </li>
 </ol>
 
@@ -385,9 +407,9 @@ A --> E[继承特定的ViewGroup 如LinearLayout等]</pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/19/Android开发艺术探索学习笔记-第五章/">
+                      <a href="/2020/08/03/Android开发艺术探索-Android的消息机制/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第五章</span>
+                        <span class="hidden-mobile">Android开发艺术探索-Android的消息机制</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -395,8 +417,8 @@ A --> E[继承特定的ViewGroup 如LinearLayout等]</pre>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/08/Android开发艺术探索学习笔记-第三章/">
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第三章</span>
+                      <a href="/2020/07/26/Android开发艺术探索-理解Window和WindowManager/">
+                        <span class="hidden-mobile">Android开发艺术探索-理解Window和WindowManager</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -533,7 +555,7 @@ A --> E[继承特定的ViewGroup 如LinearLayout等]</pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Android开发艺术探索学习笔记-第四章&nbsp;",
+        "Android开发艺术探索-四大组件的工作过程&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

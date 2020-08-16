@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>Android开发艺术探索学习笔记-第五章 - DomeOfHeaven</title>
+  <title>Android开发艺术探索-理解Window和WindowManager - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-19 20:46" pubdate>
-      2020年7月19日 晚上
+    <time datetime="2020-07-26 20:11" pubdate>
+      2020年7月26日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      851 字
+      732 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      9
        分钟
     </span>
   
@@ -201,125 +201,110 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Android开发艺术探索学习笔记-第五章</h1>
+            <h1 style="display: none">Android开发艺术探索-理解Window和WindowManager</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="理解RemoteViews"><a href="#理解RemoteViews" class="headerlink" title="理解RemoteViews"></a>理解RemoteViews</h3><h4 id="1-RemoteViews的应用"><a href="#1-RemoteViews的应用" class="headerlink" title="1. RemoteViews的应用"></a>1. RemoteViews的应用</h4><p>RemoteViews在实际开发中主要用在通知栏和桌面小部件的开发中。通知栏主要通过<code>NotificationManager</code>的<strong>notify</strong>方法实现，桌面小部件则通过<code>AppWidgetProvider</code>实现。这两个的界面都运行在系统的<strong>SystemServer</strong>进程中，无法直接更新View.</p>
-<h5 id="1-RemoteViews在通知栏上的应用"><a href="#1-RemoteViews在通知栏上的应用" class="headerlink" title="1.RemoteViews在通知栏上的应用"></a>1.RemoteViews在通知栏上的应用</h5><ul>
-<li><p>使用系统默认样式</p>
-<pre><code class="hljs java"><span class="hljs-comment">// Build the notification and add the action.</span>
-Notification newMessageNotification = <span class="hljs-keyword">new</span> Notification.Builder(context, CHANNEL_ID)
-        .setSmallIcon(R.drawable.ic_message)
-        .setContentTitle(getString(R.string.title))
-        .setContentText(getString(R.string.content))
-        .addAction(action)
-        .build();
-
-<span class="hljs-comment">// Issue the notification.</span>
-NotificationManagerCompat notificationManager = NotificationManagerCompat.from(<span class="hljs-keyword">this</span>);
-notificationManager.notify(notificationId, newMessageNotification);</code></pre>
-</li>
-<li><p>自定义通知</p>
-<pre><code class="hljs java"><span class="hljs-comment">// Get the layouts to use in the custom notification</span>
-RemoteViews notificationLayout = <span class="hljs-keyword">new</span> RemoteViews(getPackageName(), R.layout.notification_small);
-RemoteViews notificationLayoutExpanded = <span class="hljs-keyword">new</span> RemoteViews(getPackageName(), R.layout.notification_large);
-
-<span class="hljs-comment">// Apply the layouts to the notification</span>
-Notification customNotification = <span class="hljs-keyword">new</span> NotificationCompat.Builder(context, CHANNEL_ID)
-        .setSmallIcon(R.drawable.notification_icon)
-        .setStyle(<span class="hljs-keyword">new</span> NotificationCompat.DecoratedCustomViewStyle())
-        .setCustomContentView(notificationLayout)
-        .setCustomBigContentView(notificationLayoutExpanded)
-        .build();</code></pre>
-</li>
-</ul>
-<h5 id="2-RemoteViews在桌面小部件上的应用"><a href="#2-RemoteViews在桌面小部件上的应用" class="headerlink" title="2.RemoteViews在桌面小部件上的应用"></a>2.RemoteViews在桌面小部件上的应用</h5><pre><code>AppWidgetProvider是Android中提供的用于实现桌面小部件的类，本质是一个广播
-</code></pre><ul>
-<li><p>定义小部件界面</p>
-<p>在res/layout/下建立小部件布局界面</p>
-</li>
-<li><p>定义小部件配置信息</p>
-<p>在res/xml/下建立小部件配置信息</p>
+              <h3 id="理解Window和WindowManager"><a href="#理解Window和WindowManager" class="headerlink" title="理解Window和WindowManager"></a>理解Window和WindowManager</h3><hr>
+<p><strong>Window</strong>表示一个窗口的概念，是一个抽象类，它的具体实现是<code>PhoneWindow</code>。创建一个<strong>Window</strong>需要通过<strong>WindowManage</strong>来完成，<strong>WindowManager</strong>是外界访问<strong>Window</strong>的入口，<strong>Window</strong>的具体实现在<code>WindowManagerService</code>中，<strong>WindowManager</strong>和<code>WindwManagerService</code>的交互是一个<strong>IPC</strong>过程。Android中所有的视图都是通过<strong>Window</strong>来呈现的，<strong>Window</strong>是<strong>View</strong>的直接管理者。</p>
+<h4 id="1-Window和WindowManager"><a href="#1-Window和WindowManager" class="headerlink" title="1. Window和WindowManager"></a>1. Window和WindowManager</h4><p>​    WindowManager常用的有三个方法：添加View, 更新View, 删除View</p>
+<pre><code class="hljs java"><span class="hljs-comment">//添加View</span>
+mButton = <span class="hljs-keyword">new</span> Button(<span class="hljs-keyword">this</span>);
+mLayoutParams = <span class="hljs-keyword">new</span> WindowManager.LayoutParams(....);
+mLayoutParams.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL...;
+mLayoutParams.gravity = Gravity.LEFT;
+mLayoutParams.x = <span class="hljs-number">100</span>;
+mLayoutParams.y = <span class="hljs-number">300</span>;
+mWindowManager.addView(mButton, mLayoutParams);</code></pre>
 <blockquote>
-<p>重要参数说明：</p>
-<p>initLayout:初始化界面</p>
-<p>updatePeriodMillis:自动更新周期</p>
-</blockquote>
-</li>
-<li><p>定义小部件的实现类</p>
-<p>继承AppWidgetProvider实现具体逻辑</p>
-<blockquote>
-<p>重要方法说明：</p>
-<p>onEnable:小部件第一次添加到桌面时调用该方法</p>
-<p>onUpdate:小部件被添加时或者每次小部件更新时都会调用该方法</p>
-<p>onDeleted:每删除一次桌面小部件就调用一次</p>
-<p>onDisabled:最后一个该类型的桌面小部件被删除时调用该方法</p>
-<p>onReceive:分发具体的事件给其他方法</p>
-</blockquote>
-</li>
-<li><p>在AndroidManifest.xml中声明小部件</p>
-<h5 id="3-PendingIntent概述"><a href="#3-PendingIntent概述" class="headerlink" title="3.PendingIntent概述"></a>3.PendingIntent概述</h5></li>
-</ul>
-<p>​        PendingIntent表示一种处于待定，等待，即将发生状态的意图，支持三种待定意图：启动Activity,启动Service,发送        广播</p>
-<pre><code class="hljs java">getActivity(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);
-getService(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);
-getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode, Intent intent, <span class="hljs-keyword">int</span> flags);</code></pre>
 <ul>
-<li><p>匹配规则：如果两个PendingIntent它们内部的<code>Intent</code>相同并且<code>requestCode</code>也相同，则这两个PendingIntent相同</p>
-<blockquote>
-<p>Intent匹配规则：如果两个Intent的<code>ComponentName</code>和<code>intent-filter</code>都相同，则这两个Intent相同</p>
-</blockquote>
+<li><p><code>flags</code>参数表示Window的属性：</p>
+<p>FLAG_NOT_FOCUSABLE:Window不需要获取焦点，也不需要接收各种输入事件</p>
+<p>FLAG_NOT_TOUCH_MODAL: 系统会将当前Window区域以外的单击事件传递给底层的Window,区域内View处理<br>FLAG_SHOW_WHEN_LOCKED: 可以让Window显示在锁屏的界面上</p>
 </li>
-<li><p>Flag参数</p>
-<ul>
-<li><p>FLAG_ONE_SHOT</p>
-<p>当前PendingIntent只能使用一次</p>
+<li><p>Window是分层的，每个Window都有对应的<code>z-ordered</code>，层级大的会覆盖在层级小的上面。</p>
 </li>
-<li><p>FLAG_NO_CREATE</p>
-<p>当前PendingIntent不会主动创建，如果不存在，则get方法会直接返回<code>null</code></p>
-</li>
-<li><p>FLAG_CANCEL_CURRENT</p>
-<p>当前描述的PendingIntent如果已存在，那么它们都会被<code>cancel</code></p>
-</li>
-<li><p>FLAG_UPDATE_CURRENT</p>
-<p>当前描述的PendingIntent如果已存在，那么它们都会被更新</p>
+<li><p><code>type</code>参数表示Window的类型，Window有三种类型，分别为</p>
+<p><code>应用Window</code> : 对应着一个Activity.层级范围是==1~99==</p>
+<p><code>子Window</code> : 不能单独存在，需要附属在特定的父Window中，比如dialog等，层级范围是==1000~1999==</p>
+<p><code>系统Window</code> ：需要声明权限才能创建的Window，比如Toast和系统状态栏，层级范围是==2000~2999==</p>
 </li>
 </ul>
-</li>
-</ul>
-<h4 id="2-RemoteViews的内部机制"><a href="#2-RemoteViews的内部机制" class="headerlink" title="2.RemoteViews的内部机制"></a>2.RemoteViews的内部机制</h4><ul>
-<li><p>构造方法</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**
-* <span class="hljs-doctag">@param</span> packageName 当前应用的包名
-* <span class="hljs-doctag">@param</span> layoutId 待加载的布局文件
-**/</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RemoteViews</span><span class="hljs-params">(String packageName, <span class="hljs-keyword">int</span> layoutId)</span></span></code></pre>
-<blockquote>
-<p>RemoteViews目前并不支持所有的View类型，支持的所有类型如下</p>
-<p>Layout : FrameLayout, LinearLayout, RelativeLayout, GridLayout</p>
-<p>View : AnalogClock, Button, Chronometer, ImageButton, ImageView, ProgressBar, TextView, ViewFlipper, ListView, GridView, StackView, AdapterViewFlipper, ViewStub</p>
 </blockquote>
-</li>
-<li><p>使用</p>
-<p>RemoteViews没有提供findViewById方法，无法直接访问View元素，必须通过RemoteViews所提供的一系列<code>set</code>方法来完成</p>
-</li>
-<li><p>内部机制</p>
+<h4 id="2-Window的内部机制"><a href="#2-Window的内部机制" class="headerlink" title="2. Window的内部机制"></a>2. Window的内部机制</h4><p>​    每个Window都对应着一个View和一个ViewRootImpl,Window和View通过ViewRootImpl来建立联系。</p>
 <ol>
-<li><p>RemoteViews会通过Binder传递到SystemServer进程</p>
+<li><p>Window的添加过程</p>
+<pre class="mermaid">   sequenceDiagram
+Actor ->>+ Window : addView
+Window ->>+ WindowManager : addView
+WindowManager ->>+ WindowManagerImpl : addView
+WindowManagerImpl ->>+ WindowManagerGlobal : addView
+WindowManagerGlobal ->> WindowManagerGlobal : 检查参数是否合法
+WindowManagerGlobal ->> WindowManagerGlobal : 创建ViewRootImpl,添加View列表
+WindowManagerGlobal ->> ViewRootImpl : 更新界面
+ViewRootImpl ->> WindowSession : 添加Window
+WindowSession ->> WindowManagerService : 添加Window</pre>
 </li>
-<li><p>系统根据RemoteViews中的包名等信息得到该应用的资源，加载RemoteViews中的文件</p>
-</li>
-<li><p>系统对生成的View进行一系列界面更新任务</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/图5-1RemoteViews内部机制.png" srcset="/img/loading.gif" alt></p>
+<li><p>Window的删除过程</p>
+<pre class="mermaid">   sequenceDiagram
+Window... ->> WindowManagerImpl :removeView
+WindowManagerImpl ->> WindowManagerImpl : 查找待删除的View索引
+WindowManagerImpl ->> WindowManagerImpl : 调用removeViewLocked完成删除</pre>
+
 <blockquote>
-<p>单击事件，RemoteViews中只支持发起PendingIntent,不支持onClickListener.</p>
-<p>setOnClickPendingIntent用于给普通View设置单击事件，但不能给集合(ListView,StackView)中的View设置单击事件</p>
-<p>要给ListView或StackView中的item添加单击事件，必须将setPendingIntentTemplate和setOnClickFillInIntent组合使用</p>
+<p>真正删除的逻辑在<code>dispatchDetachedFromWindow</code>方法中实现</p>
+<ol>
+<li>垃圾回收</li>
+<li>通过Session的remove方法删除Window</li>
+<li>调用View的dispatchDetachedFromWindow方法</li>
+<li>调用WindowManagerGlobal的doRemoveView方法刷新数据</li>
+</ol>
 </blockquote>
 </li>
+<li><p>Window的更新过程</p>
+<p>更新逻辑在<strong>WindowManagerGlobal</strong>的<code>updateViewLayout</code>中</p>
+<ol>
+<li>更新View的LayoutParams并替换掉原有的</li>
+<li>更新ViewRootImpl中的LayoutParams</li>
 </ol>
 </li>
-</ul>
+</ol>
+<h4 id="3-Window的创建过程"><a href="#3-Window的创建过程" class="headerlink" title="3. Window的创建过程"></a>3. Window的创建过程</h4><ol>
+<li><p>Activity的Window创建过程</p>
+<pre class="mermaid">   sequenceDiagram
+Actor ->> ActivityThread : startActivity
+ActivityThread ->> ActivityThread : performLaunchActivity
+ActivityThread ->> PolicyManager : attach
+PolicyManager ->> PolicyManager : makeNewWindow
+PolicyManager ->> Policy : makeNewWindow</pre>
+
+<p>Activity将具体实现交给了Window，所以其逻辑在<code>PhoneWindow</code>中,大致步骤如下：</p>
+<ol>
+<li>如果没有DecorView，就创建它</li>
+<li>将View添加到DecorView的mContentParent中</li>
+<li>回调Activity的onContentChanged方法通知视图改变</li>
+<li>调用Activity的makeVisible方法，完成DecorView的添加和显示</li>
+</ol>
+</li>
+<li><p>Dialog的Window创建过程</p>
+<ol>
+<li>创建Window</li>
+<li>初始化DecorView并将Dialog的视图添加到DecorView中</li>
+<li>将DecorView添加到Window中并显示</li>
+</ol>
+<blockquote>
+<p>普通的Dialog必须采用Activity的Context，否则会报缺失token的错误，应用token一般只有Activity拥有，但系统Window可以不需要token</p>
+</blockquote>
+</li>
+<li><p>Toast的Window创建过程</p>
+<p>在Toast内部有两类IPC过程，第一类是Toast访问<code>NotificationManagerService</code>,第二类是<code>NotificationManagerService</code>回调Toast中的TN接口。Toast属于系统Window。</p>
+<pre class="mermaid">   sequenceDiagram
+Toast ->> NotificationManagerService : show
+NotificationManagerService ->> NotificationManagerService : enqueueToast
+NotificationManagerService ->> NotificationManagerService : showNextToastoLocked
+NotificationManagerService ->>NotificationManagerService : scheduleTimeoutLocked</pre>
+
+</li>
+</ol>
 
             </div>
             <hr>
@@ -352,9 +337,9 @@ getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode,
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/22/Android开发艺术探索学习笔记-第七章/">
+                      <a href="/2020/08/02/Android开发艺术探索-四大组件的工作过程/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第七章</span>
+                        <span class="hidden-mobile">Android开发艺术探索-四大组件的工作过程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -362,8 +347,8 @@ getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode,
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/12/Android开发艺术探索学习笔记-第四章/">
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第四章</span>
+                      <a href="/2020/07/22/Android开发艺术探索-Android动画深入分析/">
+                        <span class="hidden-mobile">Android开发艺术探索-Android动画深入分析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -500,7 +485,7 @@ getBroadcast(Context context, <span class="hljs-keyword">int</span> requestCode,
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Android开发艺术探索学习笔记-第五章&nbsp;",
+        "Android开发艺术探索-理解Window和WindowManager&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

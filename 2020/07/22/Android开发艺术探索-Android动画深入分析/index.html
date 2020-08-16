@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>Android开发艺术探索学习笔记-第九章 - DomeOfHeaven</title>
+  <title>Android开发艺术探索-Android动画深入分析 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,8 +150,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-02 20:13" pubdate>
-      2020年8月2日 晚上
+    <time datetime="2020-07-22 21:26" pubdate>
+      2020年7月22日 晚上
     </time>
   </div>
 
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      625 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      8
        分钟
     </span>
   
@@ -201,180 +201,120 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Android开发艺术探索学习笔记-第九章</h1>
+            <h1 style="display: none">Android开发艺术探索-Android动画深入分析</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="第九章-四大组件的工作过程"><a href="#第九章-四大组件的工作过程" class="headerlink" title="第九章　四大组件的工作过程"></a>第九章　四大组件的工作过程</h3><ol>
-<li><h4 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a>四大组件的运行状态</h4><ul>
-<li><p>Activity</p>
-<p>展示一个界面并和用户进行交互．由<strong>Intent</strong>触发启动 ，分为显示Intent和隐式Intent，显示Intent可以明确指向一个Activity组件，隐式Intent可以指向<strong>一个或多个</strong>Activity组件</p>
-</li>
-<li><p>Service</p>
-<p>一种计算型组件，用于在后台执行一系列计算．与Activity只有一种启动状态不同，Service有两种状态：启动状态（startService）和绑定状态（bindService）．Service是运行在主线程中的．</p>
-</li>
-<li><p>BroadcastReceiver</p>
-<p>一种消息型组件，用于在不同的组件，不同的应用之间传递消息．</p>
-<p>广播有两种注册方式：</p>
-<ol>
-<li>静态注册：在AndroidManifest中注册广播，在应用安装时被系统解析，无须应用启动就可以收到相应的广播．</li>
-<li>动态注册：通过<strong>Context.registerReceiver()</strong>和<strong>Context.unRegisterReceiver()</strong>来注册和注销广播，需要应用启动才能注册并接收广播．</li>
-</ol>
-</li>
-<li><p>ContentProvider</p>
-<p>一种数据共享型组件，用于向其它组件和应用共享数据．</p>
-</li>
-</ul>
-</li>
-<li><h4 id="Activity的工作过程"><a href="#Activity的工作过程" class="headerlink" title="Activity的工作过程"></a>Activity的工作过程</h4><ul>
-<li><p>显示调用，启动Activity</p>
-<pre><code class="hljs java">Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>, TestActivity.Class);
-startActivity(intent);</code></pre>
-</li>
-<li><p>启动流程</p>
-<pre class="mermaid">     sequenceDiagram
-Activity ->> Activity : startActvity
-Activity ->> Activity : startActivityForResult
-Activity ->> Instrumentation : execStartActivity
-Instrumentation ->> ActivityManagerService : ActivityManagerNative.getDefault().startActivity
-ActivityManagerService ->> ActivityManagerService : startActivity
-ActivityManagerService ->> ActivityStackSupervisor : startActivityLocked
-ActivityStackSupervisor ->> ActivityStack : resumeTopActivitiesLocked
-ActivityStack ->> ActivityStackSupervisor : startSpecificActivityLocked
-ActivityStackSupervisor ->> ActivityStackSupervisor : realStartActivityLocked
-ActivityStackSupervisor ->> ApplicationThread : sceduleLaunchActivity
-ApplicationThread ->> ActivityThread : handleLaunchActivity
-ActivityThread ->> ActivityThread : performLaunchActivity</pre>
+              <h3 id="Android动画深入分析"><a href="#Android动画深入分析" class="headerlink" title="Android动画深入分析"></a>Android动画深入分析</h3><hr>
+<h4 id="1-View动画"><a href="#1-View动画" class="headerlink" title="1. View动画"></a>1. View动画</h4><p>​    View动画的作用对象是View,支持<code>平移动画</code>,<code>缩放动画</code>,<code>旋转动画</code>,<code>透明度动画</code>四种动画效果</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">标签</th>
+<th style="text-align:center">子类</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">平移动画</td>
+<td style="text-align:center">&lt;translate&#62;</td>
+<td style="text-align:center">TransateAnimation</td>
+<td style="text-align:center">移动View</td>
+</tr>
+<tr>
+<td style="text-align:center">缩放动画</td>
+<td style="text-align:center">&lt;scale&#62;</td>
+<td style="text-align:center">ScaleAnimation</td>
+<td style="text-align:center">放大或缩小View</td>
+</tr>
+<tr>
+<td style="text-align:center">旋转动画</td>
+<td style="text-align:center">&lt;rotate&#62;</td>
+<td style="text-align:center">RotateAnimation</td>
+<td style="text-align:center">旋转View</td>
+</tr>
+<tr>
+<td style="text-align:center">透明度动画</td>
+<td style="text-align:center">&lt;alpha&#62;</td>
+<td style="text-align:center">AlphaAnimation</td>
+<td style="text-align:center">改变View透明度</td>
+</tr>
+</tbody>
+</table>
+<h5 id="1-使用步骤"><a href="#1-使用步骤" class="headerlink" title="1.使用步骤"></a>1.使用步骤</h5><ol>
+<li><p>在res/anim/路径下创建动画的xml文件</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">set</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://scemas.android.com/apk/res/android"</span>
+     <span class="hljs-attr">android:fillAfter</span>=<span class="hljs-string">"true"</span>
+     <span class="hljs-attr">android:zAdjustment</span>=<span class="hljs-string">"normal"</span> &gt;</span>
 
-<p><code>performLaunchActivity</code>方法具体内容：</p>
-<ol>
-<li>从<strong>ActivityClientRecord</strong>中获取待启动的Activity的组件信息</li>
-<li>通过<strong>Instrumentation</strong>的<em>newActivity</em>方法使用类加载器创建Activity对象</li>
-<li>通过<strong>LoadedApk</strong>的<em>makeApplication</em>方法来尝试创建Application对象</li>
-<li>创建<strong>ContextImpl</strong>对象并通过Activity的<em>attach</em>方法完成h重要数据初始化</li>
-<li>调用Activity的<em>onCreate</em>方法</li>
+    <span class="hljs-tag">&lt;<span class="hljs-name">rotate</span>
+            <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"400"</span>
+            <span class="hljs-attr">android:fromDegress</span>=<span class="hljs-string">"0"</span>
+            <span class="hljs-attr">android:toDegress</span>=<span class="hljs-string">"90"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">set</span>&gt;</span></code></pre>
+</li>
+<li><p>在代码中调用</p>
+<pre><code class="hljs java">Animation animation = AnimationUtils.loadAnimation(<span class="hljs-keyword">this</span>, R.anim.animation_file);
+mButton.startAnimation(animation)</code></pre>
+<p>也可直接在代码中进行设置和调用</p>
+<pre><code class="hljs java">AlphaAnimation alphaAnim = <span class="hljs-keyword">new</span> AlphaAnimation(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+alphaAnim.setDuration(<span class="hljs-number">300</span>);
+mButton.startAnimation(animation)</code></pre>
+</li>
 </ol>
-</li>
-</ul>
-</li>
-<li><h4 id="Service的工作过程"><a href="#Service的工作过程" class="headerlink" title="Service的工作过程"></a>Service的工作过程</h4><ul>
-<li><p>启动状态：主要用于执行后台计算</p>
-<pre><code class="hljs java"><span class="hljs-comment">//启动Service</span>
-Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
-startService(intentService);</code></pre>
-</li>
-<li><p>绑定状态：用于其他组件和Service的交互</p>
-<pre><code class="hljs java"><span class="hljs-comment">//绑定Service</span>
-Intent intentService = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>,TmpService.class);
-bindService(intentService,mServiceConn,BIND_AUTO_CREATE);</code></pre>
-</li>
-</ul>
+<h5 id="2-自定义View动画"><a href="#2-自定义View动画" class="headerlink" title="2.自定义View动画"></a>2.自定义View动画</h5><ol>
+<li>继承Animation</li>
+<li><p>重写<code>initialize</code>和<code>applyTransformation</code>方法</p>
 <blockquote>
-<p>两种状态可以共存，一个Service既可以处于启动状态，也可以同时处于绑定状态</p>
-</blockquote>
-<ol>
-<li><p>Service的启动过程</p>
-<pre class="mermaid">      sequenceDiagram
-Activity ->> ContextWrapper : startService
-ContextWrapper ->> ContextImpl : startService
-ContextImpl ->> ContextImpl : startServiceCommon
-ContextImpl ->> ActivityManagerService : startService
-ActivityManagerService ->> ActiveServices : startServiceLocked
-ActiveServices ->> ActiveServices : startServiceInnerLocked
-ActiveServices ->> ActiveServices : bringUpServiceLocked
-ActiveServices ->> ApplicationThread : realStartServiceLocked
-ApplicationThread ->> ApplicationThread : scheduleCreateService
-ApplicationThread ->> ActivityThread : handleCreateService</pre>
-
-<p><code>handleCreateService</code>方法具体内容：</p>
-<ol>
-<li>通过类加载器创建<strong>Service</strong>的实例</li>
-<li>创建<strong>Application</strong>对象并调用其<em>onCreate</em></li>
-<li>创建<strong>ContextImpl</strong>对象并通过<strong>Service</strong>的<em>attach</em>方法建立联系</li>
-<li>调用<strong>Service</strong>的<em>onCreate</em>方法并将<strong>Service</strong>对象存到<strong>ActivityThread</strong>的列表中</li>
-</ol>
-</li>
-<li><p>Service的绑定过程</p>
-<pre class="mermaid">      sequenceDiagram
-ContextWrapper ->> ContextImpl : bindService
-ContextImpl ->> ContextImpl : bindServiceCommon
-ContextImpl ->> LoadedApk : getServiceDispatcher
-LoadedApk -->> ContextImpl : ServiceDispatcher.InnerConnection
-ContextImpl ->> ActivityManagerService : bindService
-ActivityManagerService ->> ActiveServices : bindServiceLocked
-ActiveServices ->> ActiveServices : bringUpServiceLocked
-ActiveServices ->> ApplicationThread : realStartServiceLocked
-ApplicationThread ->> ActivityManagerService : handleBindService
-ActivityManagerService ->> ActivityManagerService : publishService
-ActivityManagerService ->> ActiveServices : publishServiceLocked</pre>
-</li>
-</ol>
-</li>
-<li><h4 id="BroadcastReceiver的工作过程"><a href="#BroadcastReceiver的工作过程" class="headerlink" title="BroadcastReceiver的工作过程"></a>BroadcastReceiver的工作过程</h4><ol>
-<li><p>广播的注册过程</p>
-<ul>
-<li><p>静态注册</p>
-<p>静态注册的广播在应用安装时由<code>PackageManagerService</code>来完成整个注册过程(其它三大组件亦是如此)</p>
-</li>
-<li><p>动态注册</p>
-<pre class="mermaid">        sequenceDiagram
-ContextWrapper ->> ContextImpl : registerReceiver
-ContextImpl ->> ContextImpl : registerReceiverInternal
-ContextImpl ->> LoadedApk : getReceiverDispatcher
-LoadedApk -->> ContextImpl : IIntentReceiver
-ContextImpl ->> ActivityManagerService : registerReceiver</pre>
-</li>
-</ul>
-</li>
-<li><p>广播的发送和接收过程</p>
-<ul>
-<li><p>广播的发送过程</p>
-<pre class="mermaid">        sequenceDiagram
-ContextWrapper ->> ContextImpl : sendBroadcast
-ContextImpl ->> ActivityManagerService : broadcastIntent
-ActivityManagerService ->> ActivityManagerService : broadcastIntentLocked
-ActivityManagerService ->> ActivityManagerService : scheduleBroadcastsLocked
-ActivityManagerService ->> ActivityManagerService : processNextBroadcast
-ActivityManagerService ->> ActivityManagerService : performReceiveLocked
-ActivityManagerService ->> ApplicationThread : scheduleRegisteredReceiver
-ApplicationThread ->> InnerReceiver : performReceiver
-InnerReceiver ->> LoadedApk.ReceiverDispatcher : performReceive</pre>
-
-<blockquote>
-<p>应用处于停止状态的两种情形：</p>
-<ol>
-<li>应用安装后未运行</li>
-<li>应用被手动或其他应用强制停止</li>
-</ol>
+<p>initialize : 初始化</p>
+<p>applyTransformation : 进行相应的矩阵变换</p>
 </blockquote>
 </li>
-</ul>
+</ol>
+<h4 id="2-帧动画"><a href="#2-帧动画" class="headerlink" title="2. 帧动画"></a>2. 帧动画</h4><p>​    帧动画是顺序播放一组预先定义好的图片。</p>
+<h5 id="1-使用步骤-1"><a href="#1-使用步骤-1" class="headerlink" title="1. 使用步骤"></a>1. 使用步骤</h5><ol>
+<li><p>通过XML定义AnimationDrawable</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- res/drawable/frame_anim.xml --&gt;</span>
+<span class="hljs-meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">animation-list</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://scemas.android.com/apk/res/android"</span>
+                <span class="hljs-attr">android:oneshot</span>=<span class="hljs-string">"false"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">andrid:drawable</span>=<span class="hljs-string">"@drawable/image1"</span> <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"500"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">andrid:drawable</span>=<span class="hljs-string">"@drawable/image2"</span> <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"500"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">andrid:drawable</span>=<span class="hljs-string">"@drawable/image3"</span> <span class="hljs-attr">android:duration</span>=<span class="hljs-string">"500"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">animation-list</span>&gt;</span></code></pre>
+<ol start="2">
+<li>代码中调用</li>
+</ol>
+<pre><code class="hljs java">mButton.setBackroundResource(R.drawable.frame_anim);
+AnimationDrawable drawable = (AnimationDrawable) mButton.getBackground();
+drawable.start();</code></pre>
 </li>
 </ol>
+<h4 id="3-View动画的特殊使用场景"><a href="#3-View动画的特殊使用场景" class="headerlink" title="3. View动画的特殊使用场景"></a>3. View动画的特殊使用场景</h4><ol>
+<li><p>LayoutAnimation</p>
+<p>LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，子元素都会具有该动画效果</p>
 </li>
-<li><h4 id="ContentProvider的工作过程"><a href="#ContentProvider的工作过程" class="headerlink" title="ContentProvider的工作过程"></a>ContentProvider的工作过程</h4><p><strong>ContentProvider</strong>是一种内容共享型组件，它通过<em>Binder</em>向其他组件乃至其他应用提供数据。当<strong>ContentProvider</strong>所在的进程启动时，<strong>ContentProvider</strong>会同时启动并被发布到<strong>AMS</strong>中。这时候<strong>ContentProvider</strong>的<em>onCreate</em>要先于<strong>Application</strong>的<em>onCreate</em>而执行<br><img src="D:\Downloads\图片\图9-1 ContentProvider的启动过程.png" srcset="/img/loading.gif" alt="image-20200802104139887"></p>
-<p>ContentProvider启动后，外界可以提供它所提供的<strong>增删改查</strong>四个接口来操作数据源，这四个方法都是通过Binder来调用的，外界无法直接访问ContentProvider，只能通过ActivityManagerService根据Uri来获取对应的ContentProvider的Binder接口IContentProvider，再通过IContentProvider访问ContentProvider中的数据源</p>
-<ul>
-<li><p>ContentProvider的启动过程(以query为例)</p>
-<pre class="mermaid">     sequenceDiagram
-ActivityThread ->> ActivityManagerService : startProcessLocked
-ActivityManagerService ->> ActivityThread : main
-ActivityThread ->> ActivityThread : attach
-ActivityThread ->> ActivityManagerService : attachApplication
-ActivityManagerService ->> ActivityManagerService : attachApplicationLocked
-ActivityManagerService ->> ApplicationThread : bindApplication
-ApplicationThread ->> ActivityThread : handleBindApplication</pre>
-
-<p><code>handleBindApplication</code>具体内容：</p>
-<ol>
-<li>创建<strong>ContextImpl</strong>和<strong>Instrumentation</strong></li>
-<li>创建<strong>Application</strong>对象</li>
-<li>启动当前进程的<strong>ContentProvider</strong>并调用其<em>onCreate</em>f方法</li>
-<li>调用<strong>Application</strong>的<em>onCreate</em>方法</li>
-</ol>
-</li>
-</ul>
+<li><p>Activity的切换效果</p>
+<p>主要用到<code>overridePendingTransition(int enterAnim, int exitAnim)</code>方法，这个方法必须在<strong>startActivity</strong>或者<strong>finish</strong>方法之后调用才能生效</p>
+<p>enterAnim ： Activity被打开时的动画资源</p>
+<p>exitAnim ： Activity被暂停时的动画资源</p>
 </li>
 </ol>
+<h4 id="4-属性动画"><a href="#4-属性动画" class="headerlink" title="4. 属性动画"></a>4. 属性动画</h4><p>​        属性动画可以对任意对象的属性进行动画而不仅仅是View,动画的默认时间间隔是300ms,默认帧率是10ms/帧，其可以达到的效果是：在一个时间间隔内完成对象从一个属性值到另一个属性值的改变。</p>
+<blockquote>
+<p>插值器(TimeInterpolator)：根据时间流逝的百分比来计算当前属性值改变的百分比</p>
+<p>估值器(TypeEvaluator)：根据当前属性改变的百分比来计算改变后的属性值</p>
+</blockquote>
+<p>属性动画的监听器：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AnimatorListener</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationStart</span><span class="hljs-params">(Animator animation)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationEnd</span><span class="hljs-params">(Animator animation)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationCancel</span><span class="hljs-params">(Animator animation)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onAnimationRepeat</span><span class="hljs-params">(Animator animation)</span></span>;
+&#125;</code></pre>
+<p>属性动画的工作原理：</p>
 
             </div>
             <hr>
@@ -407,9 +347,9 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/03/Android开发艺术探索学习笔记-第十章/">
+                      <a href="/2020/07/26/Android开发艺术探索-理解Window和WindowManager/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第十章</span>
+                        <span class="hidden-mobile">Android开发艺术探索-理解Window和WindowManager</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -417,8 +357,8 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/26/Android开发艺术探索学习笔记-第八章/">
-                        <span class="hidden-mobile">Android开发艺术探索学习笔记-第八章</span>
+                      <a href="/2020/07/19/Android开发艺术探索-理解RemoteViews/">
+                        <span class="hidden-mobile">Android开发艺术探索-理解RemoteViews</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -555,7 +495,7 @@ ApplicationThread ->> ActivityThread : handleBindApplication</pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Android开发艺术探索学习笔记-第九章&nbsp;",
+        "Android开发艺术探索-Android动画深入分析&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
