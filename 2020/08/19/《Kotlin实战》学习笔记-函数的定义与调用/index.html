@@ -16,7 +16,7 @@
   <meta name="description" content="没有告别的离别，是一定会再次相逢的。">
   <meta name="author" content="DomeOfHeaven">
   <meta name="keywords" content>
-  <title>数据结构与算法-链表 - DomeOfHeaven</title>
+  <title>《Kotlin实战》学习笔记-函数的定义与调用 - DomeOfHeaven</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -150,7 +150,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-19 20:40" pubdate>
+    <time datetime="2020-08-19 21:17" pubdate>
       2020年8月19日 晚上
     </time>
   </div>
@@ -161,7 +161,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      779 字
     </span>
   
 
@@ -171,7 +171,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      10
        分钟
     </span>
   
@@ -201,199 +201,139 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">数据结构与算法-链表</h1>
+            <h1 style="display: none">《Kotlin实战》学习笔记-函数的定义与调用</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><hr>
-<h4 id="一-定义"><a href="#一-定义" class="headerlink" title="一. 定义"></a>一. 定义</h4><p>链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)。</p>
-<h4 id="二-性质"><a href="#二-性质" class="headerlink" title="二. 性质"></a>二. 性质</h4><p>链表通常由一连串节点组成，每个节点包含任意的实例数据和一或两个用来指向上一个/或下一个节点的位置的链接，不必须按顺序存储，链表在插入的时候可以达到<strong>O(1)</strong>的复杂度，但是查找一个节点或者访问特定编号的节点则需要<strong>O(n)</strong>的时间。</p>
+              <h4 id="函数的定义与调用"><a href="#函数的定义与调用" class="headerlink" title="函数的定义与调用"></a>函数的定义与调用</h4><ol>
+<li><p>让函数更好调用</p>
 <ul>
-<li>优点<ol>
-<li>不需要预先知道数据大小</li>
-<li>不必须顺序存储，可以充分利用内存空间</li>
-<li>插入删除操作简单快速</li>
-</ol>
+<li><p>命名参数：当调用一个Kotlin定义的函数时，可以显式地标明一些参数的名称，如果在调用一个函数时，指明了一个参数的名称，在它之后的<strong>所有参数都要标明名称</strong>．</p>
+<pre><code class="hljs kotlin">joinToString(collection,separator = <span class="hljs-string">""</span>,prefix = <span class="hljs-string">""</span>,postfix = <span class="hljs-string">""</span>)</code></pre>
 </li>
-<li>缺点<ol>
-<li>增加了结点的指针域，空间开销较数组大</li>
-<li>不能随机读取。</li>
-</ol>
+<li><p>默认参数值：在Kotlin中，可以在声明函数的时候，指定参数的默认值，避免创建重载的函数．</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> <span class="hljs-title">joinToString</span><span class="hljs-params">(collection : <span class="hljs-type">Collection</span>&lt;<span class="hljs-type">T</span>&gt;,
+                    separator: <span class="hljs-type">String</span> = <span class="hljs-string">","</span>,
+                    prefix : <span class="hljs-type">String</span> = <span class="hljs-string">","</span>,
+                    postfix : <span class="hljs-type">String</span> = <span class="hljs-string">""</span>)</span></span>: String&#123;&#125;</code></pre>
+</li>
+<li><p>顶层函数与属性：Kotlin中函数不依托于类而存在，可以把函数放到代码文件的顶层，使用时<strong>import</strong>;</p>
+<p>属性也可以放到文件的顶层．</p>
+<blockquote>
+<p>要改变包含Kotlin顶层函数的生成类的名称，需要为这个文件添加@JvmName的注解，将其放于文件开头，包名前面</p>
+<pre><code class="hljs kotlin">&gt; <span class="hljs-meta">@file:JvmName</span>(<span class="hljs-string">"StringFunctions"</span>)
+&gt; <span class="hljs-keyword">package</span> strings
+&gt; <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">joinToString</span><span class="hljs-params">(...)</span></span>:String&#123;...&#125;
+&gt; <span class="hljs-comment">//调用</span>
+&gt; <span class="hljs-keyword">import</span> strings.StringFunctions;
+&gt;</code></pre>
+</blockquote>
 </li>
 </ul>
-<h4 id="三-类型"><a href="#三-类型" class="headerlink" title="三. 类型"></a>三. 类型</h4><pre class="mermaid">graph LR
-a[链表] --> b[单向链表]
-a --> c[双向链表]
-a --> e[循环链表]</pre>
-
+</li>
+<li><p>扩展函数和属性</p>
+<ul>
+<li><p>扩展函数：定义在类外部的<strong>静态成员函数</strong>．</p>
+<blockquote>
 <ol>
-<li><p>单向链表</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/Singly linked list.PNG" srcset="/img/loading.gif" alt></p>
-<p>一个单向链表的节点被分成两个部分。第一个部分保存或者显示关于节点的信息，第二个部分存储下一个节点的地址。单向链表只可向一个方向遍历。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span> </span>&#123;
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> val;
-    <span class="hljs-keyword">public</span> ListNode next;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ListNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123; val = x; &#125;
+<li><p>在扩展函数中，可以直接访问被扩展的类的其他属性和方法，但<strong>不能访问私有的或者是受保护的成员</strong>．</p>
+</li>
+<li><p>扩展函数不能被<strong>重写</strong>，扩展函数并不是类的一部分，是声明在类外的，如果父类和子类分别定义一个同名的扩展函数，当函数被调用时，结果由<strong>该变量的静态类型</strong>所决定．</p>
+<pre><code class="hljs kotlin">&gt;    <span class="hljs-function"><span class="hljs-keyword">fun</span> View.<span class="hljs-title">showOff</span><span class="hljs-params">()</span></span> = println(<span class="hljs-string">"I'm a view"</span>)  <span class="hljs-comment">//父类定义扩展函数</span>
+&gt;    <span class="hljs-function"><span class="hljs-keyword">fun</span> Button.<span class="hljs-title">showOff</span><span class="hljs-params">()</span></span> = println(<span class="hljs-string">"I'm a button"</span>)　<span class="hljs-comment">//子类定义同名扩展函数</span>
+&gt;    
+&gt;    <span class="hljs-keyword">val</span> view : View = Button()
+&gt;    view.showOff()　　<span class="hljs-comment">//输出：　I'm a view</span>
+&gt;</code></pre>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>如果一个类的成员函数和扩展函数有相同的签名，<strong>成员函数往往被优先使用</strong>．</li>
+</ol>
+</blockquote>
+</li>
+<li><p>扩展属性</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> StringBuilder.lastChar:<span class="hljs-built_in">Char</span>
+    <span class="hljs-keyword">get</span>() = <span class="hljs-keyword">get</span>(length - <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">set</span>(value : <span class="hljs-built_in">Char</span>)&#123;
+        <span class="hljs-keyword">this</span>.setCharAt(length - <span class="hljs-number">1</span>,value)
 &#125;</code></pre>
-<ul>
-<li><p>插入</p>
-<p>根据插入位置分为插入头结点，插入中间节点，插入尾节点（例如需要将p结点插入单链表head中）</p>
+<blockquote>
 <ol>
-<li><p>插入到头结点</p>
-<p>直接将p结点的next指向头结点即可,p为新头结点</p>
-<pre><code class="hljs java">p.next = head</code></pre>
-</li>
-<li><p>插入中间结点m后</p>
-<p>遍历找到m结点，然后先将p的next指向m的next，再将m的next指向p</p>
-<pre><code class="hljs java">ListNode tmp = head;
-<span class="hljs-keyword">while</span>(tmp != <span class="hljs-keyword">null</span>) &#123;
-    <span class="hljs-keyword">if</span>(tmp == m) &#123;
-        p.next = m.next;
-        m.next = p;
-        <span class="hljs-keyword">break</span>;
-    &#125;
-    tmp = tmp.next;
-&#125;</code></pre>
-</li>
-<li><p>插入到尾结点</p>
-<p>除了尾结点的判断条件，整体流程与插入到中间结点一致</p>
-<pre><code class="hljs java">ListNode tmp = head;
-<span class="hljs-keyword">while</span>(tmp.next != <span class="hljs-keyword">null</span>) &#123;
-    tmp = tmp.next;
-&#125;
-tmp.next = p;</code></pre>
-</li>
+<li>不能初始化</li>
+<li>必须定义<strong>getter</strong>函数</li>
 </ol>
+</blockquote>
 </li>
-<li><p>删除</p>
-<p>与插入一致，删除也分为三种情况：删除头结点，删除中间结点，删除尾结点</p>
+<li><p>Java中调用和访问</p>
 <ol>
-<li><p>删除头结点</p>
-<p>将头结点自身设为null即可</p>
-<pre><code class="hljs java">ListNode newHead = head.next;
-head = <span class="hljs-keyword">null</span>;</code></pre>
+<li><p>调用扩展函数</p>
+<pre><code class="hljs java"><span class="hljs-comment">//函数定义在　StringUtil.kt 中</span>
+<span class="hljs-keyword">char</span> c = StringUtilKt.lastChar(<span class="hljs-string">"Java"</span>)</code></pre>
 </li>
-<li><p>删除中间结点</p>
-<p>只需要将目标结点的前一个结点的next指向目标结点的下一个结点，再进行自身删除即可</p>
-<pre><code class="hljs java">ListNode tmp = head;
-<span class="hljs-keyword">while</span>(tmp.next != <span class="hljs-keyword">null</span>) &#123;
-    <span class="hljs-keyword">if</span>(tmp.next == target) &#123;
-        tmp.next = target.next;
-        target = <span class="hljs-keyword">null</span>;
-        <span class="hljs-keyword">break</span>;
-    &#125;
-    tmp = tmp.next;
-&#125;</code></pre>
-</li>
-<li><p>删除尾结点</p>
-<pre><code class="hljs java">ListNode tmp = head;
-<span class="hljs-keyword">while</span>(tmp.next != <span class="hljs-keyword">null</span>) &#123;
-    tmp = tmp.next;
-&#125;
-tmp = <span class="hljs-keyword">null</span>;</code></pre>
+<li><p>访问扩展属性</p>
+<pre><code class="hljs java">StringUtilKt.getLastChar(<span class="hljs-string">"Java"</span>)</code></pre>
 </li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p>双向链表</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/Doubly linked list.PNG" srcset="/img/loading.gif" alt></p>
-<p>双向链表也叫双链表。双向链表中不仅有指向后一个节点的指针，还有指向前一个节点的指针。这样可以从任何一个节点访问前一个节点，当然也可以访问后一个节点，以至整个链表。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DoubleListNode</span> </span>&#123;
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> index;
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> val;
-    <span class="hljs-keyword">public</span> DoubleListNode prev;
-    <span class="hljs-keyword">public</span> DoubleListNode next;
-&#125;</code></pre>
+<li><p>集合</p>
 <ul>
-<li><p>插入 : 在值索引<code>i</code>后添加结点<code>node</code></p>
-<pre><code class="hljs java"><span class="hljs-comment">//1.找到索引i的结点</span>
-DoubleListNode tmp = head;
-<span class="hljs-keyword">while</span> (<span class="hljs-keyword">null</span> != tmp.next) &#123;
-    <span class="hljs-comment">//2.在i后插入结点，先处理后续结点关系</span>
-    <span class="hljs-keyword">if</span> (tmp.index == i) &#123;
-        node.next = tmp.next;
-        tmp.next.prev = node;
-        node.prev = tmp;
-        tmp.next = node;
-        <span class="hljs-keyword">break</span>;
-    &#125;
-    tmp = tmp.next;
-&#125;</code></pre>
+<li><p>可变参数：可以传递任意个数的参数</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">//使用　vararg 进行修饰</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> listOf<span class="hljs-type">&lt;T&gt;</span><span class="hljs-params">(<span class="hljs-keyword">vararg</span> values:<span class="hljs-type">T</span>)</span></span> : List&lt;T&gt; &#123;...&#125;</code></pre>
+<blockquote>
+<p>＊为展开运算符，可以解包数组</p>
+<pre><code class="hljs kotlin">&gt; <span class="hljs-keyword">val</span> list = listOf(*args)
+&gt; println(list)
+&gt;</code></pre>
+</blockquote>
 </li>
-<li><p>删除 ：删除索引为<code>i</code>的结点</p>
-<pre><code class="hljs java"><span class="hljs-comment">//1.找到索引i的结点</span>
-DoubleListNode tmp = head;
-<span class="hljs-keyword">while</span> (<span class="hljs-keyword">null</span> != tmp) &#123;
-    <span class="hljs-keyword">if</span> (tmp.index = i) &#123;
-        <span class="hljs-comment">//2.将目标结点的前一个结点指向目标结点的后一个结点</span>
-        tmp.prev.next = tmp.next;
-        <span class="hljs-comment">//3.判断是否为最后一个结点，最后一个结点不需要进行处理</span>
-        <span class="hljs-keyword">if</span> (tmp.next != <span class="hljs-keyword">null</span>) &#123;
-            tmp.next.prev = tmp.prev;
-        &#125;
-        <span class="hljs-keyword">break</span>;
-    &#125;
-    tmp = tmp.next;
-&#125;</code></pre>
+<li><p>中缀调用</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">//声明，使用infix修饰符 </span>
+<span class="hljs-keyword">infix</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> Any.<span class="hljs-title">to</span><span class="hljs-params">(other : <span class="hljs-type">Any</span>)</span></span> = Pair(<span class="hljs-keyword">this</span>,other)
+<span class="hljs-comment">//调用</span>
+<span class="hljs-number">1</span> to <span class="hljs-string">"one"</span>
+<span class="hljs-keyword">var</span> (number, name) = <span class="hljs-number">1</span> to <span class="hljs-string">"one"</span> <span class="hljs-comment">//解构声明</span></code></pre>
+</li>
+<li><p>三重引号</p>
+<p>三重引号中的任何字符都不需要进行转义．</p>
+<pre><code class="hljs kotlin"><span class="hljs-string">"""(.+)/(.+)\.(.+)"""</span></code></pre>
 </li>
 </ul>
 </li>
-<li><p>循环链表</p>
-<p><img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/circular linked list.PNG" srcset="/img/loading.gif" alt></p>
-<p>在一个 循环链表中, 首节点和末节点被连接在一起。这种方式在单向和双向链表中皆可实现。(图中以单链表为例)</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CircleList</span></span>&#123;
-    <span class="hljs-comment">//头结点</span>
-    <span class="hljs-keyword">public</span> ListNode head;
-    <span class="hljs-comment">//尾结点</span>
-    <span class="hljs-keyword">public</span> ListNode tail;
-    <span class="hljs-comment">//链表长度</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> length;
-&#125;</code></pre>
-</li>
-</ol>
-<ul>
-<li><p>插入 ：循环链表末尾插入，新插入的结点需要指向头结点</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">insert</span><span class="hljs-params">(ListNode node)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-comment">//空链表</span>
-        head = node;
-        tail = node;
-    &#125; <span class="hljs-keyword">else</span> &#123;
-        node.next = head;
-        tail.next = node;
-        tail = node;
-    &#125;
-    length ++;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre>
-</li>
-</ul>
-<ul>
-<li><p>删除 : 从循环链表中删除值为<code>i</code>的结点</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ListNode <span class="hljs-title">delete</span><span class="hljs-params">(ListNode node)</span> </span>&#123;
-    ListNode tmp = head;
-    <span class="hljs-comment">//所找结点为头结点</span>
-    <span class="hljs-keyword">if</span> (node.equals(tmp)) &#123;
-        head = head.next;
-        tail.next = head;
-        length -- ;
-    &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-comment">//遍历找该结点</span>
-        <span class="hljs-keyword">while</span> (tmp.next != <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">if</span> (node.equals(tmp.next)) &#123;
-                ListNode n = tmp.next.next;
-                tmp.next = n;
-                length --;
-                <span class="hljs-keyword">break</span>;
-            &#125;
-            tmp = tmp.next;
+<li><p>局部函数：嵌套函数</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span></span>(<span class="hljs-keyword">val</span> id:<span class="hljs-built_in">Int</span>,<span class="hljs-keyword">val</span> name:String,<span class="hljs-keyword">val</span> address:String)
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">saveUser</span><span class="hljs-params">(user:<span class="hljs-type">User</span>)</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">validate</span><span class="hljs-params">(value:<span class="hljs-type">String</span>,fieldName:<span class="hljs-type">String</span>)</span></span>&#123;
+        <span class="hljs-keyword">if</span>(value.isEmpty())&#123;
+            <span class="hljs-keyword">throw</span> IllegalArgumentException(<span class="hljs-string">"..."</span>)
         &#125;
     &#125;
-    <span class="hljs-keyword">return</span> tmp;
+    validate(user.name,<span class="hljs-string">"Name"</span>)
+    validate(user.address,<span class="hljs-string">"Address"</span>)
+&#125;</code></pre>
+<blockquote>
+<p>局部函数可以访问所在函数中的所有参数和变量</p>
+</blockquote>
+<pre><code class="hljs kotlin"><span class="hljs-comment">//提取到扩展函数</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span></span>(<span class="hljs-keyword">val</span> id:<span class="hljs-built_in">Int</span>,<span class="hljs-keyword">val</span> name:String,<span class="hljs-keyword">val</span> address:String)
+<span class="hljs-function"><span class="hljs-keyword">fun</span> User.<span class="hljs-title">validateBeforeSave</span><span class="hljs-params">()</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">validate</span><span class="hljs-params">(value:<span class="hljs-type">String</span>,fieldName:<span class="hljs-type">String</span>)</span></span>&#123;
+        <span class="hljs-keyword">if</span>(value.isEmpty)&#123;
+            <span class="hljs-keyword">throw</span> IllegalArgumentException(<span class="hljs-string">"..."</span>)
+        &#125;
+    &#125;
+    validate(user.name,<span class="hljs-string">"Name"</span>)
+    validate(user.address,<span class="hljs-string">"Address"</span>)
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">saveUser</span><span class="hljs-params">(user:<span class="hljs-type">User</span>)</span></span>&#123;
+    user.validateBeforeSave()
 &#125;</code></pre>
 </li>
-</ul>
-<h4 id="四-常见应用"><a href="#四-常见应用" class="headerlink" title="四. 常见应用"></a>四. 常见应用</h4><p>​        链表用来构建许多其它数据结构，如堆栈，队列和他们的派生。</p>
+</ol>
 
             </div>
             <hr>
@@ -404,7 +344,9 @@ DoubleListNode tmp = head;
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
+                      <a class="hover-with-bg" href="/tags/笔记/">笔记</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Kotlin/">Kotlin</a>
                     
                   </div>
                 
@@ -417,18 +359,12 @@ DoubleListNode tmp = head;
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/19/《Kotlin实战》学习笔记-函数的定义与调用/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《Kotlin实战》学习笔记-函数的定义与调用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/16/Kotlin基础/">
-                        <span class="hidden-mobile">Kotlin基础</span>
+                      <a href="/2020/08/19/数据结构与算法-链表/">
+                        <span class="hidden-mobile">数据结构与算法-链表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -565,7 +501,7 @@ DoubleListNode tmp = head;
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "数据结构与算法-链表&nbsp;",
+        "《Kotlin实战》学习笔记-函数的定义与调用&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
