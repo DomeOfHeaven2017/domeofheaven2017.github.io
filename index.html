@@ -164,6 +164,56 @@
   <div class="row mx-auto index-card">
     
     
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/09/01/《Kotlin实战》学习笔记-运算符重载及其他约定/">《Kotlin实战》学习笔记-运算符重载及其他约定</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/01/《Kotlin实战》学习笔记-运算符重载及其他约定/">
+          
+          
+            
+          
+          运算符重载及其他约定
+重载算术运算符
+重载二元算术运算
+//定义一个plus运算符
+data class Point(val x:Int,val y:Int)&#123;
+    //使用operator关键字来进行声明
+    operator fun plus(other:Point):Point&#123;
+        return Point(x+other.x,y+other.y)
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-01 21:37" pubdate>
+              2020-09-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/笔记/">笔记</a>
+            
+              <a href="/tags/Kotlin/">Kotlin</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2020/08/31/《Kotlin实战》学习笔记-Kotlin的类型系统/" target="_self">
           <img src="https://gitee.com/domeofheaven2017/Image/raw/master/BlogImage/type.png" srcset="/img/loading.gif" alt="《Kotlin实战》学习笔记-Kotlin的类型系统">
@@ -660,57 +710,6 @@ G --> J[满二叉树]
             <i class="iconfont icon-date"></i>
             <time datetime="2020-08-04 21:29" pubdate>
               2020-08-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android开发艺术探索/">Android开发艺术探索</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android/">Android</a>
-            
-              <a href="/tags/笔记/">笔记</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/03/Android开发艺术探索-Android的消息机制/">Android开发艺术探索-Android的消息机制</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/03/Android开发艺术探索-Android的消息机制/">
-          
-          
-            
-          
-          Android的消息机制
-
-Android的消息机制概述Android的消息机制主要指Handler的运行机制以及Handler所附带的MessageQueue和Looper的工作过程，Handler的主要作用是将一个任务切换到某个指定的线程中去执行。Handler创建时会采用当前线程的Looper来构建内部的消息循环系统，如果没有Looper会报错。线程中默认是没有Looper的，主线程（UI线
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-03 22:49" pubdate>
-              2020-08-03
             </time>
           </div>
         
