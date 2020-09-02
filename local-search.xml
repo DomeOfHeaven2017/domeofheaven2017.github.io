@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>《Kotlin实战》学习笔记-高阶函数Lambda</title>
+    <link href="/2020/09/02/%E3%80%8AKotlin%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0Lambda/"/>
+    <url>/2020/09/02/%E3%80%8AKotlin%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0Lambda/</url>
+    
+    <content type="html"><![CDATA[<h4 id="高阶函数-Lambda作为形参和返回值"><a href="#高阶函数-Lambda作为形参和返回值" class="headerlink" title="高阶函数:Lambda作为形参和返回值"></a>高阶函数:Lambda作为形参和返回值</h4><hr><h6 id="声明高阶函数"><a href="#声明高阶函数" class="headerlink" title="声明高阶函数"></a>声明高阶函数</h6><blockquote><p>高阶函数即以另一个函数作为参数或返回值的函数.在Kotlin中,函数可以用lambda或者函数引用来表示.则任何以lambda或者函数引用作为参数或返回值的函数都是高阶函数.</p></blockquote><ul><li><p>函数类型</p><p>Kotlin中的函数类型语法:箭头左侧为参数类型,右侧为返回类型</p><pre class="mermaid">  graph LRA["(Int,String)"] --> B["Unit"]</pre><pre><code class="hljs kotlin"><span class="hljs-comment">//声明返回值可空的函数类型</span><span class="hljs-keyword">var</span> canReturnNull: (<span class="hljs-built_in">Int</span>,<span class="hljs-built_in">Int</span>) -&gt; <span class="hljs-built_in">Int</span>? = &#123; <span class="hljs-literal">null</span> &#125;<span class="hljs-comment">//声明可空的函数类型的变量</span><span class="hljs-keyword">var</span> funOrNull : ((<span class="hljs-built_in">Int</span>,<span class="hljs-built_in">Int</span>) -&gt; <span class="hljs-built_in">Int</span>)? = <span class="hljs-literal">null</span></code></pre></li><li><p>调用作为参数的函数</p><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">twoAndThree</span><span class="hljs-params">(operation : (<span class="hljs-type">Int</span>,<span class="hljs-built_in">Int</span>)</span></span> -&gt; <span class="hljs-built_in">Int</span>)&#123;    println(operation(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>))&#125;</code></pre></li><li><p>返回函数的函数</p><blockquote><p>声明一个返回另一个函数的函数,需要指定一个函数类型作为返回类型</p></blockquote><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getShippingCostCalutor</span><span class="hljs-params">(delivery:<span class="hljs-type">Delivery</span>)</span></span> : (Order) -&gt; <span class="hljs-built_in">Double</span>&#123;    .....    <span class="hljs-keyword">return</span> &#123;order -&gt; <span class="hljs-number">1.2</span>*itemcount&#125;&#125;</code></pre></li></ul><h6 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h6><ul><li>lambda表达式会被正常编译为匿名类，每调用一次lambda就会额外创建一个类，带来运行时的额外开销</li><li>使用<code>inline</code>修饰符标记一个函数,在函数被使用时编译器不会生成函数调用的代码,而是使用函数实现的真实代码替换每一次的函数调用</li><li>当一个函数被声明为<code>inline</code>时,函数体会被直接替换到函数被调用的地方,而不是正常调用</li><li>给内联函数传递一个函数类型的变量为参数而不是lambda时不会被内联.</li><li>如果在两个不同的位置使用同一个内联函数,但是用的是不同的lambda,那么内联函数会在每一个被调用的位置被分别内联.</li></ul><h6 id="高阶函数中控制流"><a href="#高阶函数中控制流" class="headerlink" title="高阶函数中控制流"></a>高阶函数中控制流</h6><ul><li><p>lambda中的返回语句-从封闭函数返回</p><ol><li>在lambda中使用<strong>return</strong>关键字,会从调用lambda的函数中返回,并不只是从lambda中返回</li><li>只有在以lambda作为参数的函数是内联函数的时候才能从更外层的函数返回</li></ol></li><li><p>从lambda返回-使用标签返回</p><p>从一个lambda表达式处返回需要在<strong>return</strong>关键字后面引用<strong>标签</strong></p><pre><code class="hljs kotlin">people.forEach <span class="hljs-symbol">label@</span>&#123;    <span class="hljs-keyword">if</span>(it.name == <span class="hljs-string">"Alice"</span>)    <span class="hljs-keyword">return</span><span class="hljs-symbol">@label</span>   <span class="hljs-comment">//返回表达式标签</span>&#125;</code></pre><p>可以自定义标签名或者使用函数名作为标签，但显式地指定了lambda表达式之后，再使用函数名作为标签会没有任何效果。一个lambda表达式的标签数量不能多于一个。</p></li><li><p>匿名函数-默认使用局部返回</p><pre><code class="hljs kotlin">people.forEach(<span class="hljs-function"><span class="hljs-title">fun</span> <span class="hljs-params">(person)</span></span>&#123;    <span class="hljs-keyword">if</span>(person.name == <span class="hljs-string">"Alice"</span>) <span class="hljs-keyword">return</span>     println(<span class="hljs-string">"<span class="hljs-subst">$&#123;person.name&#125;</span> is not Alice"</span>)&#125;)</code></pre><ul><li>在匿名函数中,不带标签的<strong>return</strong>表达式会从匿名函数返回,而不是从包含匿名函数的函数返回:<strong>return从最近的使用fun关键字声明的函数返回</strong></li><li>尽管匿名函数看起来和普通函数很相似，但它其实是lambda表达式的另一种语法形式</li></ul></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>笔记</tag>
+      
+      <tag>Kotlin</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>《Kotlin实战》学习笔记-运算符重载及其他约定</title>
     <link href="/2020/09/01/%E3%80%8AKotlin%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E5%8F%8A%E5%85%B6%E4%BB%96%E7%BA%A6%E5%AE%9A/"/>
     <url>/2020/09/01/%E3%80%8AKotlin%E5%AE%9E%E6%88%98%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E5%8F%8A%E5%85%B6%E4%BB%96%E7%BA%A6%E5%AE%9A/</url>
